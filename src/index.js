@@ -1,3 +1,2 @@
-import DomElementCreator from './dom-element-creator.js'
-export default DomElementCreator
-// const domElementCreator = new DomElementCreator();
+import DomNodeCreator from './dom-node-creator.js';
+export default new DomNodeCreator()
