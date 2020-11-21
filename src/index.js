@@ -1,2 +1,2 @@
 import DomNodeCreator from './dom-node-creator.js';
-new DomNodeCreator()
+new DomNodeCreator().createCommentModule()

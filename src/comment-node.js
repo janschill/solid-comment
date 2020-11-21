@@ -1,10 +1,33 @@
-import Node from './node/node.js';
+import DOMNode from './dom-node.js';
 
-export default class CommentNode extends Node {
+export default class CommentNode extends DOMNode {
   constructor() {
     super({
       type: 'div',
-      textContent: '',
+      innerHTML: '',
+      classList: []
     });
+
+    this.createList();
+  }
+
+  createList() {
+    this.$ul = new DOMNode({
+      type: 'ul',
+      innerHTML: '',
+      classList: ['solid-comment-list']
+    });
+    this.$ul.append(this.$node);
   }
 }
+
+/**
+ * Container
+ * List of comments
+ * Login
+ * Comment field + button
+ *
+ *
+ *
+ *
+ */
