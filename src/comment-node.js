@@ -10,7 +10,8 @@ export default class CommentNode extends DOMNode {
 
     this.createTitle();
     this.createList();
-    this.createLogin();
+    this.createLoginButton();
+    this.createLogoutButton();
   }
 
   createTitle() {
@@ -31,13 +32,22 @@ export default class CommentNode extends DOMNode {
     this.$ul.append(this.$node);
   }
 
-  createLogin() {
-    this.$login = new DOMNode({
+  createLoginButton() {
+    this.$loginButton = new DOMNode({
       type: 'button',
       innerHTML: 'Login with Solid',
       classList: ['solid-comment-button', 'solid-comment-button--login']
     })
-    this.$login.append(this.$node);
+    this.$loginButton.append(this.$node);
+  }
+
+  createLogoutButton() {
+    this.$logoutButton = new DOMNode({
+      type: 'button',
+      innerHTML: 'Logout',
+      classList: ['solid-comment-button', 'solid-comment-button--logout']
+    })
+    this.$logoutButton.append(this.$node);
   }
 }
 
