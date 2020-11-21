@@ -4,7 +4,8 @@
   "description": "Comment module with Solid principles.",
   "main": "server.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "type": "module",
   "dependencies": {
