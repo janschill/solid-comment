@@ -3,36 +3,33 @@ import DomNodeCreator from './dom-node-creator.js';
 import * as Util from './util.js'
 
 class App {
-  main() {
-    const domNodeCreator = new DomNodeCreator()
-    domNodeCreator.createCommentModule()
+  static async main() {
+    this.domNodeCreator = new DomNodeCreator();
+    this.domNodeCreator.createCommentModule();
+    App.attachSolidLoginToSolidCommentButton();
+    this.session = await SolidAuthClient.currentSession();
+    console.log(this.session);
+  }
 
+  static attachSolidLoginToSolidCommentButton() {
     async function popupLogin() {
-      let session = await SolidAuthClient.currentSession();
       let popupUri = 'https://solidcommunity.net/common/popup.html';
-      if (!session) {
-        session = await SolidAuthClient.popupLogin({ popupUri });
+      if (!this.session) {
+        this.session = await SolidAuthClient.popupLogin({ popupUri });
+        console.log(this.session.webId);
       }
-      alert(`Logged in as ${session.webId}`);
+      alert(`Logged in as ${this.session.webId}`);
     }
 
-    SolidAuthClient.trackSession(session => {
-      if (!session)
-        alert('Hello stranger!');
-      else
-        alert(`Hello ${session.webId}!`);
-    });
-
     Util.executeOnDOMReady(() => {
-      domNodeCreator.$commentNode.$loginButton.$node.addEventListener('click', () => {
+      this.domNodeCreator.$commentNode.$loginButton.$node.addEventListener('click', () => {
         popupLogin();
       });
-      domNodeCreator.$commentNode.$logoutButton.$node.addEventListener('click', () => {
+      this.domNodeCreator.$commentNode.$logoutButton.$node.addEventListener('click', () => {
         SolidAuthClient.logout();
       });
     });
-
   }
 }
 
-new App().main()
+App.main()

@@ -12,6 +12,7 @@ export default class CommentNode extends DOMNode {
     this.createList();
     this.createLoginButton();
     this.createLogoutButton();
+    this.createForm();
   }
 
   createTitle() {
@@ -26,7 +27,7 @@ export default class CommentNode extends DOMNode {
   createList() {
     this.$ul = new DOMNode({
       type: 'ul',
-      innerHTML: '',
+      innerHTML: 'No comments so far',
       classList: ['solid-comment-list']
     });
     this.$ul.append(this.$node);
@@ -48,6 +49,48 @@ export default class CommentNode extends DOMNode {
       classList: ['solid-comment-button', 'solid-comment-button--logout']
     })
     this.$logoutButton.append(this.$node);
+  }
+
+  createForm() {
+    this.$form = new DOMNode({
+      type: 'form',
+      innerHTML: '',
+      classList: ['solid-comment-form']
+    });
+    const $label = this.createInputField().label;
+    const $inputField = this.createInputField().inputField;
+    const $submitButton = new DOMNode({
+      type: 'button',
+      innerHTML: 'Send',
+      classList: ['solid-comment-button', 'solid-comment-button--send']
+    });
+    $label.append(this.$form.$node);
+    $inputField.append(this.$form.$node);
+    $submitButton.append(this.$form.$node);
+
+    this.$form.append(this.$node);
+  }
+
+  createInputField() {
+    const labelId = 'solid-comment-input-field';
+    const $label = new DOMNode({
+      type: 'label',
+      innerHTML: 'Your comment',
+      classList: ['solid-comment-label']
+    });
+    $label.$node.setAttribute('for', labelId)
+    const $inputField = new DOMNode({
+      type: 'input',
+      innerHTML: '',
+      classList: ['solid-comment-input']
+    });
+    $inputField.$node.setAttribute('type', 'text');
+    $inputField.$node.setAttribute('id', labelId);
+
+    return {
+      label: $label,
+      inputField: $inputField
+    }
   }
 }
 
