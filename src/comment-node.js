@@ -5,10 +5,21 @@ export default class CommentNode extends DOMNode {
     super({
       type: 'div',
       innerHTML: '',
-      classList: []
+      classList: ['solid-comment-container']
     });
 
+    this.createTitle();
     this.createList();
+    this.createLogin();
+  }
+
+  createTitle() {
+    this.$title = new DOMNode({
+      type: 'h2',
+      innerHTML: 'Comments',
+      classList: ['solid-comment-title']
+    });
+    this.$title.append(this.$node);
   }
 
   createList() {
@@ -18,6 +29,15 @@ export default class CommentNode extends DOMNode {
       classList: ['solid-comment-list']
     });
     this.$ul.append(this.$node);
+  }
+
+  createLogin() {
+    this.$login = new DOMNode({
+      type: 'button',
+      innerHTML: 'Login with Solid',
+      classList: ['solid-comment-button', 'solid-comment-button--login']
+    })
+    this.$login.append(this.$node);
   }
 }
 
