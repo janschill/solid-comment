@@ -1,4 +1,4 @@
-import Node from '../libs/node/node.js';
+import Node from './node/node.js';
 
 export default class CommentNode extends Node {
   constructor() {
