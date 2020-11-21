@@ -7,7 +7,6 @@
     "build": "webpack",
     "watch": "webpack --watch"
   },
-  "type": "module",
   "dependencies": {
     "express": "^4.17.1"
   },
