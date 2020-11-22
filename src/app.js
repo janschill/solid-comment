@@ -23,9 +23,11 @@ function create() {
 }
 
 function render(components) {
-  components.session.render();
-  components.loginButton.render();
-  components.logoutButton.render();
+  for (const key in components) {
+    if (components.hasOwnProperty(key)) {
+      components[key].render()
+    }
+  }
 }
 
 const components = create();
