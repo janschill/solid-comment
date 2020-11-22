@@ -1,4 +1,4 @@
-import SolidAuthClient from 'solid-auth-client';
+import { logout } from 'solid-auth-client';
 import Button from '../../lib/button.js';
 import store from '../store/index.js';
 
@@ -9,7 +9,7 @@ export default class LogoutButton extends Button {
       element: document.querySelector('.solid-comment-button--logout')
     });
     this.element.addEventListener('click', () => {
-      SolidAuthClient.logout();
+      logout();
       store.dispatch('setSession', null);
     })
   }

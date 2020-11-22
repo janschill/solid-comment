@@ -1,4 +1,4 @@
-import SolidAuthClient from 'solid-auth-client';
+import { currentSession, popupLogin } from 'solid-auth-client';
 import Button from '../../lib/button.js';
 import store from '../store/index.js';
 
@@ -22,10 +22,10 @@ export default class LoginButton extends Button {
   }
 
   async popupLogin() {
-    let sesssion = await SolidAuthClient.currentSession();
+    let sesssion = await currentSession();
     const popupUri = 'https://solidcommunity.net/common/popup.html';
     if (!sesssion) {
-      sesssion = await SolidAuthClient.popupLogin({ popupUri });
+      sesssion = await popupLogin({ popupUri });
       store.dispatch('setSession', sesssion.webId);
       console.log(sesssion.webId);
     }

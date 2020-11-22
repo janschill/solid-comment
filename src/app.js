@@ -1,5 +1,5 @@
 import store from './store/index.js';
-import SolidAuthClient from 'solid-auth-client';
+import { trackSession } from 'solid-auth-client';
 import './styles.css'
 
 import Session from './components/session.js';
@@ -7,7 +7,7 @@ import LoginButton from './components/login-button.js';
 import LogoutButton from './components/logout-button.js';
 
 async function checkSession() {
-  SolidAuthClient.trackSession(solidSession => {
+  trackSession(solidSession => {
     if (solidSession) {
       store.dispatch('setSession', solidSession.webId);
     }
