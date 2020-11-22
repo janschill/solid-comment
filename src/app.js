@@ -5,6 +5,8 @@ import './styles.css'
 import Session from './components/session.js';
 import LoginButton from './components/login-button.js';
 import LogoutButton from './components/logout-button.js';
+import SendButton from './components/send-button.js';
+import Input from './components/input.js';
 
 async function checkSession() {
   trackSession(solidSession => {
@@ -19,6 +21,8 @@ function create() {
     session: new Session(),
     loginButton: new LoginButton(),
     logoutButton: new LogoutButton(),
+    sendButton: new SendButton(),
+    input: new Input(),
   }
 }
 
