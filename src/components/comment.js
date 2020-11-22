@@ -12,6 +12,6 @@ export default class Comment extends Component {
 
   render() {
     const commentNode = new CommentNode();
-    this.element = this.element.appendChild(commentNode.$node);
+    this.element.innerHTML = commentNode.$node.innerHTML
   }
 }

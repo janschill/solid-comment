@@ -1,6 +1,7 @@
 import store from './store/index.js';
 import SolidAuthClient from 'solid-auth-client';
 import * as Util from './util.js'
+import './styles.css'
 
 // Import components
 import Session from './components/session.js';
