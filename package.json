@@ -8,10 +8,16 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "autoprefixer": "^10.0.2",
+    "css-loader": "^5.0.1",
     "express": "^4.17.1",
-    "solid-auth-client": "^2.5.3"
+    "solid-auth-client": "^2.5.3",
+    "style-loader": "^2.0.0",
+    "tailwindcss": "^2.0.1"
   },
   "devDependencies": {
+    "postcss": "^8.1.9",
+    "postcss-loader": "^4.1.0",
     "webpack": "^5.6.0",
     "webpack-cli": "^4.2.0"
   }
