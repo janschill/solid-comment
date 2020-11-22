@@ -1,3 +1,4 @@
 export default {
-  session: null
+  session: null,
+  input: ''
 }

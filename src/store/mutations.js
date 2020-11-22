@@ -3,5 +3,8 @@ export default {
     state.session = payload;
 
     return state;
+  },
+  updateInput(state, payload) {
+    state.input = payload
   }
 }
