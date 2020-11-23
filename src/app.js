@@ -1,6 +1,7 @@
 import store from './store/index.js';
 import { trackSession } from 'solid-auth-client';
-import './styles.css'
+import './styles.css';
+import SolidClient from './solid-client.js';
 
 import Session from './components/session.js';
 import LoginButton from './components/login-button.js';
@@ -13,7 +14,15 @@ class App {
   constructor() {
     const components = this.create();
     this.render(components);
-    this.checkSession()
+    this.checkSession();
+    this.loadComments();
+  }
+
+  async loadComments() {
+    const solidClient = new SolidClient();
+    const commentContainer = '/solid-comment/';
+    const commentFileValue = await solidClient.get(`${commentContainer}text.text`);
+    store.dispatch('setComments', await commentFileValue.text());
   }
 
   async checkSession() {
@@ -44,4 +53,4 @@ class App {
   }
 }
 
-new App()
+new App();
