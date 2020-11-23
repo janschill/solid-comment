@@ -8,32 +8,38 @@ import LogoutButton from './components/logout-button.js';
 import SendButton from './components/send-button.js';
 import Input from './components/input.js';
 
-async function checkSession() {
-  trackSession(solidSession => {
-    if (solidSession) {
-      store.dispatch('setSession', solidSession.webId);
-    }
-  });
-}
+class App {
+  constructor() {
+    const components = this.create();
+    this.render(components);
+    this.checkSession()
+  }
 
-function create() {
-  return {
-    session: new Session(),
-    loginButton: new LoginButton(),
-    logoutButton: new LogoutButton(),
-    sendButton: new SendButton(),
-    input: new Input(),
+  async checkSession() {
+    trackSession(solidSession => {
+      if (solidSession) {
+        store.dispatch('setSession', solidSession.webId);
+      }
+    });
+  }
+
+  create() {
+    return {
+      session: new Session(),
+      loginButton: new LoginButton(),
+      logoutButton: new LogoutButton(),
+      sendButton: new SendButton(),
+      input: new Input(),
+    }
+  }
+
+  render(components) {
+    for (const key in components) {
+      if (components.hasOwnProperty(key)) {
+        components[key].render()
+      }
+    }
   }
 }
 
-function render(components) {
-  for (const key in components) {
-    if (components.hasOwnProperty(key)) {
-      components[key].render()
-    }
-  }
-}
-
-const components = create();
-render(components);
-checkSession()
+new App()
