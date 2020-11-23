@@ -5,6 +5,13 @@ export default {
     return state;
   },
   updateInput(state, payload) {
-    state.input = payload
+    state.input = payload;
+
+    return state;
+  },
+  setComments(state, payload) {
+    state.comments = payload;
+
+    return state;
   }
 }
