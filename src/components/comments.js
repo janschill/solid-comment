@@ -1,7 +1,7 @@
 import Component from '../../lib/component.js';
 import store from '../store/index.js';
-import state from '../store/state.js';
 import DOMNode from '../dom-node.js';
+import SolidClient from '../solid-client.js';
 
 export default class Comments extends Component {
   constructor() {
@@ -11,15 +11,29 @@ export default class Comments extends Component {
     });
   }
 
-  render() {
+  async render() {
     let outerHTMLComments = '';
-    store.state.comments.forEach(comment => {
-      outerHTMLComments += new DOMNode({
-        type: 'li',
-        innerHTML: comment,
-        classList: []
-      }).$node.outerHTML;
-    });
+    const solidClient = new SolidClient();
+    const pathname = '/solid-comment/';
+    // const comments = await solidClient.get(pathname);
+    const commentFileValue = await solidClient.get(`${pathname}text.text`);
+    // store.dispatch('setComments', comments);
+    // console.log(await comments.text())
+    // console.log(await commentFile.text())
+
+    // comments.forEach(comment => {
+    //   outerHTMLComments += new DOMNode({
+    //     type: 'li',
+    //     innerHTML: comment,
+    //     classList: []
+    //   }).$node.outerHTML;
+    // });
+    outerHTMLComments += new DOMNode({
+      type: 'li',
+      innerHTML: await commentFileValue.text(),
+      classList: []
+    }).$node.outerHTML;
+
     this.element.innerHTML = outerHTMLComments;
   }
 }

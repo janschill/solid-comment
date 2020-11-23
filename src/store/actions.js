@@ -5,4 +5,7 @@ export default {
   updateInput(context, payload) {
     context.commit('updateInput', payload)
   },
+  setComments(context, payload) {
+    context.commit('setComments', payload)
+  },
 }

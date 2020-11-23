@@ -8,7 +8,7 @@ export default class SolidClient {
     // This assumes that the data pod and WebID URL are on the same URI
     const base = new URL(session.webId).origin;
     const requestURL = `${base}${pathname}`
-    console.log(`Putting to ${requestURL}`)
+
     return await fetch(requestURL, options);
   }
 
@@ -24,11 +24,9 @@ export default class SolidClient {
     return await this.fetch(options)
   }
 
-  async get(options) {
-    return await this.fetch({
-      method: 'GET',
-      headers: {}
-    })
+  async get(pathname) {
+    console.log('GET: ', pathname)
+    return await this.fetch({}, pathname);
   }
 
   async patch(options) {
