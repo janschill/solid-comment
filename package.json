@@ -11,6 +11,7 @@
     "autoprefixer": "^10.0.2",
     "css-loader": "^5.0.1",
     "express": "^4.17.1",
+    "rdflib": "^2.1.1",
     "solid-auth-client": "^2.5.3",
     "style-loader": "^2.0.0",
     "tailwindcss": "^2.0.1"
