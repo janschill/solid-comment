@@ -1,6 +1,9 @@
 module.exports = {
   entry: './src/app.js',
   // devtool: 'inline-source-map',
+  resolve: {
+    fallback: { "buffer": require.resolve("buffer/") },
+  },
   module: {
     rules: [
       {

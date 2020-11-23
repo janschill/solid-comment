@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.0.2",
+    "buffer": "^6.0.3",
     "css-loader": "^5.0.1",
     "express": "^4.17.1",
     "rdflib": "^2.1.1",
