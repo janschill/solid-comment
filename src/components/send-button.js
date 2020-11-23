@@ -11,16 +11,16 @@ export default class SendButton extends Button {
     const solidClient = new SolidClient();
     this.element.addEventListener('click', (event) => {
       event.preventDefault();
-      console.log('input:', store.state.input);
       solidClient.put(store.state.input);
+      store.dispatch('addComment', store.state.input);
     })
   }
 
   render() {
     if (store.state.input == '' || store.state.input == null) {
-      // this.disableButton();
+      this.disableButton();
     } else {
-      // this.enableButton();
+      this.enableButton();
     }
   }
 }

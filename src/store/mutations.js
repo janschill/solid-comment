@@ -13,5 +13,10 @@ export default {
     state.comments = payload;
 
     return state;
+  },
+  addComment(state, payload) {
+    state.comments.push(payload);
+
+    return state;
   }
 }
