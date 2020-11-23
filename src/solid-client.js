@@ -17,7 +17,7 @@ export default class SolidClient {
       method: 'PUT',
       body: data,
       headers: { "Content-type": 'text/plain' },
-    }, '/public/text.text');
+    }, '/solid-comment/text.text');
   }
 
   async post(options) {
@@ -25,7 +25,10 @@ export default class SolidClient {
   }
 
   async get(options) {
-    return await this.fetch(options)
+    return await this.fetch({
+      method: 'GET',
+      headers: {}
+    })
   }
 
   async patch(options) {
