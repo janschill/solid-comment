@@ -7,6 +7,7 @@ import LoginButton from './components/login-button.js';
 import LogoutButton from './components/logout-button.js';
 import SendButton from './components/send-button.js';
 import Input from './components/input.js';
+import Comments from './components/comments.js';
 
 class App {
   constructor() {
@@ -30,6 +31,7 @@ class App {
       logoutButton: new LogoutButton(),
       sendButton: new SendButton(),
       input: new Input(),
+      comments: new Comments(),
     }
   }
 
