@@ -1,21 +1,20 @@
-import store from './store/index.js';
-import { trackSession } from 'solid-auth-client';
 import './styles.css';
+import { trackSession } from 'solid-auth-client';
+import store from './store/index.js';
 import SolidClient from './solid-client.js';
-
-import Session from './components/session.js';
-import LoginButton from './components/login-button.js';
-import LogoutButton from './components/logout-button.js';
-import SendButton from './components/send-button.js';
-import Input from './components/input.js';
-import Comments from './components/comments.js';
+import Home from './pages/home.js';
 
 class App {
   constructor() {
-    const components = this.create();
-    this.render(components);
-    this.checkSession();
-    this.loadComments();
+    new Home().renderComponents();
+    // if session
+    //   connect to pod
+    //   load comments
+    // else
+    //   show login
+    //   no comments here
+
+  }
   }
 
   async loadComments() {
@@ -31,25 +30,6 @@ class App {
         store.dispatch('setSession', solidSession.webId);
       }
     });
-  }
-
-  create() {
-    return {
-      session: new Session(),
-      loginButton: new LoginButton(),
-      logoutButton: new LogoutButton(),
-      sendButton: new SendButton(),
-      input: new Input(),
-      comments: new Comments(),
-    }
-  }
-
-  render(components) {
-    for (const key in components) {
-      if (components.hasOwnProperty(key)) {
-        components[key].render()
-      }
-    }
   }
 }
 
