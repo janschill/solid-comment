@@ -7,7 +7,7 @@ import Comment from './models/comment.js';
 
 class App {
   constructor() {
-    new Home().renderComponents();
+    new Home().instantiateComponents();
     // if session
     //   connect to pod
     //   load comments
