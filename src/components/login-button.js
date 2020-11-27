@@ -14,7 +14,11 @@ export default class LoginButton extends Button {
   }
 
   render() {
-    if (store.state.session == '' || store.state.session == null) {
+    if (
+      store.state.session == '' ||
+      store.state.session == null ||
+      store.state.session == {}
+    ) {
       this.enableButton();
     } else {
       this.disableButton();

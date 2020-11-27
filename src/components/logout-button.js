@@ -15,7 +15,11 @@ export default class LogoutButton extends Button {
   }
 
   render() {
-    if (store.state.session == '' || store.state.session == null) {
+    if (
+      store.state.session == '' ||
+      store.state.session == null ||
+      store.state.session == {}
+    ) {
       this.disableButton()
     } else {
       this.enableButton()
