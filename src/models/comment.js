@@ -13,11 +13,20 @@ export default class Comment {
 
   static async all() {
     const solidClient = new SolidClient();
+    await solidClient.login();
+    const document = SolidClient.document(`${solidClient.origin}/solid-comment/`);
+    console.log('document', document);
     // const session = await solidClient.session();
-    const response = await solidClient.get();
+    await solidClient.get(document);
+    let comments = await solidClient.store.any(document, solidClient.LDP('contains'));
+    console.log(comments);
+
     console.log(solidClient.store)
-    console.log(response)
-    console.log(response.responseText)
+
+    comments.forEach(file => {
+      console.log(' contains ' + file);
+    });
+
     throw 'lets look at the response';
     store.dispatch('setComments', await commentFileValue.text());
 

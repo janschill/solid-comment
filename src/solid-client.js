@@ -4,6 +4,7 @@ const $rdf = require('rdflib')
 
 export default class SolidClient {
   constructor() {
+    this.namespaces();
     this.applicationSlug = '/solid-comment/'
     this.store = $rdf.graph();
     this.fetcher = new $rdf.Fetcher(this.store, {
@@ -13,9 +14,12 @@ export default class SolidClient {
     });
   }
 
-  async session() {
+  async login() {
     this.session = await currentSession();
+    this.webIdUrl = this.session.webId;
+    this.origin = new URL(this.session.webId).origin;
     store.dispatch('setSession', this.session);
+    console.log(this.session);
 
     return this.session;
   }
@@ -28,20 +32,9 @@ export default class SolidClient {
   }
 
 
-  async load(options, pathname_ = '') {
-    const session = await this.session();
-    let pathname = pathname_;
-    if (pathname_ === '') {
-      pathname = this.applicationSlug
-    }
-
+  async load(options, document) {
     try {
-      // This assumes that the data pod and WebID URL are on the same URI
-      this.webIdUrl = new URL(session.webId).origin;
-      const document = $rdf.sym(`${this.webIdUrl}${pathname}`);
-
       return await this.fetcher.load(document);
-      // return await fetch(requestURL, options);
     } catch (error) {
       console.error(error);
     }
@@ -59,12 +52,19 @@ export default class SolidClient {
     return await this.load(options)
   }
 
-  async get(pathname = '') {
-    console.log('GET: ', pathname)
-    return await this.load({}, pathname);
+  async get(document) {
+    return await this.load({}, document);
   }
 
   async patch(options) {
     return await this.load(options)
+  }
+
+  namespaces() {
+    this.LDP = $rdf.Namespace('http://www.w3.org/ns/ldp#>');
+  }
+
+  static document(documentString) {
+    return $rdf.sym(documentString);
   }
 }
