@@ -13,7 +13,6 @@ export default class Comments extends Component {
   async render() {
     let outerHTMLComments = '';
 
-
     outerHTMLComments += new DOMNode({
       type: 'li',
       innerHTML: store.state.comments,

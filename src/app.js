@@ -3,6 +3,7 @@ import { trackSession } from 'solid-auth-client';
 import store from './store/index.js';
 import SolidClient from './solid-client.js';
 import Home from './pages/home.js';
+import Comment from './models/comment.js';
 
 class App {
   constructor() {
@@ -14,7 +15,11 @@ class App {
     //   show login
     //   no comments here
 
-  }
+    const session = await this.checkSession();
+    if (session) {
+      Comment.all()
+      this.loadComments();
+    }
   }
 
   async loadComments() {
@@ -25,10 +30,12 @@ class App {
   }
 
   async checkSession() {
-    trackSession(solidSession => {
-      if (solidSession) {
-        store.dispatch('setSession', solidSession.webId);
+    trackSession(session => {
+      if (session) {
+        store.dispatch('setSession', session.webId);
+        return session;
       }
+      return store.state.session;
     });
   }
 }
