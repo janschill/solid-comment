@@ -61,10 +61,15 @@ export default class SolidClient {
   }
 
   namespaces() {
-    this.LDP = $rdf.Namespace('http://www.w3.org/ns/ldp#>');
+    this.LDP = $rdf.Namespace('http://www.w3.org/ns/ldp#');
+    this.EX = $rdf.Namespace('https://example.org/');
   }
 
   static document(documentString) {
     return $rdf.sym(documentString);
+  }
+
+  static contains() {
+    return this.LDP('contains')
   }
 }

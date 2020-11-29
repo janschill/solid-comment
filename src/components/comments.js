@@ -13,18 +13,18 @@ export default class Comments extends Component {
   async render() {
     let outerHTMLComments = '';
 
-    outerHTMLComments += new DOMNode({
-      type: 'li',
-      innerHTML: store.state.comments,
-      classList: []
-    }).$node.outerHTML;
-    // store.state.comments.forEach(comment => {
-    //   outerHTMLComments += new DOMNode({
-    //     type: 'li',
-    //     innerHTML: comment,
-    //     classList: []
-    //   }).$node.outerHTML;
-    // });
+    // outerHTMLComments += new DOMNode({
+    //   type: 'li',
+    //   innerHTML: store.state.comments,
+    //   classList: []
+    // }).$node.outerHTML;
+    store.state.comments.forEach(comment => {
+      outerHTMLComments += new DOMNode({
+        type: 'li',
+        innerHTML: comment.message,
+        classList: []
+      }).$node.outerHTML;
+    });
 
     this.element.innerHTML = outerHTMLComments;
   }
