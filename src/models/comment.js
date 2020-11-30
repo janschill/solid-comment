@@ -32,14 +32,15 @@ export default class Comment {
     let comments = []
     resourcesInContainer.forEach(file => {
       const commentNode = file.object;
-      console.log(commentNode)
-      console.log(commentNode.doc())
-      const message = solidClient.store.any(
-        SolidClient.document(`${commentNode}#this`),
+      let message = solidClient.store.any(
+        solidClient.store.sym(`${commentNode}`),
         'https://example.org/message',
         null,
-        commentNode.doc()
+        null,
       )
+      if (message === null) {
+        message = 'Test'
+      }
       comments.push(new Comment(commentNode, message));
       commentResources.push(commentNode);
     });
