@@ -2,9 +2,9 @@ import store from '../store/index.js';
 import SolidClient from '../solid-client.js';
 
 export default class Comment {
-  constructor(rdfNode, message) {
-    this.rdfNode = rdfNode;
-    this.message = message;
+  constructor(params) {
+    this.rdfNode = params.rdfNode;
+    this.message = params.message;
     // this.createdAt = new Date().now();
   }
 
@@ -20,35 +20,22 @@ export default class Comment {
     const solidClient = new SolidClient();
     await solidClient.login();
     const solidCommentContainer = SolidClient.document(
-      `${solidClient.origin}/solid-comment/`
+      `${solidClient.origin}/solid-comment/comments.ttl`
     );
-    await solidClient.get(solidCommentContainer);
-    let resourcesInContainer = solidClient.store.match(
-      solidCommentContainer, solidClient.LDP('contains')
+    await solidClient.get(solidCommentContainer); // maps the store
+
+    const messageStatements = solidClient.store.match(
+      null, solidClient.EX('message'), null, solidCommentContainer
     );
-    console.log(solidClient.store)
-    console.log(resourcesInContainer)
-    let commentResources = []
-    let comments = []
-    resourcesInContainer.forEach(file => {
-      const commentNode = file.object;
-      let message = solidClient.store.any(
-        solidClient.store.sym(`${commentNode}`),
-        'https://example.org/message',
-        null,
-        null,
-      )
-      if (message === null) {
-        message = 'Test'
-      }
-      comments.push(new Comment(commentNode, message));
-      commentResources.push(commentNode);
+    let comments = [];
+    messageStatements.forEach(statement => {
+      const value = statement.object.value;
+      comments.push(new Comment({ message: value, rdfNode: statement }));
     });
 
-    console.log(comments);
-
+    console.log(comments)
     store.dispatch('setComments', comments);
 
-    return commentResources;
+    return comments;
   }
 }

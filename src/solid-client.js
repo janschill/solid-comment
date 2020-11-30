@@ -63,6 +63,7 @@ export default class SolidClient {
   namespaces() {
     this.LDP = $rdf.Namespace('http://www.w3.org/ns/ldp#');
     this.EX = $rdf.Namespace('https://example.org/');
+    this.VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
   }
 
   static document(documentString) {

@@ -16,7 +16,7 @@ export default class Comments extends Component {
     store.state.comments.forEach(comment => {
       outerHTMLComments += new DOMNode({
         type: 'li',
-        innerHTML: comment.message,
+        innerHTML: comment.message || 'null',
         classList: []
       }).$node.outerHTML;
     });
