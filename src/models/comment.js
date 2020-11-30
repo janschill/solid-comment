@@ -25,15 +25,15 @@ export default class Comment {
     await solidClient.get(solidCommentContainer); // maps the store
 
     const messageStatements = solidClient.store.match(
-      null, solidClient.EX('message'), null, solidCommentContainer
+      null, solidClient.RD('comment'), null, solidCommentContainer
     );
+
     let comments = [];
     messageStatements.forEach(statement => {
       const value = statement.object.value;
       comments.push(new Comment({ message: value, rdfNode: statement }));
     });
 
-    console.log(comments)
     store.dispatch('setComments', comments);
 
     return comments;
