@@ -3,17 +3,26 @@ import SolidClient from '../solid-client.js';
 
 export default class Comment {
   constructor(params) {
-    this.rdfNode = params.rdfNode;
     this.message = params.message;
+    this.rdfNode = params.rdfNode;
+    if (this.rdfNode === null) {
+      this.rdfNode = this.generateRDF()
+    }
+
     // this.createdAt = new Date().now();
+  }
+
+  generateRDF() {
+    return `${this.message} in RDF`
   }
 
   value() {
     return this.message;
   }
 
-  asRDF() {
-    return this.rdfNode;
+  static asRDF(comments) {
+    console.log('asRDF', comments)
+    return comments;
   }
 
   static async all() {

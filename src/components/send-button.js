@@ -1,6 +1,7 @@
 import SolidClient from '../solid-client.js';
 import Button from '../../lib/button.js';
 import store from '../store/index.js';
+import Comment from '../models/comment.js';
 
 export default class SendButton extends Button {
   constructor() {
@@ -9,15 +10,24 @@ export default class SendButton extends Button {
       element: document.querySelector('.solid-comment-button--send')
     });
     const solidClient = new SolidClient();
-    this.element.addEventListener('click', (event) => {
+    this.element.addEventListener('click', event => {
       event.preventDefault();
-      solidClient.put(store.state.input);
-      store.dispatch('addComment', store.state.input);
-    })
+      const inputField = document.querySelector('.solid-comment-input');
+      const inputValue = inputField.value;
+
+      const comment = new Comment({ message: inputValue, rdfNode: null });
+      store.dispatch('addComment', comment);
+      const comments = store.state.comments;
+      const commentsAsRDF = Comment.asRDF(comments);
+      store.dispatch('updateInput', '');
+      inputField.value = '';
+      // solidClient.put(commentsAsRDF);
+    });
   }
 
   render() {
-    if (store.state.input == '' || store.state.input == null) {
+    const inputValue = store.state.input;
+    if (inputValue == '' || inputValue == null) {
       this.disableButton();
     } else {
       this.enableButton();
