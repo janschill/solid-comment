@@ -14,6 +14,11 @@ export default {
 
     return state;
   },
+  setClient(state, payload) {
+    state.client = payload;
+
+    return state;
+  },
   addComment(state, payload) {
     state.comments.push(payload);
 

@@ -26,15 +26,12 @@ export default class Comment {
   }
 
   static async all() {
-    const solidClient = new SolidClient();
-    await solidClient.login();
-    const solidCommentContainer = SolidClient.document(
-      `${solidClient.origin}/solid-comment/comments.ttl`
-    );
-    await solidClient.get(solidCommentContainer); // maps the store
+    const client = store.state.client;
+    await client.login();
+    await client.get();
 
-    const messageStatements = solidClient.store.match(
-      null, solidClient.RD('comment'), null, solidCommentContainer
+    const messageStatements = client.store.match(
+      null, client.RD('comment'), null, client.commentsResource
     );
 
     let comments = [];

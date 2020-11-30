@@ -1,4 +1,3 @@
-import SolidClient from '../solid-client.js';
 import Button from '../../lib/button.js';
 import store from '../store/index.js';
 import Comment from '../models/comment.js';
@@ -9,7 +8,7 @@ export default class SendButton extends Button {
       store,
       element: document.querySelector('.solid-comment-button--send')
     });
-    const solidClient = new SolidClient();
+    const client = store.state.client;
     this.element.addEventListener('click', event => {
       event.preventDefault();
       const inputField = document.querySelector('.solid-comment-input');
