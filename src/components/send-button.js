@@ -18,9 +18,14 @@ export default class SendButton extends Button {
       store.dispatch('addComment', comment);
       const comments = store.state.comments;
       const commentsAsRDF = Comment.asRDF(comments);
+      const s = client.store.sym(`https://janschill.solidcommunity.net/solid-comment/comments.ttl#comment-3`);
+      const p = client.store.sym(client.RD('comment'));
+      const o = client.store.literal(inputValue);
+      const g = client.commentsResource;
+      client.store.add(s, p, o, g);
       store.dispatch('updateInput', '');
       inputField.value = '';
-      // solidClient.put(commentsAsRDF);
+      client.put(s);
     });
   }
 

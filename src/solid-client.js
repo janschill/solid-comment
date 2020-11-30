@@ -18,42 +18,41 @@ export default class SolidClient {
     this.session = await currentSession();
     this.webIdUrl = this.session.webId;
     this.origin = new URL(this.session.webId).origin;
+    this.commentsResource = SolidClient.document(
+      `${this.origin}/solid-comment/comments.ttl`
+    );
     store.dispatch('setSession', this.session);
     console.log(this.session);
 
     return this.session;
   }
 
-  async fetcher() {
-    const subject = this.store.sym(testUrl + "#this");
-    const predicate = this.store.sym('https://example.org/message');
-    const object = this.store.literal('hello world');
-    const document = subject.doc();
-  }
+  // async fetcher() {
+  //   const subject = this.store.sym(testUrl + "#this");
+  //   const predicate = this.store.sym('https://example.org/message');
+  //   const object = this.store.literal('hello world');
+  //   cosnst document = subject.doc();
+  // }
 
 
-  async load(options, document) {
+  async load(options) {
     try {
-      return await this.fetcher.load(document);
+      return await this.fetcher.load(this.commentsResource);
     } catch (error) {
       console.error(error);
     }
   }
 
-  async put(data) {
-    return await this.load({
-      method: 'PUT',
-      body: data,
-      headers: { "Content-type": 'text/plain' },
-    }, '/solid-comment/text.text');
+  async put(document) {
+    return await this.fetcher.putBack(document);
   }
 
   async post(options) {
     return await this.load(options)
   }
 
-  async get(document) {
-    return await this.load({}, document);
+  async get() {
+    return await this.load({});
   }
 
   async patch(options) {
