@@ -17,7 +17,6 @@ export default class SendButton extends Button {
       const comment = new Comment({ message: inputValue, rdfNode: null });
       store.dispatch('addComment', comment);
       const comments = store.state.comments;
-      const commentsAsRDF = Comment.asRDF(comments);
       const s = client.store.sym(`https://janschill.solidcommunity.net/solid-comment/comments.ttl#comment-3`);
       const p = client.store.sym(client.RD('comment'));
       const o = client.store.literal(inputValue);
