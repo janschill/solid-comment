@@ -1,20 +1,21 @@
+import { SolidClient } from "@/solid-client";
+
 document.addEventListener("DOMContentLoaded", () => {
-  function component() {
-    const element = document.createElement('div');
+  console.log('DOM ready');
 
-    element.innerHTML = 'Comments'
+  async function main() {
+    const solidClient: SolidClient = new SolidClient();
 
-    return element;
+    const $solidOidcIssuer: HTMLInputElement | null = document.querySelector("#solid-oidc-issuer");
+    const $solidLoginButton: HTMLButtonElement | null = document.querySelector("#solid-login-button");
+    if ($solidLoginButton && $solidOidcIssuer) {
+      $solidLoginButton.addEventListener("click", async () => {
+        const solidOidcIssuer: string = $solidOidcIssuer.value;
+        await solidClient.login(solidOidcIssuer)
+        console.log(solidClient.session)
+      });
+    }
   }
 
-  document.body.appendChild(component());
-})
-
-export class SolidComment {
-  configure() {
-    console.log('configuration')
-  }
-}
-
-export const solidComment = new SolidComment()
-solidComment.configure()
+  main()
+});
