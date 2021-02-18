@@ -2,9 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "lib": ["DOM"],
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "es6",
     "target": "es5",
     "allowJs": true
-  }
+  },
+  "exclude": ["example"]
 }
