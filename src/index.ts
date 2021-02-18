@@ -2,13 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function component() {
     const element = document.createElement('div');
 
-    element.innerHTML = 'Hello webpack'
+    element.innerHTML = 'Comments'
 
     return element;
   }
 
   document.body.appendChild(component());
-  console.log('Solid Comment loaded')
 })
 
 export class SolidComment {
@@ -18,11 +17,4 @@ export class SolidComment {
 }
 
 export const solidComment = new SolidComment()
-
-export function helloWorld() {
-	return "Hello World"
-}
-
-export function helloWorldNPM() {
-	return "Hello World NPM"
-}
+solidComment.configure()
