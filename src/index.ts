@@ -8,5 +8,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.body.appendChild(component());
-  console.log('DOM ready')
+  console.log('Solid Comment loaded')
 })
