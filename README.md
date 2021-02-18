@@ -3,6 +3,10 @@
 A simple Solid application meant to read and write comments into users’ [pods](https://solidproject.org/users/get-a-pod).
 This application is only the gateway to Solid and still needs a storing mechanism in a parent application – meaning your application will import this library, which will allow the communication with Solid, but the
 
+## To-do
+
+- [ ] The import and export in examples does not work properly
+
 ## Usage
 
 1. Install Solid Comment
