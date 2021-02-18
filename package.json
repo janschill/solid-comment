@@ -8,9 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack serve --open",
-    "example:build": "cd example && npm run dev",
-    "dev": "webpack-dev-server --mode development"
+    "start": "webpack serve --open"
   },
   "keywords": [],
   "author": "Jan Schill",
