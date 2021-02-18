@@ -1,11 +1,31 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "lib": ["DOM"],
-    "noImplicitAny": false,
-    "module": "es6",
-    "target": "es5",
-    "allowJs": true
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
   },
-  "exclude": ["example"]
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "example",
+    "node_modules",
+    "dist"
+  ]
 }
