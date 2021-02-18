@@ -9,5 +9,35 @@
 </head>
 <body>
   <h1>Solid Comment</h1>
+  <section>
+    <header>
+      <h2>Comments</h2>
+      <label for="solid-oidc-issuer">WebID</label>
+      <input type="text" name="oidcIssuer" id="solid-oidc-issuer" value="https://janschill.net">
+      <button id="solid-login-button">Log in</button>
+    </header>
+    <main>
+      <section>
+        <h3>Leave a comment</h3>
+        <form action="">
+          <label for="comment">Your comment</label>
+          <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
+
+          <input type="submit" value="Submit comment">
+        </form>
+      </section>
+      <ul>
+        <li>
+          <article>
+            <header>
+              <abbr title="">26.05.2021</abbr>
+              <address>By Jan</address>
+            </header>
+            <p>My comment</p>
+          </article>
+        </li>
+      </ul>
+    </main>
+  </section>
 </body>
 </html>
