@@ -10,9 +10,12 @@ import { SCHEMA_INRUPT_EXT, VCARD } from "@inrupt/vocab-common-rdf";
 import {
   handleIncomingRedirect,
 } from "@inrupt/solid-client-authn-browser"
+import { LoginButton } from "./components/login-button";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log('DOM ready');
+
+  document.body.innerHTML = new LoginButton().render();
 
   async function main() {
     await handleIncomingRedirect();
