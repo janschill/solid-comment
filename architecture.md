@@ -9,6 +9,19 @@
 
 | Field | Type | Schema |
 | -- | -- | -- |
-| Author | string | Schema:author |
-| Text | string | Schema:text |
-| Date | Date | Schema:dateCreated |
+| Comment | Comment | Schema:UserComments |
+| Author | string | Schema:creator |
+| Text | string | Schema:commentText |
+| Date | Date | Schema:commentTime (Date ISO 8601) |
+
+### Example
+
+```ttl
+@prefix ns1: <https://schema.org/> .
+
+<some-comment-id> a ns1:UserComments ;
+    ns1:creator <http://janschill.net/profile/card#me> ;
+    ns1:commentText "This is my first comment" ;
+    ns1:commentTime "2021-02-05T17:34:00.006Z".
+```
+
