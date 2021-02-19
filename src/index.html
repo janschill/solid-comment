@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,10 @@
   <script src="bundle.js"></script>
   <title>Solid Comment</title>
 </head>
+
 <body>
   <h1>Solid Comment</h1>
+  <p class="solid-comment-session">Session</p>
   <section>
     <header>
       <h2>Comments</h2>
@@ -40,4 +43,12 @@
     </main>
   </section>
 </body>
+<script>
+  new SolidComment({
+    solidCommentId: "solid-comment-development",
+    serverStorageEndpoint: "localStorage",
+    webIdsOfAuthors: ["https://janschill.net/profile/card#me"]
+  })
+</script>
+
 </html>
