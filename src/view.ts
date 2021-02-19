@@ -1,6 +1,10 @@
-import "./components/comment-section"
+import { CommentSection } from "./components/comment-section";
 
-class View {
+export class View {
+  constructor() {
+
+  }
+
   define() {
     customElements.define('comment-section', CommentSection, { extends: 'section' });
   }

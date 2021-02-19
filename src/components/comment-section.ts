@@ -1,4 +1,4 @@
-class CommentSection extends HTMLElement {
+export class CommentSection extends HTMLElement {
   constructor() {
     super()
   }

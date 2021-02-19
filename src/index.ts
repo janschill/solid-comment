@@ -1,4 +1,4 @@
-import { SolidClient } from "@/solid-client";
+import { SolidClient } from "./solid/solid-client";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log('DOM ready');
