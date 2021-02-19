@@ -14,13 +14,11 @@ import {
 import { VCARD } from "@inrupt/vocab-common-rdf";
 
 export class SolidClient {
-  session: Promise<void> | null
-
   constructor() {
     this.session = null
   }
 
-  async login(solidOidcIssuer: string) {
+  async login(solidOidcIssuer) {
     return await login({
       oidcIssuer: solidOidcIssuer,
       redirectUrl: location.href
