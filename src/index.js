@@ -3,14 +3,19 @@ import { SolidClient } from "./solid/solid-client";
 import {
   getSolidDataset,
   getThing,
-  getStringNoLocale
+  getStringNoLocale,
+  getUrl
 } from "@inrupt/solid-client";
-import { VCARD } from "@inrupt/vocab-common-rdf";
+import { SCHEMA_INRUPT_EXT, VCARD } from "@inrupt/vocab-common-rdf";
+import {
+  handleIncomingRedirect,
+} from "@inrupt/solid-client-authn-browser"
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log('DOM ready');
 
   async function main() {
+    await handleIncomingRedirect();
     const solidClient = new SolidClient();
 
     const $solidOidcIssuer = document.querySelector("#solid-oidc-issuer");
@@ -18,10 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($solidLoginButton && $solidOidcIssuer) {
       $solidLoginButton.addEventListener("click", async () => {
         const solidOidcIssuer = $solidOidcIssuer.value;
-        await solidClient.login(solidOidcIssuer)
-        console.log(solidClient.session)
+        if (solidOidcIssuer) {
+          await solidClient.login(solidOidcIssuer)
+          console.log(solidClient.session)
+        }
       });
     }
+
+    console.log("isLoggedIn", solidClient.isLoggedIn());
   }
 
   main()
@@ -37,17 +46,24 @@ export class SolidComment {
   }
 
   async readComments() {
-    const resourceUrl = `https://janschill.net/solid-comment/${this.solidCommentId}/example.ttl`;
+    const resourceUrl = `https://janschill.net/solid-comment/${this.solidCommentId}/comments.ttl`;
     const dataset = await getSolidDataset(resourceUrl);
-    const resource = getThing(dataset, resourceUrl);
-    // const fn = getStringNoLocale(profile, VCARD.fn);
-    // const role = getStringNoLocale(profile, VCARD.role);
+    const resource = getThing(dataset, `${resourceUrl}#it`);
+    const author = getUrl(resource, SCHEMA_INRUPT_EXT.NS("creator"));
+    const text = getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentText"));
+    const time = getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentTime"));
+    console.log("author", author)
+    console.log("text", text)
+    console.log("time", time)
     return resource
   }
 
+  async writeComments() {
+
+  }
+
   async main() {
-    const comments = await this.readComments()
-    console.log(comments)
+    // const comments = await this.readComments()
 
 
     // new Comment({

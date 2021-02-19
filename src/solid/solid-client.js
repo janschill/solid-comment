@@ -11,8 +11,6 @@ import {
   fetch
 } from "@inrupt/solid-client-authn-browser";
 
-import { VCARD } from "@inrupt/vocab-common-rdf";
-
 export class SolidClient {
   constructor() {
     this.session = null
@@ -23,5 +21,13 @@ export class SolidClient {
       oidcIssuer: solidOidcIssuer,
       redirectUrl: location.href
     });
+  }
+
+  fetch() {
+    return fetch()
+  }
+
+  isLoggedIn() {
+    return getDefaultSession().info.isLoggedIn
   }
 }
