@@ -24,8 +24,6 @@ export class SolidClient {
           redirectUrl: window.location.href
         });
       }
-
-      store.dispatch("setSession", getDefaultSession().info.webId);
     } catch (e) {
       console.error(e);
     }
