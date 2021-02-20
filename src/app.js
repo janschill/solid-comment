@@ -1,5 +1,6 @@
 import { SolidClient } from "./solid/solid-client";
 import Home from "./home";
+import { Comment } from "./models/comment";
 
 export default class App {
   constructor() {
@@ -8,8 +9,8 @@ export default class App {
 
   async boot() {
     this.solidClient = new SolidClient();
-    // this.solidClient.fetch()
     await this.solidClient.checkSession();
+    Comment.all()
     // await this.solidClient.login()
   }
 }
