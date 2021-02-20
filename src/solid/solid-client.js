@@ -49,4 +49,8 @@ export class SolidClient {
       console.error(e);
     }
   }
+
+  static rootUrl(url) {
+    return new URL(url).origin;
+  }
 }
