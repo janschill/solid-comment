@@ -1,5 +1,11 @@
 # Architecture
 
+## What is this library doing?
+
+- Authenticate agents with a Solid pod
+- Read files from pods that are authorized to read for this application
+- Write files to a pod through an authenticated agent
+
 ## What is needed from Indico?
 
 - Event ID/unique identifier for directory creation
