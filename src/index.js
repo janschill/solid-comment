@@ -1,17 +1,17 @@
+import { addToConfig, config, addObjectToConfig } from "./config"
 import App from "./app"
 
 export class SolidComment {
   constructor(configuration) {
-    this.solidCommentId = configuration.solidCommentId;
-    this.serverStorageEndpoint = configuration.serverStorageEndpoint;
-    this.webIdsOfAuthors = configuration.webIdsOfAuthors;
-    this.resourceContainerPath = `solid-comment/${this.solidCommentId}`;
+    addObjectToConfig(configuration);
+    addToConfig("resourceContainerPath", `solid-comment/${configuration.solidCommentId}`);
+    console.log(config())
   }
 
   async initApp() {
     window.onload = async () => {
       const app = new App();
-      app.boot()
+      app.boot();
     }
   }
 }
