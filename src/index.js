@@ -4,6 +4,7 @@ import App from "./app"
 export class SolidComment {
   constructor(configuration) {
     addObjectToConfig(configuration);
+    addToConfig("appName", "Solid-Comment");
     addToConfig("resourceContainerPath", `solid-comment/${configuration.solidCommentId}`);
     console.log(config())
   }
