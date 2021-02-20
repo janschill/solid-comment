@@ -1,9 +1,4 @@
-import {
-  getSolidDataset,
-  getThing,
-  getStringNoLocale
-} from "@inrupt/solid-client";
-
+import store from "../store"
 import {
   login,
   handleIncomingRedirect,
@@ -12,19 +7,23 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 
 export class SolidClient {
-  constructor() {
-    this.session = null
-  }
+  constructor() { }
 
   async login(solidOidcIssuer) {
-    return await login({
-      oidcIssuer: solidOidcIssuer,
-      redirectUrl: location.href
-    });
+    await handleIncomingRedirect();
+
+    if (!getDefaultSession().info.isLoggedIn) {
+      await login({
+        oidcIssuer: solidOidcIssuer,
+        redirectUrl: window.location.href
+      });
+    }
+
+    store.dispatch("setSession", getDefaultSession().info.webId);
   }
 
-  fetch() {
-    return fetch()
+  async fetch() {
+    return await fetch();
   }
 
   isLoggedIn() {
