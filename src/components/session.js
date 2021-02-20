@@ -10,6 +10,7 @@ export default class Session extends Component {
   }
 
   render() {
-    this.element.innerHTML = `Current session: ${store.state.session}`;
+    const content = store.state.session ? `Current session: ${store.state.session}` : ""
+    this.element.innerHTML = content;
   }
 }
