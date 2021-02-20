@@ -9,8 +9,12 @@ import {
 export class SolidClient {
   constructor() { }
 
-  async login(solidOidcIssuer) {
+  async login(solidOidcIssuer = "") {
     try {
+      if (solidOidcIssuer === "") {
+        const $solidOidcIssuer = document.querySelector("#solid-oidc-issuer");
+        solidOidcIssuer = $solidOidcIssuer.value
+      }
       await handleIncomingRedirect();
 
       if (!getDefaultSession().info.isLoggedIn) {
