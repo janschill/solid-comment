@@ -18,7 +18,6 @@ export class SolidClient {
       await handleIncomingRedirect();
 
       if (!getDefaultSession().info.isLoggedIn) {
-        console.log("logging in?")
         await login({
           oidcIssuer: solidOidcIssuer,
           redirectUrl: window.location.href
