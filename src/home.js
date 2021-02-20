@@ -1,10 +1,12 @@
-import Session from './components/session.js';
+import LoginButton from './components/login-button';
+import Session from './components/session';
 
 export default class Home {
   constructor() { }
 
   instantiateComponents() {
     return {
+      loginButton: new LoginButton(),
       session: new Session(),
     }
   }
