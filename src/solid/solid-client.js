@@ -30,11 +30,10 @@ export class SolidClient {
   }
 
   async checkSession() {
+    await handleIncomingRedirect();
     const session = await getDefaultSession();
-    console.log(session)
-    // await handleIncomingRedirect();
 
-    if (getDefaultSession().info.isLoggedIn) {
+    if (session.info.isLoggedIn) {
       store.dispatch("setSession", getDefaultSession().info.webId);
     }
   }
