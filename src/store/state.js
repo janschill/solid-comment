@@ -1,3 +1,3 @@
 export default {
-  session: null,
+  session: "",
 }

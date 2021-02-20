@@ -10,6 +10,6 @@ export default class Session extends Component {
   }
 
   render() {
-    this.element.innerHTML = `Current session: ${store.state.session.webId}`;
+    this.element.innerHTML = `Current session: ${store.state.session}`;
   }
 }
