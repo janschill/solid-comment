@@ -1,5 +1,5 @@
 @prefix : <#>.
-@prefix schem: <https://schema.org/>.
+@prefix schem: <http://schema.org/>.
 
 :uniqueCommentId1
     a schem:UserComments ;
