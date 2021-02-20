@@ -7,8 +7,9 @@ class App {
   }
 
   async boot() {
-    this.solidClient = new SolidClient()
-    this.solidClient.login("https://janschill.net")
+    this.solidClient = new SolidClient();
+    // await this.solidClient.checkSession();
+    await this.solidClient.login("https://janschill.net")
   }
 }
 
@@ -29,8 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //     }
     //   });
     // }
-
-    // console.log("isLoggedIn", solidClient.isLoggedIn());
   }
 
   main()

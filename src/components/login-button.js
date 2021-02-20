@@ -1,4 +1,5 @@
 import Component from "../component";
+import { SolidClient } from "../solid/solid-client";
 import store from "../store/index"
 
 export default class LoginButton extends Component {
@@ -7,24 +8,25 @@ export default class LoginButton extends Component {
       store,
       element: document.querySelector("#solid-login-button")
     });
-    this.element.addEventListener("click", async () => {
+    this.element.onclick = async () => {
+      const solidClient = new SolidClient();
+
       if (store.state.session === "") {
         const $solidOidcIssuer = document.querySelector("#solid-oidc-issuer");
 
         if ($solidOidcIssuer) {
-          const solidOidcIssuer = $solidOidcIssuer.value;
-          if (solidOidcIssuer) {
-            await solidClient.login(solidOidcIssuer)
+          const solidOidcIssuerUrl = $solidOidcIssuer.value;
+          if (solidOidcIssuerUrl) {
+            await solidClient.login(solidOidcIssuerUrl)
           }
         }
       } else {
-        console.log("Log me out")
+        solidClient.logout();
       }
-    });
+    };
   }
 
   render() {
-    const buttonLabel = store.state.session === "" ? "Log in" : "Log out"
-    this.element.innerText = buttonLabel;
+    this.element.innerText = store.state.session === "" ? "Log in" : "Log out";
   }
 }

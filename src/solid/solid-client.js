@@ -10,23 +10,43 @@ export class SolidClient {
   constructor() { }
 
   async login(solidOidcIssuer) {
-    await handleIncomingRedirect();
+    try {
+      await handleIncomingRedirect();
 
-    if (!getDefaultSession().info.isLoggedIn) {
-      await login({
-        oidcIssuer: solidOidcIssuer,
-        redirectUrl: window.location.href
-      });
+      if (!getDefaultSession().info.isLoggedIn) {
+        console.log("logging in?")
+        await login({
+          oidcIssuer: solidOidcIssuer,
+          redirectUrl: window.location.href
+        });
+      }
+
+      store.dispatch("setSession", getDefaultSession().info.webId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    store.dispatch("setSession", getDefaultSession().info.webId);
+  async checkSession() {
+    const session = await getDefaultSession();
+    console.log(session)
+    // await handleIncomingRedirect();
+
+    if (getDefaultSession().info.isLoggedIn) {
+      store.dispatch("setSession", getDefaultSession().info.webId);
+    }
   }
 
   async fetch() {
     return await fetch();
   }
 
-  isLoggedIn() {
-    return getDefaultSession().info.isLoggedIn
+  async logout() {
+    try {
+      await getDefaultSession().logout();
+      store.dispatch("setSession", "");
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
