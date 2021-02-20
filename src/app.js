@@ -9,7 +9,7 @@ export default class App {
   async boot() {
     this.solidClient = new SolidClient();
     // this.solidClient.fetch()
-    // await this.solidClient.checkSession();
+    await this.solidClient.checkSession();
     // await this.solidClient.login()
   }
 }
