@@ -8,7 +8,6 @@ const STORAGE = {
 
 export class ActiveRecord {
   constructor() {
-    console.log("ActiveRecord")
     if (this.constructor === ActiveRecord) {
       throw new Error("Cannot instantiate abstract class!");
     }

@@ -3,8 +3,6 @@ import { ActiveRecord } from "./active-record";
 export class SolidModel extends ActiveRecord {
   constructor() {
     super();
-    console.log("SolidModel")
-
   }
 
   asRdf() {
