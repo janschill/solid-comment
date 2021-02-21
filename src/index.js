@@ -1,12 +1,14 @@
-import { addToConfig, config, addObjectToConfig } from "./config"
-import App from "./app"
+import "./css/reset.css";
+import "./css/styles.css";
+import "./css/indico.css";
+import { addToConfig, config, addObjectToConfig } from "./config";
+import App from "./app";
 
 export class SolidComment {
   constructor(configuration) {
     addObjectToConfig(configuration);
     addToConfig("appName", "Solid-Comment");
     addToConfig("resourceContainerPath", `solid-comment/${configuration.solidCommentId}`);
-    console.log(config())
   }
 
   async initApp() {
