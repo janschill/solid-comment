@@ -11,13 +11,14 @@ import {
   getUrl,
 } from "@inrupt/solid-client";
 import { SCHEMA_INRUPT_EXT } from "@inrupt/vocab-common-rdf";
+import SolidAgent from "./solid-agent";
 
 export class Comment extends SolidModel {
 
   constructor(comment) {
     super();
     this.author = comment.author
-    this.time = comment.time
+    this.time = new Date(comment.time)
     this.text = comment.text
   }
 
@@ -27,6 +28,9 @@ export class Comment extends SolidModel {
     const comments = [];
 
     for (const webIdUrl of commentAuthors) {
+      const solidAgent = new SolidAgent();
+      await solidAgent.fetchProfile(webIdUrl);
+
       const rootContainerUrl = SolidClient.rootUrl(webIdUrl);
       const appName = toKebabCase(config().appName);
       const containerUrl = `${rootContainerUrl}/${appName}/${config().solidCommentId}/`;
@@ -38,7 +42,7 @@ export class Comment extends SolidModel {
         const resources = getThingAll(resourceDataset);
         resources.forEach(resource => {
           comments.push(new Comment({
-            author: getUrl(resource, SCHEMA_INRUPT_EXT.NS("creator")),
+            author: solidAgent,
             text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentText")),
             time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentTime")),
           }));
