@@ -1,0 +1,81 @@
+:root {
+  --primary-color: #1a63a0;
+  --secondary-color: #424242;
+  --solid-color: #7c4dff;
+}
+
+body {
+  background-color: var(--secondary-color);
+}
+
+.solid-comment {
+  background-color: white;
+}
+
+.sc-main {
+  font-size: 1.15rem;
+}
+
+.sc-header {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  background: var(--primary-color);
+  padding: 10px 30px 10px;
+  color: white;
+  font-size: 12pt;
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sc-header__title {
+  font-size: 20pt;
+  color: white;
+  font-weight: normal;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.sc-solid-button {
+  appearance: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: var(--solid-color);
+  color: white;
+  transition: color 0.25s ease-out;
+  margin: 0;
+  padding: 4px 10px 4px;
+  user-select: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  vertical-align: middle;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+  border-left: 1px solid #dfdfdf;
+  border-radius: 3px;
+}
+
+.sc-solid-button__image {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.sc-list__article {
+  display: flex;
+}
+
+.sc-list__header {
+  width: 120px;
+  text-align: right;
+  font-weight: bold;
+  margin-right: 1em;
+}
