@@ -7,6 +7,8 @@ This application is only the gateway to Solid and still needs a storing mechanis
 
 - [x] The import and export in examples does not work properly (Resolved by dropping TS)
 - [ ] How does the application in itself authenticate?
+- [ ] Every comment, one file?
+  - Means a request per comment
 
 ## Usage
 
