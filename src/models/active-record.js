@@ -1,4 +1,5 @@
-import { SolidClient } from "../solid/solid-client"
+import { SolidClient } from "../solid/solid-client";
+import store from "../store";
 
 const STORAGE = {
   localStorage: "localStorage",
