@@ -6,7 +6,7 @@ export default class LoginButton extends Component {
   constructor() {
     super({
       store,
-      element: document.querySelector("#solid-login-button")
+      element: document.querySelector("#sc-solid-button-login")
     });
     this.element.onclick = async () => {
       const solidClient = new SolidClient();
@@ -27,6 +27,7 @@ export default class LoginButton extends Component {
   }
 
   render() {
-    this.element.innerText = store.state.session === "" ? "Log in" : "Log out";
+    const $textElement = this.element.querySelector(".sc-solid-button__text")
+    $textElement.innerText = store.state.session === "" ? "Log in" : "Log out";
   }
 }
