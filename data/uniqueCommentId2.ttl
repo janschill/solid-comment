@@ -1,0 +1,8 @@
+@prefix : <#>.
+@prefix schem: <http://schema.org/>.
+
+:it
+    a schem:UserComments ;
+    schem:creator <http://janschill.net/profile/card#me> ;
+    schem:commentText "This is a second comment" ;
+    schem:commentTime "2021-02-09T17:34:00.006Z" .

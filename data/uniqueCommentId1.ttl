@@ -1,14 +1,8 @@
 @prefix : <#>.
 @prefix schem: <http://schema.org/>.
 
-:uniqueCommentId1
+:it
     a schem:UserComments ;
     schem:creator <http://janschill.net/profile/card#me> ;
     schem:commentText "This is my first comment" ;
     schem:commentTime "2021-02-05T17:34:00.006Z" .
-
-:uniqueCommentId2
-    a schem:UserComments ;
-    schem:creator <http://janschill.net/profile/card#me> ;
-    schem:commentText "This is a second comment" ;
-    schem:commentTime "2021-02-09T17:34:00.006Z" .
