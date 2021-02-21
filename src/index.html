@@ -10,38 +10,39 @@
 </head>
 
 <body>
-  <h1>Solid Comment</h1>
-  <p class="solid-comment-session"></p>
-  <section>
-    <header>
-      <h2>Comments</h2>
-      <label for="solid-oidc-issuer">WebID</label>
-      <input type="text" name="oidcIssuer" id="solid-oidc-issuer" value="https://janschill.net">
-      <button id="solid-login-button">Log in</button>
+  <div class="event">
+    <div class="event-header">
+      <h1>Solid Comment</h1>
+      <p class="solid-comment-session"></p>
+    </div>
+  </div>
+  <main class="solid-comment">
+    <header class="sc-header">
+      <h2 class="sc-header__title">Comments</h2>
+      <aside class="sc-header__aside">
+        <label for="solid-oidc-issuer">WebID</label>
+        <input type="text" name="oidcIssuer" id="solid-oidc-issuer" value="https://janschill.net">
+        <button class="sc-solid-button" id="sc-solid-button-login">
+          <img class="sc-solid-button__image" src="solid-logo.svg" alt="The Solid Project logo.">
+          <span class="sc-solid-button__text">Log in</span>
+        </button>
+      </aside>
     </header>
-    <main>
+    <main class="sc-main">
       <section>
         <h3>Leave a comment</h3>
         <form action="">
           <label for="comment">Your comment</label>
-          <textarea name="comment" id="comment" cols="30" rows="10" required></textarea>
+          <textarea name="comment" id="comment" cols="30" rows="2" required></textarea>
 
           <input type="submit" value="Submit comment">
         </form>
       </section>
-      <ul>
-        <li>
-          <article>
-            <header>
-              <abbr title="">26.05.2021</abbr>
-              <address>By Jan</address>
-            </header>
-            <p>My comment</p>
-          </article>
-        </li>
-      </ul>
+      <section>
+        <ul class="sc-list"></ul>
+      </section>
     </main>
-  </section>
+  </main>
 </body>
 <script>
   new SolidComment({
