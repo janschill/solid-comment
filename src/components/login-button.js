@@ -1,36 +1,34 @@
-import Component from "./component";
-import { SolidClient } from "../solid/solid-client";
-import store from "../store/index"
-import Session from "../models/session";
-import SolidAgent from "../models/solid-agent";
+import Component from './component'
+import { SolidClient } from '../solid/solid-client'
+import store from '../store/index'
 
 export default class LoginButton extends Component {
-  constructor() {
+  constructor () {
     super({
       store,
-      element: document.querySelector("#sc-solid-button-login")
-    });
+      element: document.querySelector('#sc-solid-button-login')
+    })
     this.element.onclick = async () => {
-      const solidClient = new SolidClient();
-      const session = store.state.session;
+      const solidClient = new SolidClient()
+      const session = store.state.session
 
       if (session && Object.keys(session).length === 0 && session.constructor === Object) {
-        const $solidOidcIssuer = document.querySelector("#solid-oidc-issuer");
+        const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
 
         if ($solidOidcIssuer) {
-          const solidOidcIssuerUrl = $solidOidcIssuer.value;
+          const solidOidcIssuerUrl = $solidOidcIssuer.value
           if (solidOidcIssuerUrl) {
             await solidClient.login(solidOidcIssuerUrl)
           }
         }
       } else {
-        solidClient.logout();
+        solidClient.logout()
       }
-    };
+    }
   }
 
-  render() {
-    const $textElement = this.element.querySelector(".sc-solid-button__text")
-    $textElement.innerText = store.state.webId === "" ? "Log in" : "Log out";
+  render () {
+    const $textElement = this.element.querySelector('.sc-solid-button__text')
+    $textElement.innerText = store.state.webId === '' ? 'Log in' : 'Log out'
   }
 }

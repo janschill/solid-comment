@@ -1,7 +1,7 @@
 export default {
   comments: [],
-  formInput: "",
+  formInput: '',
   session: {},
   solidClient: null,
-  webId: "",
+  webId: ''
 }

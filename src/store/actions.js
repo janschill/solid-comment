@@ -1,14 +1,14 @@
 export default {
-  setComments(context, payload) {
-    context.commit("setComments", payload);
+  setComments (context, payload) {
+    context.commit('setComments', payload)
   },
-  setSession(context, payload) {
-    context.commit("setSession", payload);
+  setSession (context, payload) {
+    context.commit('setSession', payload)
   },
-  setWebId(context, payload) {
-    context.commit("setWebId", payload);
+  setWebId (context, payload) {
+    context.commit('setWebId', payload)
   },
-  updateFormInput(context, payload) {
-    context.commit("updateFormInput", payload);
-  },
+  updateFormInput (context, payload) {
+    context.commit('updateFormInput', payload)
+  }
 }

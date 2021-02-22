@@ -1,22 +1,22 @@
 export default {
-  setComments(state, payload) {
-    state.comments = payload;
+  setComments (state, payload) {
+    state.comments = payload
 
-    return state;
+    return state
   },
-  setSession(state, payload) {
-    state.session = payload;
+  setSession (state, payload) {
+    state.session = payload
 
-    return state;
+    return state
   },
-  setWebId(state, payload) {
-    state.webId = payload;
+  setWebId (state, payload) {
+    state.webId = payload
 
-    return state;
+    return state
   },
-  updateFormInput(state, payload) {
-    state.formInput = payload;
+  updateFormInput (state, payload) {
+    state.formInput = payload
 
-    return state;
+    return state
   }
 }

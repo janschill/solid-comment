@@ -1,59 +1,57 @@
-import { SolidClient } from "../solid/solid-client";
-import store from "../store";
+import store from '../store'
 
 const STORAGE = {
-  localStorage: "localStorage",
-  solidPod: "solidPod"
+  localStorage: 'localStorage',
+  solidPod: 'solidPod'
 }
 
 export class ActiveRecord {
-  constructor() {
+  constructor () {
     if (this.constructor === ActiveRecord) {
-      throw new Error("Cannot instantiate abstract class!");
+      throw new Error('Cannot instantiate abstract class!')
     }
 
-    this.connection = this.establishConnection(STORAGE.solidPod);
+    this.connection = this.establishConnection(STORAGE.solidPod)
   }
 
-  all() {
+  all () {
     this.connection.fetch()
     return this.elements
   }
 
-  insert() {
-
-
-  }
-
-  save() {
+  insert () {
 
   }
 
-  delete() {
+  save () {
 
   }
 
-  update() {
+  delete () {
 
   }
 
-  async establishConnection(storageMechanism) {
+  update () {
+
+  }
+
+  async establishConnection (storageMechanism) {
     switch (storageMechanism) {
       case STORAGE.localStorage:
-        this.establishLocalStorageConnection();
-        break;
+        this.establishLocalStorageConnection()
+        break
       case STORAGE.solidPod:
-        this.establishSolidPodConnection();
+        this.establishSolidPodConnection()
       default:
-        break;
+        break
     }
   }
 
-  establishLocalStorageConnection() {
+  establishLocalStorageConnection () {
 
   }
 
-  async establishSolidPodConnection() {
-    return store.state.solidClient;
+  async establishSolidPodConnection () {
+    return store.state.solidClient
   }
 }
