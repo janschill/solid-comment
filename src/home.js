@@ -1,6 +1,4 @@
-import Comments from './components/comments';
-import LoginButton from './components/login-button';
-import Session from './components/session';
+import WebId from "./components/webid";
 
 export default class Home {
   constructor() { }
@@ -9,7 +7,7 @@ export default class Home {
     return {
       comments: new Comments(),
       loginButton: new LoginButton(),
-      session: new Session(),
+      webid: new WebId(),
     }
   }
 

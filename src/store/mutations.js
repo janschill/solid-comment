@@ -4,8 +4,8 @@ export default {
 
     return state;
   },
-  setComments(state, payload) {
-    state.comments = payload;
+  setWebId(state, payload) {
+    state.webId = payload;
 
     return state;
   },

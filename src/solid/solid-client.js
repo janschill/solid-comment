@@ -33,7 +33,7 @@ export class SolidClient {
     const session = await getDefaultSession();
 
     if (session.info.isLoggedIn) {
-      store.dispatch("setSession", getDefaultSession().info.webId);
+      store.dispatch("setWebId", session.info.webId);
     }
   }
 
@@ -44,7 +44,7 @@ export class SolidClient {
   async logout() {
     try {
       await getDefaultSession().logout();
-      store.dispatch("setSession", "");
+      store.dispatch("setWebId", "");
     } catch (e) {
       console.error(e);
     }

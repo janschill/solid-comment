@@ -1,5 +1,6 @@
 export default {
   comments: [],
-  session: "",
+  session: {},
   solidClient: null,
+  webId: "",
 }
