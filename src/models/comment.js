@@ -8,7 +8,6 @@ import {
   getSolidDataset,
   getStringNoLocale,
   getThingAll,
-  getUrl,
 } from "@inrupt/solid-client";
 import { SCHEMA_INRUPT_EXT } from "@inrupt/vocab-common-rdf";
 import SolidAgent from "./solid-agent";
@@ -17,14 +16,14 @@ export class Comment extends SolidModel {
 
   constructor(comment) {
     super();
-    this.author = comment.author
-    this.time = new Date(comment.time)
-    this.text = comment.text
+    this.author = comment.author;
+    this.time = new Date(comment.time);
+    this.text = comment.text;
   }
 
   static async all() {
     // const client = new SolidClient();
-    const commentAuthors = config().webIdsOfAuthors
+    const commentAuthors = config().webIdsOfAuthors;
     const comments = [];
 
     for (const webIdUrl of commentAuthors) {

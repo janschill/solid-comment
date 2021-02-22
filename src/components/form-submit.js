@@ -24,6 +24,7 @@ export default class FormSubmit extends Component {
         time: new Date(),
         text: inputValue,
       });
+      // const commentRdf = comment.asRdf()
       // could be improved with push comment
       const comments = store.state.comments;
       comments.push(comment)
