@@ -1,3 +1,4 @@
+import FormInput from "./components/form-input";
 import WebId from "./components/webid";
 
 export default class Home {
@@ -6,6 +7,7 @@ export default class Home {
   instantiateComponents() {
     return {
       comments: new Comments(),
+      formInput: new FormInput(),
       loginButton: new LoginButton(),
       webid: new WebId(),
     }

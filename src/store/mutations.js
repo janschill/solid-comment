@@ -9,8 +9,8 @@ export default {
 
     return state;
   },
-  setSession(state, payload) {
-    state.session = payload;
+  updateFormInput(state, payload) {
+    state.formInput = payload;
 
     return state;
   },
