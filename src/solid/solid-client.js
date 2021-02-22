@@ -50,6 +50,11 @@ export class SolidClient {
     }
   }
 
+  async currentUser() {
+    const session = await getDefaultSession();
+    return session.info.webId;
+  }
+
   static rootUrl(url) {
     return new URL(url).origin;
   }
