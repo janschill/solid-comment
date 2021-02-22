@@ -4,6 +4,11 @@ export default {
 
     return state;
   },
+  setSession(state, payload) {
+    state.session = payload;
+
+    return state;
+  },
   setWebId(state, payload) {
     state.webId = payload;
 

@@ -1,6 +1,8 @@
 import Component from "./component";
 import { SolidClient } from "../solid/solid-client";
 import store from "../store/index"
+import Session from "../models/session";
+import SolidAgent from "../models/solid-agent";
 
 export default class LoginButton extends Component {
   constructor() {
@@ -10,8 +12,9 @@ export default class LoginButton extends Component {
     });
     this.element.onclick = async () => {
       const solidClient = new SolidClient();
+      const session = store.state.session;
 
-      if (store.state.webId === "") {
+      if (session && Object.keys(session).length === 0 && session.constructor === Object) {
         const $solidOidcIssuer = document.querySelector("#solid-oidc-issuer");
 
         if ($solidOidcIssuer) {

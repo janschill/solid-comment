@@ -5,6 +5,8 @@ import {
   getDefaultSession,
   fetch
 } from "@inrupt/solid-client-authn-browser";
+import Session from "../models/session";
+import SolidAgent from "../models/solid-agent";
 
 export class SolidClient {
   constructor() { }
@@ -33,6 +35,12 @@ export class SolidClient {
     const session = await getDefaultSession();
 
     if (session.info.isLoggedIn) {
+      const solidAgent = new SolidAgent()
+      await solidAgent.fetchProfile(session.info.webId);
+      store.dispatch("setSession", new Session({
+        session: session,
+        agent: solidAgent,
+      }));
       store.dispatch("setWebId", session.info.webId);
     }
   }
@@ -50,7 +58,13 @@ export class SolidClient {
     }
   }
 
-  async currentUser() {
+  async session() {
+    const session = await getDefaultSession();
+
+    return session;
+  }
+
+  async currentUserWebId() {
     const session = await getDefaultSession();
     return session.info.webId;
   }
