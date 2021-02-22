@@ -1,7 +1,7 @@
 import "./css/reset.css";
 import "./css/styles.css";
 import "./css/indico.css";
-import { addToConfig, config, addObjectToConfig } from "./config";
+import { addToConfig, addObjectToConfig } from "./config";
 import App from "./app";
 
 export class SolidComment {
@@ -14,7 +14,7 @@ export class SolidComment {
   async initApp() {
     window.onload = async () => {
       const app = new App();
-      app.boot();
+      await app.boot();
     }
   }
 }
