@@ -16,11 +16,9 @@ export default class FormSubmit extends Component {
       // sanitize the value
       const inputValue = store.state.formInput;
       // make sure we have a session here
-      const currentUser = store.state.webId;
-      console.log(currentUser)
-      // let's not create a new agent but rather persist and use it from session
-      const currentAgent = new SolidAgent();
-      await currentAgent.fetchProfile(currentUser);
+      const currentUserWebId = store.state.session.session.info.webId;
+      const currentAgent = store.state.session.agent;
+      await currentAgent.fetchProfile(currentUserWebId);
       const comment = new Comment({
         author: currentAgent,
         time: new Date(),
