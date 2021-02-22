@@ -45,14 +45,15 @@ export class SolidClient {
     }
   }
 
-  async fetch() {
-    return await fetch();
+  fetch() {
+    return fetch;
   }
 
   async logout() {
     try {
       await getDefaultSession().logout();
       store.dispatch("setWebId", "");
+      store.dispatch("setSession", {});
     } catch (e) {
       console.error(e);
     }

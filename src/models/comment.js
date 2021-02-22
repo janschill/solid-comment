@@ -38,13 +38,16 @@ export class Comment extends SolidModel {
 
       for (const resourceUrl of containerResourceUrls) {
         const resourceDataset = await getSolidDataset(resourceUrl);
+        console.log("resourceDataset", resourceDataset);
         const resources = getThingAll(resourceDataset);
-        resources.forEach(resource => {
-          comments.push(new Comment({
+        resources.forEach(async resource => {
+          const comment = new Comment({
             author: solidAgent,
             text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentText")),
             time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS("commentTime")),
-          }));
+          });
+          // console.log("comment as rdf", await comment.asRdf());
+          comments.push(comment);
         });
       }
     }

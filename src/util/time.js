@@ -17,4 +17,8 @@ export default class Time {
   static shortMonthName(month) {
     return month[0] + month[1] + month[2];
   }
+
+  static toIsoStripped(dateObject) {
+    return dateObject.toISOString().replaceAll("-", "").replaceAll(":", "").replaceAll(".", "")
+  }
 }

@@ -15,6 +15,7 @@ export default class SolidAgent {
       profileDataset,
       webIdUrl
     );
+    this.webIdUrl = webIdUrl;
     this.fullName = getStringNoLocale(profile, VCARD.fn);
     this.photo = getUrl(profile, VCARD.hasPhoto);
     this.organizationName = getStringNoLocale(profile, VCARD.organization_name);
