@@ -1,4 +1,4 @@
-import Component from '../component';
+import Component from './component';
 import store from "../store/index"
 
 export default class WebId extends Component {

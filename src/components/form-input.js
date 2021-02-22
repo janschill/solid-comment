@@ -1,4 +1,4 @@
-import Component from "../component";
+import Component from "./component";
 import store from "../store";
 
 export default class FormInput extends Component {

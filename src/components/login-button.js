@@ -1,4 +1,4 @@
-import Component from "../component";
+import Component from "./component";
 import { SolidClient } from "../solid/solid-client";
 import store from "../store/index"
 

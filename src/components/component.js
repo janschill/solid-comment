@@ -1,4 +1,4 @@
-import Store from './store/store';
+import Store from '../store/store';
 
 export default class Component {
   constructor(props = {}) {
@@ -12,5 +12,13 @@ export default class Component {
     if (props.hasOwnProperty('element')) {
       this.element = props.element;
     }
+  }
+
+  disableElement() {
+    this.element.setAttribute("disabled", "true");
+  }
+
+  enableElement() {
+    this.element.removeAttribute("disabled");
   }
 }
