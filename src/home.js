@@ -1,5 +1,7 @@
+import Comments from "./components/comments";
 import FormInput from "./components/form-input";
 import FormSubmit from "./components/form-submit"
+import LoginButton from "./components/login-button";
 import WebId from "./components/webid";
 
 export default class Home {

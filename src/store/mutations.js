@@ -1,6 +1,6 @@
 export default {
-  addComment(state, payload) {
-    state.comments.push(payload);
+  setComments(state, payload) {
+    state.comments = payload;
 
     return state;
   },
@@ -13,5 +13,5 @@ export default {
     state.formInput = payload;
 
     return state;
-  },
+  }
 }
