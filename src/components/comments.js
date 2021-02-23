@@ -12,8 +12,7 @@ export default class Comments extends Component {
 
   async render () {
     let html = ''
-
-    store.state.comments.forEach(comment => {
+    store.state.comments.sort((a, b) => b.time - a.time).forEach(comment => {
       html += `
       <li class="sc-list__item">
         <article class="sc-list__article">
