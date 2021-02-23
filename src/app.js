@@ -1,7 +1,6 @@
 import { SolidClient } from './solid/solid-client'
 import Home from './home'
 import { Comment } from './models/comment'
-import { saveSolidDatasetAt } from '@inrupt/solid-client'
 
 export default class App {
   constructor () {
@@ -13,15 +12,8 @@ export default class App {
     this.solidClient = new SolidClient()
     await this.solidClient.checkSession()
     const comments = await Comment.all()
-    const session = await this.solidClient.session()
-    console.log(session)
-    if (session.info.isLoggedIn) {
-      const fetch = this.solidClient.fetch
-      const comment = await comments[0].asRdf()
-      const resourceUrl = 'https://janschill.net/solid-comment/solid-comment-development'
-      console.log('comment', comment)
-      await saveSolidDatasetAt(resourceUrl, comment, { fetch: fetch })
-    }
+    await comments[0].saveInPod()
+    // console.log(session)
 
     // await this.solidClient.login()
   }

@@ -45,7 +45,6 @@ export class Comment extends SolidModel {
             text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentText')),
             time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentTime'))
           })
-          // console.log("comment as rdf", await comment.asRdf());
           comments.push(comment)
         })
       }
