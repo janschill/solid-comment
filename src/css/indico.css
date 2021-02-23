@@ -151,9 +151,9 @@ a {
 
 .sc-section-form {
   display: flex;
+  padding: 10px 0;
 }
 
-.sc-section-form,
 .sc-section-comments {
   padding: 5px 0;
 }
