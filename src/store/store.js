@@ -9,11 +9,11 @@ export default class Store {
     self.status = 'resting'
     self.callbacks = []
 
-    if (parameters.hasOwnProperty('actions')) {
+    if (Object.prototype.hasOwnProperty.call(parameters, 'actions')) {
       self.actions = parameters.actions
     }
 
-    if (parameters.hasOwnProperty('mutations')) {
+    if (Object.prototype.hasOwnProperty.call(parameters, 'mutations')) {
       self.mutations = parameters.mutations
     }
 

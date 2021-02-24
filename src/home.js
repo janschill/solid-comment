@@ -17,7 +17,7 @@ export default class Home {
 
   render (components) {
     for (const key in components) {
-      if (components.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(components, key)) {
         components[key].render()
       }
     }
