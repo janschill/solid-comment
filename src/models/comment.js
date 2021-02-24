@@ -24,6 +24,7 @@ export class Comment extends SolidModel {
     // const client = new SolidClient();
     const commentAuthors = config().webIdsOfAuthors
     const comments = []
+    const $loader = document.querySelector('.lds-dual-ring')
 
     for (const webIdUrl of commentAuthors) {
       const solidAgent = new SolidAgent()
@@ -55,6 +56,7 @@ export class Comment extends SolidModel {
       }
     }
 
+    $loader.style.display = 'none'
     store.dispatch('setComments', comments)
 
     return comments
