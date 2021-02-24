@@ -14,7 +14,7 @@ export default {
 
     return state
   },
-  updateFormInput (state, payload) {
+  setFormInput (state, payload) {
     state.formInput = payload
 
     return state

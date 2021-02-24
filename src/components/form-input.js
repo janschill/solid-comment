@@ -8,7 +8,7 @@ export default class FormInput extends Component {
       element: document.querySelector('#sc-comment-form__input')
     })
     this.element.oninput = () => {
-      store.dispatch('updateFormInput', this.element.value)
+      store.dispatch('setFormInput', this.element.value)
     }
   }
 

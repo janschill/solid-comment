@@ -27,7 +27,8 @@ export default class FormSubmit extends Component {
           const comments = store.state.comments
           comments.push(comment)
           store.dispatch('setComments', comments)
-          comment.saveToPod()
+          store.dispatch('setFormInput', '')
+          comment.saveToPod() // async, but don't have to wait
           // TODO: add reference to Indico database
         })
       }
