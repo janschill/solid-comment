@@ -34,22 +34,24 @@ export class Comment extends SolidModel {
         const appName = toKebabCase(config().appName)
         const containerUrl = `${rootContainerUrl}/${appName}/${config().solidCommentId}/`
         const containerDataset = await getSolidDataset(containerUrl)
-        const containerResourceUrls = getContainedResourceUrlAll(containerDataset)
+        if (containerDataset) {
+          const containerResourceUrls = getContainedResourceUrlAll(containerDataset)
 
-        for (const resourceUrl of containerResourceUrls) {
-          const resourceDataset = await getSolidDataset(resourceUrl)
-          const resources = getThingAll(resourceDataset)
-          resources.forEach(async resource => {
-            const comment = new Comment({
-              author: solidAgent,
-              text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentText')),
-              time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentTime'))
+          for (const resourceUrl of containerResourceUrls) {
+            const resourceDataset = await getSolidDataset(resourceUrl)
+            const resources = getThingAll(resourceDataset)
+            resources.forEach(resource => {
+              const comment = new Comment({
+                author: solidAgent,
+                text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentText')),
+                time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentTime'))
+              })
+              comments.push(comment)
             })
-            comments.push(comment)
-          })
+          }
         }
       } catch (e) {
-        console.error(e)
+        console.log(e)
       }
     }
 
