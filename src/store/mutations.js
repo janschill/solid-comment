@@ -14,8 +14,8 @@ export default {
 
     return state
   },
-  setFormInput (state, payload) {
-    state.formInput = payload
+  setCommentInput (state, payload) {
+    state.commentInput = payload
 
     return state
   }

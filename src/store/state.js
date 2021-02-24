@@ -3,7 +3,7 @@ export default {
     state: 'idle',
     data: []
   },
-  formInput: {
+  commentInput: {
     state: 'idle',
     data: ''
   },

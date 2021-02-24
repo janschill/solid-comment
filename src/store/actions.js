@@ -8,7 +8,7 @@ export default {
   setWebId (context, payload) {
     context.commit('setWebId', payload)
   },
-  setFormInput (context, payload) {
-    context.commit('setFormInput', payload)
+  setCommentInput (context, payload) {
+    context.commit('setCommentInput', payload)
   }
 }

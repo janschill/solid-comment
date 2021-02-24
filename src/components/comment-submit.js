@@ -3,7 +3,7 @@ import Component from './component'
 import store from '../store/index'
 import { isEmpty } from '../util/object'
 
-export default class FormSubmit extends Component {
+export default class CommentSubmit extends Component {
   constructor () {
     super({
       store,
@@ -16,7 +16,7 @@ export default class FormSubmit extends Component {
       // TODO: Add frontend hint that not logged in
       if (!isEmpty(session)) {
         // sanitize the value
-        const inputValue = store.state.formInput.data
+        const inputValue = store.state.commentInput.data
         const currentUserWebId = store.state.session.data.session.info.webId
         if (inputValue && session.session.info.isLoggedIn) {
           const currentAgent = store.state.session.data.agent
@@ -30,7 +30,7 @@ export default class FormSubmit extends Component {
             const comments = store.state.comments.data
             comments.push(comment)
             store.dispatch('setComments', { state: 'idle', data: comments })
-            store.dispatch('setFormInput', { state: 'idle', data: '' })
+            store.dispatch('setCommentInput', { state: 'idle', data: '' })
             comment.saveToPod()
             // TODO: POST reference to Indico database
           })
@@ -40,7 +40,7 @@ export default class FormSubmit extends Component {
   }
 
   render () {
-    if (store.state.formInput.data === '') {
+    if (store.state.commentInput.data === '') {
       this.disableElement()
     } else {
       this.enableElement()
