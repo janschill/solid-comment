@@ -10,7 +10,7 @@ export default class LoginButton extends Component {
     })
     this.element.onclick = async () => {
       const solidClient = new SolidClient()
-      const session = store.state.session
+      const session = store.state.session.data
 
       if (session && Object.keys(session).length === 0 && session.constructor === Object) {
         const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
@@ -29,6 +29,6 @@ export default class LoginButton extends Component {
 
   render () {
     const $textElement = this.element.querySelector('.sc-solid-button__text')
-    $textElement.innerText = store.state.webId === '' ? 'Log in' : 'Log out'
+    $textElement.innerText = store.state.webId.data === '' ? 'Log in' : 'Log out'
   }
 }

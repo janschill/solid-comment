@@ -10,7 +10,7 @@ export default class WebId extends Component {
   }
 
   render () {
-    const content = store.state.webId ? `Current WebID: ${store.state.webId}` : ''
+    const content = store.state.webId.data ? `Current WebID: ${store.state.webId.data}` : ''
     this.element.innerHTML = content
   }
 }

@@ -35,11 +35,14 @@ export class SolidClient {
     if (session.info.isLoggedIn) {
       const solidAgent = new SolidAgent()
       await solidAgent.fetchProfile(session.info.webId)
-      store.dispatch('setSession', new Session({
-        session: session,
-        agent: solidAgent
-      }))
-      store.dispatch('setWebId', session.info.webId)
+      store.dispatch('setSession', {
+        state: 'idle',
+        data: new Session({
+          session: session,
+          agent: solidAgent
+        })
+      })
+      store.dispatch('setWebId', { state: 'idle', data: session.info.webId })
     }
   }
 
@@ -50,8 +53,8 @@ export class SolidClient {
   async logout () {
     try {
       await getDefaultSession().logout()
-      store.dispatch('setWebId', '')
-      store.dispatch('setSession', {})
+      store.dispatch('setWebId', { state: 'idle', data: '' })
+      store.dispatch('setSession', { state: 'idle', data: {} })
     } catch (e) {
       console.error(e)
     }

@@ -12,11 +12,11 @@ export default class FormSubmit extends Component {
       event.preventDefault()
       // make sure we get a value here
       // sanitize the value
-      const inputValue = store.state.formInput
-      const currentUserWebId = store.state.session.session.info.webId
-      const session = store.state.session
+      const inputValue = store.state.formInput.data
+      const currentUserWebId = store.state.session.data.session.info.webId
+      const session = store.state.session.data
       if (inputValue && session && session.session.info.isLoggedIn) {
-        const currentAgent = store.state.session.agent
+        const currentAgent = store.state.session.data.agent
         currentAgent.fetchProfile(currentUserWebId).then(() => {
           const comment = new Comment({
             author: currentAgent,
@@ -24,10 +24,10 @@ export default class FormSubmit extends Component {
             text: inputValue
           })
           // could be improved with push comment
-          const comments = store.state.comments
+          const comments = store.state.comments.data
           comments.push(comment)
-          store.dispatch('setComments', comments)
-          store.dispatch('setFormInput', '')
+          store.dispatch('setComments', { state: 'idle', data: comments })
+          store.dispatch('setFormInput', { state: 'idle', data: '' })
           comment.saveToPod() // async, but don't have to wait
           // TODO: add reference to Indico database
         })
@@ -36,7 +36,7 @@ export default class FormSubmit extends Component {
   }
 
   render () {
-    if (store.state.formInput === '') {
+    if (store.state.formInput.data === '') {
       this.disableElement()
     } else {
       this.enableElement()

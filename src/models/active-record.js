@@ -42,6 +42,7 @@ export class ActiveRecord {
         break
       case STORAGE.solidPod:
         this.establishSolidPodConnection()
+        break
       default:
         break
     }
@@ -52,6 +53,6 @@ export class ActiveRecord {
   }
 
   async establishSolidPodConnection () {
-    return store.state.solidClient
+    return store.state.solidClient.data
   }
 }

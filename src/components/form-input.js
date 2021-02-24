@@ -8,11 +8,11 @@ export default class FormInput extends Component {
       element: document.querySelector('#sc-comment-form__input')
     })
     this.element.oninput = () => {
-      store.dispatch('setFormInput', this.element.value)
+      store.dispatch('setFormInput', { state: 'idle', data: this.element.value })
     }
   }
 
   render () {
-    this.element.innerHTML = store.state.formInput
+    this.element.innerHTML = store.state.formInput.data
   }
 }
