@@ -8,12 +8,22 @@ import {
   saveSolidDatasetAt,
   setPublicResourceAccess,
   setThing
+  ,
+  getSolidDatasetWithAcl,
+  hasResourceAcl,
+  hasFallbackAcl,
+  hasAccessibleAcl,
+  createAcl,
+  createAclFromFallbackAcl,
+  getResourceAcl,
+  setAgentResourceAccess,
+  saveAclFor
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
 import { SolidClient } from '../solid/solid-client'
 import Time from '../util/time'
-import { memoize } from '../util/func'
+import store from '../store'
 
 export class SolidModel extends ActiveRecord {
   asRdfDataset () {
@@ -40,22 +50,22 @@ export class SolidModel extends ActiveRecord {
 
     try {
       if (session.info.isLoggedIn) {
-        const resourceDataset = memoize(this.asRdfDataset())()
-        await this.configureAcl()
+        const resourceDataset = this.asRdfDataset()
         await saveSolidDatasetAt(resourceUrl, resourceDataset, { fetch: fetch })
+        await this.configureAcl(resourceUrl)
       }
     } catch (e) {
       console.log('No authorized session found.', e)
     }
   }
 
-  async configureAcl () {
+  async configureAcl (resourceUrl) {
     const eventVisibility = config().eventVisibility
 
     switch (eventVisibility) {
       case 'public':
         console.log('public event')
-        this.setPublicAcl()
+        this.setPublicAcl(resourceUrl)
         break
       case 'private':
         console.log('private event')
@@ -65,13 +75,64 @@ export class SolidModel extends ActiveRecord {
     }
   }
 
-  async setPublicAcl () {
-    const resourceDataset = memoize(this.asRdfDataset())()
-    const resourceAcl = null
+  async setPublicAcl (resourceUrl) {
+    const updatedDataset = null
+    const root = SolidClient.rootUrl(this.author.webIdUrl)
+    const containerUrl = `${root}/${config().resourceContainerPath}`
+    // Fetch the SolidDataset and its associated ACLs, if available:
+    const myDatasetWithAcl = await getSolidDatasetWithAcl(containerUrl, { fetch: fetch })
+    console.log(containerUrl)
 
-    const updatedAcl = setPublicResourceAccess(
+    // Obtain the SolidDataset's own ACL, if available,
+    // or initialise a new one, if possible:
+    let resourceAcl
+    if (!hasResourceAcl(myDatasetWithAcl)) {
+      if (!hasAccessibleAcl(myDatasetWithAcl)) {
+        throw new Error(
+          'The current user does not have permission to change access rights to this Resource.'
+        )
+      }
+      if (!hasFallbackAcl(myDatasetWithAcl)) {
+        // throw new Error(
+        //   'The current user does not have permission to see who currently has access to this Resource.'
+        // )
+        // Alternatively, initialise a new empty ACL as follows,
+        // but be aware that if you do not give someone Control access,
+        // **nobody will ever be able to change Access permissions in the future**:
+        resourceAcl = createAcl(myDatasetWithAcl)
+      }
+      resourceAcl = createAclFromFallbackAcl(myDatasetWithAcl)
+    } else {
+      resourceAcl = getResourceAcl(myDatasetWithAcl)
+    }
+
+    // Give someone Control access to the given Resource:
+    const webId = store.state.session.data.session.info.webId
+    let updatedAcl = setAgentResourceAccess(
       resourceAcl,
-      { read: true, append: true, write: false, control: false }
+      webId,
+      { read: false, append: false, write: false, control: true }
     )
+    updatedAcl = setPublicResourceAccess(
+      resourceAcl,
+      { read: true, append: false, write: false, control: false }
+    )
+    // Now save the ACL:
+    await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: fetch })
+
+    // const hasAcl = hasResourceAcl(resourceDataset)
+    // console.log('hasAcl', hasAcl)
+    // if (!hasAcl) {
+    //   updatedDataset = createAcl(resourceDataset)
+    //   console.log(updatedDataset)
+    // }
+    // console.log(myDatasetWithAcl)
+
+    // Set public ACL
+    // const resourceDataset = this.asRdfDataset()
+    // const updatedAcl = setPublicResourceAccess(
+    //   resourceAcl,
+    //   { read: true, append: true, write: false, control: false }
+    // )
   }
 }
