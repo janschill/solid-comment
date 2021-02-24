@@ -42,7 +42,7 @@ export class SolidModel extends ActiveRecord {
         await saveSolidDatasetAt(resourceUrl, resourceDataset, { fetch: fetch })
       }
     } catch (e) {
-      console.error('No authorized session found.', e)
+      console.log('No authorized session found.', e)
     }
   }
 }
