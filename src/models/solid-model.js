@@ -27,7 +27,7 @@ export class SolidModel extends ActiveRecord {
     return dataset
   }
 
-  // move this to active-record
+  // move this to active-record?
   async saveToPod () {
     const root = SolidClient.rootUrl(this.author.webIdUrl)
     const fileName = Time.toIsoStripped(this.time)

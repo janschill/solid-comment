@@ -23,7 +23,15 @@ export class Comment extends SolidModel {
   static async all () {
     // const client = new SolidClient();
     const commentAuthors = config().webIdsOfAuthors
+
+    if (commentAuthors.length > 0) {
+      await this.fetchComments(commentAuthors)
+    }
+  }
+
+  static async fetchComments (commentAuthors) {
     const comments = []
+
     store.dispatch('setComments', { state: 'loading', data: store.state.comments.data })
 
     for (const webIdUrl of commentAuthors) {
@@ -57,7 +65,5 @@ export class Comment extends SolidModel {
     }
 
     store.dispatch('setComments', { state: 'idle', data: comments })
-
-    return comments
   }
 }
