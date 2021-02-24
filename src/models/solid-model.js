@@ -6,12 +6,14 @@ import {
   createSolidDataset,
   createThing,
   saveSolidDatasetAt,
+  setPublicResourceAccess,
   setThing
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
 import { SolidClient } from '../solid/solid-client'
 import Time from '../util/time'
+import { memoize } from '../util/func'
 
 export class SolidModel extends ActiveRecord {
   asRdfDataset () {
@@ -38,11 +40,38 @@ export class SolidModel extends ActiveRecord {
 
     try {
       if (session.info.isLoggedIn) {
-        const resourceDataset = this.asRdfDataset()
+        const resourceDataset = memoize(this.asRdfDataset())()
+        await this.configureAcl()
         await saveSolidDatasetAt(resourceUrl, resourceDataset, { fetch: fetch })
       }
     } catch (e) {
       console.log('No authorized session found.', e)
     }
+  }
+
+  async configureAcl () {
+    const eventVisibility = config().eventVisibility
+
+    switch (eventVisibility) {
+      case 'public':
+        console.log('public event')
+        this.setPublicAcl()
+        break
+      case 'private':
+        console.log('private event')
+        break
+      default:
+        break
+    }
+  }
+
+  async setPublicAcl () {
+    const resourceDataset = memoize(this.asRdfDataset())()
+    const resourceAcl = null
+
+    const updatedAcl = setPublicResourceAccess(
+      resourceAcl,
+      { read: true, append: true, write: false, control: false }
+    )
   }
 }
