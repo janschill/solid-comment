@@ -27,26 +27,29 @@ export class Comment extends SolidModel {
 
     for (const webIdUrl of commentAuthors) {
       const solidAgent = new SolidAgent()
-      await solidAgent.fetchProfile(webIdUrl)
+      try {
+        await solidAgent.fetchProfile(webIdUrl)
 
-      const rootContainerUrl = SolidClient.rootUrl(webIdUrl)
-      const appName = toKebabCase(config().appName)
-      const containerUrl = `${rootContainerUrl}/${appName}/${config().solidCommentId}/`
-      const containerDataset = await getSolidDataset(containerUrl)
-      const containerResourceUrls = getContainedResourceUrlAll(containerDataset)
+        const rootContainerUrl = SolidClient.rootUrl(webIdUrl)
+        const appName = toKebabCase(config().appName)
+        const containerUrl = `${rootContainerUrl}/${appName}/${config().solidCommentId}/`
+        const containerDataset = await getSolidDataset(containerUrl)
+        const containerResourceUrls = getContainedResourceUrlAll(containerDataset)
 
-      for (const resourceUrl of containerResourceUrls) {
-        const resourceDataset = await getSolidDataset(resourceUrl)
-        console.log('resourceDataset', resourceDataset)
-        const resources = getThingAll(resourceDataset)
-        resources.forEach(async resource => {
-          const comment = new Comment({
-            author: solidAgent,
-            text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentText')),
-            time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentTime'))
+        for (const resourceUrl of containerResourceUrls) {
+          const resourceDataset = await getSolidDataset(resourceUrl)
+          const resources = getThingAll(resourceDataset)
+          resources.forEach(async resource => {
+            const comment = new Comment({
+              author: solidAgent,
+              text: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentText')),
+              time: getStringNoLocale(resource, SCHEMA_INRUPT_EXT.NS('commentTime'))
+            })
+            comments.push(comment)
           })
-          comments.push(comment)
-        })
+        }
+      } catch (e) {
+        console.error(e)
       }
     }
 

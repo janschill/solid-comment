@@ -45,7 +45,6 @@ export default class Store {
     const self = this
 
     if (typeof self.mutations[mutationKey] !== 'function') {
-      console.log(`Mutation "${mutationKey}" does not exist.`)
       return false
     }
 

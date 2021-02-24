@@ -13,20 +13,24 @@ export default class FormSubmit extends Component {
       // make sure we get a value here
       // sanitize the value
       const inputValue = store.state.formInput
-      // make sure we have a session here
       const currentUserWebId = store.state.session.session.info.webId
-      const currentAgent = store.state.session.agent
-      await currentAgent.fetchProfile(currentUserWebId)
-      const comment = new Comment({
-        author: currentAgent,
-        time: new Date(),
-        text: inputValue
-      })
-      // const commentRdf = comment.asRdf()
-      // could be improved with push comment
-      const comments = store.state.comments
-      comments.push(comment)
-      store.dispatch('setComments', comments)
+      const session = store.state.session
+      if (inputValue && session && session.session.info.isLoggedIn) {
+        const currentAgent = store.state.session.agent
+        currentAgent.fetchProfile(currentUserWebId).then(() => {
+          const comment = new Comment({
+            author: currentAgent,
+            time: new Date(),
+            text: inputValue
+          })
+          // could be improved with push comment
+          const comments = store.state.comments
+          comments.push(comment)
+          store.dispatch('setComments', comments)
+          comment.saveToPod()
+          // TODO: add reference to Indico database
+        })
+      }
     }
   }
 
