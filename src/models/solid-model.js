@@ -7,8 +7,7 @@ import {
   createThing,
   saveSolidDatasetAt,
   setPublicResourceAccess,
-  setThing
-  ,
+  setThing,
   getSolidDatasetWithAcl,
   hasResourceAcl,
   hasFallbackAcl,
@@ -45,11 +44,24 @@ export class SolidModel extends ActiveRecord {
     try {
       if (session.info.isLoggedIn) {
         const resourceDataset = this.asRdfDataset()
+        // const updatedDataset = await this.setAcl(resourceDataset)
+        // console.log(updatedDataset)
         await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
+        // await this.configureAcl(resourceUrl)
       }
     } catch (e) {
       console.log('No authorized session found.', e)
     }
+  }
+
+  async setAcl (resourceDataset) {
+    const resourceAcl = createAcl(resourceDataset)
+    const dataset = setPublicResourceAccess(
+      resourceAcl,
+      { read: true, append: true, write: true, control: false }
+    )
+
+    return dataset
   }
 
   async configureAcl (resourceUrl) {
