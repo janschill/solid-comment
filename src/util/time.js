@@ -18,6 +18,8 @@ export default class Time {
     return month[0] + month[1] + month[2]
   }
 
+  // Converts time object to ISO 8601 without any symbols
+  // eg. 20210225T144227463Z
   static toIsoStripped (dateObject) {
     return dateObject.toISOString().replaceAll('-', '').replaceAll(':', '').replaceAll('.', '')
   }
