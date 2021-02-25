@@ -20,7 +20,7 @@ import {
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
-import { SolidClient } from '../solid/solid-client'
+import { SolidClient } from './solid-client'
 import store from '../store'
 
 export class SolidModel extends ActiveRecord {
@@ -81,7 +81,7 @@ export class SolidModel extends ActiveRecord {
   }
 
   async setPublicAcl (resourceUrl) {
-    const updatedDataset = null
+    // const updatedDataset = null
     const root = SolidClient.rootUrl(this.author.webIdUrl)
     const containerUrl = `${root}/${config().resourceContainerPath}`
     // Fetch the SolidDataset and its associated ACLs, if available:

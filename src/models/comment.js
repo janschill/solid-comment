@@ -1,7 +1,7 @@
 import { SolidModel } from './solid-model'
 import store from '../store'
 import { config } from '../config'
-import { SolidClient } from '../solid/solid-client'
+import { SolidClient } from '../models/solid-client'
 import { toKebabCase } from '../util/formatter'
 import {
   getContainedResourceUrlAll,

@@ -5,8 +5,8 @@ import {
   getDefaultSession,
   fetch
 } from '@inrupt/solid-client-authn-browser'
-import Session from '../models/session'
-import SolidAgent from '../models/solid-agent'
+import Session from './session'
+import SolidAgent from './solid-agent'
 
 export class SolidClient {
   async login (solidOidcIssuer = '') {

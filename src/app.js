@@ -1,4 +1,4 @@
-import { SolidClient } from './solid/solid-client'
+import { SolidClient } from './models/solid-client'
 import Home from './home'
 import { Comment } from './models/comment'
 
