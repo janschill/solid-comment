@@ -13,6 +13,8 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [ ] Introduce integration tests with Jest
 - [ ] Think about some caching possbilities
   - don't load image twice if it is the same person
+- [ ] ACL for resource and container
+  - two scenarios: 1. container private, resource public; container public, resource public
 
 ## Usage
 
