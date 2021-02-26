@@ -3,20 +3,22 @@ import { config } from '../config'
 import {
   addStringNoLocale,
   addUrl,
-  createSolidDataset,
-  createThing,
-  saveSolidDatasetAt,
-  setPublicResourceAccess,
-  setThing,
-  getSolidDatasetWithAcl,
-  hasResourceAcl,
-  hasFallbackAcl,
-  hasAccessibleAcl,
   createAcl,
   createAclFromFallbackAcl,
+  createSolidDataset,
+  createThing,
+  getAgentResourceAccess,
+  getPublicResourceAccess,
   getResourceAcl,
+  getSolidDatasetWithAcl,
+  hasAccessibleAcl,
+  hasFallbackAcl,
+  hasResourceAcl,
+  saveAclFor,
+  saveSolidDatasetAt,
   setAgentResourceAccess,
-  saveAclFor
+  setPublicResourceAccess,
+  setThing
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
@@ -64,100 +66,113 @@ export class SolidModel extends ActiveRecord {
     try {
       if (session.info.isLoggedIn) {
         const resourceDataset = this.asRdfDataset()
-        // const updatedDataset = await this.setAcl(resourceDataset)
-        // console.log(updatedDataset)
+        const webId = store.state.session.data.session.info.webId
         await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
-        // await this.configureAcl(resourceUrl)
+        const eventVisibility = config().eventVisibility
+
+        // Extra careful that we have a WebId here
+        if (webId) {
+          await this.configureAcl(eventVisibility, webId)
+        }
       }
     } catch (e) {
       console.log('No authorized session found.', e)
     }
   }
 
-  async setAcl (resourceDataset) {
-    const resourceAcl = createAcl(resourceDataset)
-    const dataset = setPublicResourceAccess(
-      resourceAcl,
-      { read: true, append: true, write: true, control: false }
-    )
-
-    return dataset
-  }
-
-  async configureAcl (resourceUrl) {
-    const eventVisibility = config().eventVisibility
-
+  async configureAcl (eventVisibility, agentWebId) {
     switch (eventVisibility) {
       case 'public':
-        console.log('public event')
-        this.setPublicAcl(resourceUrl)
+        // We need to set this for every event, because if an event changes
+        // it visibility, we don't have to iterate every resource, but can
+        // just change it for the container
+        await this.setAcl(this.resourceUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: false, write: false, append: false, control: true } },
+          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
+        ])
+        await this.setAcl(this.resourceContainerUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: false, write: false, append: false, control: true } },
+          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
+        ])
         break
       case 'private':
-        console.log('private event')
+        await this.setAcl(this.resourceContainerUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: false, write: false, append: false, control: true } },
+          { taget: 'public', access: { read: false, write: false, append: false, control: false } }
+        ])
+        await this.setAcl(this.resourceUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: false, write: false, append: false, control: true } },
+          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
+        ])
         break
       default:
         break
     }
   }
 
-  async setPublicAcl (resourceUrl) {
-    // const updatedDataset = null
-    const root = SolidClient.rootUrl(this.author.webIdUrl)
-    const containerUrl = `${root}/${config().resourceContainerPath}`
-    // Fetch the SolidDataset and its associated ACLs, if available:
-    const myDatasetWithAcl = await getSolidDatasetWithAcl(containerUrl, { fetch: fetch })
-    console.log(containerUrl)
-
-    // Obtain the SolidDataset's own ACL, if available,
-    // or initialise a new one, if possible:
+  fetchOrCreateResourceAcl (resourceDataset) {
     let resourceAcl
-    if (!hasResourceAcl(myDatasetWithAcl)) {
-      if (!hasAccessibleAcl(myDatasetWithAcl)) {
+    if (!hasResourceAcl(resourceDataset)) {
+      if (!hasAccessibleAcl(resourceDataset)) {
         throw new Error(
           'The current user does not have permission to change access rights to this Resource.'
         )
       }
-      if (!hasFallbackAcl(myDatasetWithAcl)) {
-        // throw new Error(
-        //   'The current user does not have permission to see who currently has access to this Resource.'
-        // )
-        // Alternatively, initialise a new empty ACL as follows,
-        // but be aware that if you do not give someone Control access,
-        // **nobody will ever be able to change Access permissions in the future**:
-        resourceAcl = createAcl(myDatasetWithAcl)
+      if (!hasFallbackAcl(resourceDataset)) {
+        resourceAcl = createAcl(resourceDataset)
       }
-      resourceAcl = createAclFromFallbackAcl(myDatasetWithAcl)
+      resourceAcl = createAclFromFallbackAcl(resourceDataset)
     } else {
-      resourceAcl = getResourceAcl(myDatasetWithAcl)
+      resourceAcl = getResourceAcl(resourceDataset)
     }
 
-    // Give someone Control access to the given Resource:
-    const webId = store.state.session.data.session.info.webId
-    let updatedAcl = setAgentResourceAccess(
-      resourceAcl,
-      webId,
-      { read: false, append: false, write: false, control: true }
-    )
-    updatedAcl = setPublicResourceAccess(
-      resourceAcl,
-      { read: true, append: false, write: false, control: false }
-    )
-    // Now save the ACL:
-    await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: fetch })
+    return resourceAcl
+  }
 
-    // const hasAcl = hasResourceAcl(resourceDataset)
-    // console.log('hasAcl', hasAcl)
-    // if (!hasAcl) {
-    //   updatedDataset = createAcl(resourceDataset)
-    //   console.log(updatedDataset)
-    // }
-    // console.log(myDatasetWithAcl)
+  async setAcl (resourceUrl, rules) {
+    const resourceDataset = await getSolidDatasetWithAcl(resourceUrl, { fetch: fetch })
+    const resourceAcl = this.fetchOrCreateResourceAcl(resourceDataset)
+    let updatedAcl
 
-    // Set public ACL
-    // const resourceDataset = this.asRdfDataset()
-    // const updatedAcl = setPublicResourceAccess(
-    //   resourceAcl,
-    //   { read: true, append: true, write: false, control: false }
-    // )
+    rules.forEach(rule => {
+      switch (rule.target) {
+        case 'agent':
+          // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
+          updatedAcl = setAgentResourceAccess(resourceAcl, 'https://janschill.net/profile/card#me', {
+            read: false, write: false, append: false, control: true
+          })
+          // }
+          break
+        case 'public':
+          // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
+          updatedAcl = setPublicResourceAccess(resourceAcl, rule.access)
+          // }
+          break
+        default:
+          break
+      }
+    })
+
+    await saveAclFor(resourceDataset, updatedAcl, { fetch: fetch })
+  }
+
+  hasSameAccess (target, acl, accessWanted, webId) {
+    switch (target) {
+      case 'agent':
+        return this.compareAccessObjects(getAgentResourceAccess(acl, webId), accessWanted)
+      case 'public':
+        return this.compareAccessObjects(getPublicResourceAccess(acl), accessWanted)
+      default:
+        break
+    }
+  }
+
+  // Access objects always come with the same keys:
+  // append, control, read and write
+  compareAccessObjects (obj1, obj2) {
+    return obj1.append === obj2.append &&
+      obj1.control === obj2.control &&
+      obj1.read === obj2.read &&
+      obj1.write === obj2.write
   }
 }
