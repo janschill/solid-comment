@@ -15,6 +15,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - don't load image twice if it is the same person
 - [ ] ACL for resource and container
   - two scenarios: 1. container private, resource public; container public, resource public
+- [ ] Refactor ACL part out of solid-model
 - [ ] Improve login flow, currently needs new session after every refresh
   - [ ] WebId input can be hidden, when logged in
   - [ ] Input form should be hidden, when logged out
