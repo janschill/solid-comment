@@ -11,6 +11,8 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - Means a request per comment
 - [ ] Integrate with Indico
 - [ ] Introduce integration tests with Jest
+- [ ] Think about some caching possbilities
+  - don't load image twice if it is the same person
 
 ## Usage
 
