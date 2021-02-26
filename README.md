@@ -6,9 +6,11 @@ This application is only the gateway to Solid and still needs a storing mechanis
 ## To-do
 
 - [x] The import and export in examples does not work properly (Resolved by dropping TS)
-- [ ] How does the application in itself authenticate?
-- [ ] Every comment, one file?
+- [x] How does the application in itself authenticate?
+- [x] Every comment, one file?
   - Means a request per comment
+- [ ] Integrate with Indico
+- [ ] Introduce integration tests with Jest
 
 ## Usage
 
