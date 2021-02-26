@@ -22,8 +22,28 @@ import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
 import { SolidClient } from './solid-client'
 import store from '../store'
+import Time from '../util/time'
 
 export class SolidModel extends ActiveRecord {
+  constructor (comment) {
+    super()
+    this.timeStripped = Time.toIsoStripped(new Date(comment.time))
+    this.resourceContainerUrl = this.getResourceContainerUrl(comment.author)
+    this.resourceUrl = this.getResourceUrl()
+  }
+
+  getResourceContainerUrl (author) {
+    const root = SolidClient.rootUrl(author.webIdUrl)
+
+    return `${root}/${config().resourceContainerPath}/`
+  }
+
+  getResourceUrl () {
+    const fileExtension = '.ttl'
+
+    return `${this.resourceContainerUrl}${this.timeStripped}${fileExtension}`
+  }
+
   asRdfDataset () {
     let dataset = createSolidDataset()
     let thing = createThing({ url: this.resourceUrl, name: `${this.timeStripped}` })

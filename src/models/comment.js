@@ -11,29 +11,13 @@ import {
 } from '@inrupt/solid-client'
 import { SCHEMA_INRUPT_EXT } from '@inrupt/vocab-common-rdf'
 import SolidAgent from './solid-agent'
-import Time from '../util/time'
 
 export class Comment extends SolidModel {
   constructor (comment) {
-    super()
+    super(comment)
     this.author = comment.author
     this.time = new Date(comment.time)
     this.text = comment.text
-    this.resourceContainerUrl = this.getResourceContainerUrl()
-    this.resourceUrl = this.getResourceUrl()
-    this.timeStripped = Time.toIsoStripped(this.time)
-  }
-
-  getResourceContainerUrl () {
-    const root = SolidClient.rootUrl(this.author.webIdUrl)
-
-    return `${root}/${config().resourceContainerPath}/`
-  }
-
-  getResourceUrl () {
-    const fileExtension = '.ttl'
-
-    return `${this.resourceContainerUrl}${this.timeStripped}${fileExtension}`
   }
 
   static async all () {
