@@ -18,6 +18,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [ ] Improve login flow, currently needs new session after every refresh
   - [ ] WebId input can be hidden, when logged in
   - [ ] Input form should be hidden, when logged out
+- [ ] Improve DOM and component rendering
 
 ## Usage
 
