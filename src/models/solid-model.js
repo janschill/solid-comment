@@ -166,7 +166,6 @@ export class SolidModel extends ActiveRecord {
         case 'public':
           // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
           updatedAcl = setPublicResourceAccess(resourceAcl, rule.access)
-          updatedAcl = setPublicDefaultAccess(resourceAcl, rule.access)
           // }
           break
         default:
