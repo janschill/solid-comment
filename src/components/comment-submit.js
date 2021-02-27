@@ -1,4 +1,4 @@
-import { Comment } from '../models/comment'
+import Comment from '../models/comment'
 import Component from './component'
 import store from '../store/index'
 import { isEmpty } from '../util/object'

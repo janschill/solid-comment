@@ -1,14 +1,15 @@
-import store from '../store'
 import {
   login,
   handleIncomingRedirect,
   getDefaultSession,
   fetch
 } from '@inrupt/solid-client-authn-browser'
-import Session from './session'
-import SolidAgent from './solid-agent'
 
-export class SolidClient {
+import store from '../store'
+import Session from './session'
+import SolidAgent from '../models/solid-agent'
+
+export default class SolidClient {
   async login (solidOidcIssuer = '') {
     try {
       if (solidOidcIssuer === '') {

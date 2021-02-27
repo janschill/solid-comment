@@ -1,8 +1,3 @@
-import { SolidModel } from './solid-model'
-import store from '../store'
-import { config } from '../config'
-import { SolidClient } from '../models/solid-client'
-import { toKebabCase } from '../util/formatter'
 import {
   getContainedResourceUrlAll,
   getSolidDataset,
@@ -10,9 +5,15 @@ import {
   getThingAll
 } from '@inrupt/solid-client'
 import { SCHEMA_INRUPT_EXT } from '@inrupt/vocab-common-rdf'
-import SolidAgent from './solid-agent'
 
-export class Comment extends SolidModel {
+import { config } from '../config'
+import SolidModel from './solid-model'
+import store from '../store'
+import SolidClient from '../auth/solid-client'
+import SolidAgent from './solid-agent'
+import { toKebabCase } from '../util/formatter'
+
+export default class Comment extends SolidModel {
   constructor (comment) {
     super(comment)
     this.author = comment.author

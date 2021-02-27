@@ -5,7 +5,7 @@ const STORAGE = {
   solidPod: 'solidPod'
 }
 
-export class ActiveRecord {
+export default class ActiveRecord {
   constructor () {
     if (this.constructor === ActiveRecord) {
       throw new Error('Cannot instantiate abstract class!')

@@ -1,5 +1,3 @@
-import { ActiveRecord } from './active-record'
-import { config } from '../config'
 import {
   addStringNoLocale,
   addUrl,
@@ -10,12 +8,15 @@ import {
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
-import { SolidClient } from './solid-client'
+
+import ActiveRecord from './active-record'
+import CommentAclManager from '../auth/comment-acl-manager'
+import { config } from '../config'
+import SolidClient from '../auth/solid-client'
 import store from '../store'
 import Time from '../util/time'
-import CommentAclManager from '../comment-acl-manager'
 
-export class SolidModel extends ActiveRecord {
+export default class SolidModel extends ActiveRecord {
   constructor (comment) {
     super()
     this.timeStripped = Time.toIsoStripped(new Date(comment.time))

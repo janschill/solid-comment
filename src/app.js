@@ -1,6 +1,6 @@
-import { SolidClient } from './models/solid-client'
+import SolidClient from './auth/solid-client'
 import Home from './home'
-import { Comment } from './models/comment'
+import Comment from './models/comment'
 
 export default class App {
   constructor () {

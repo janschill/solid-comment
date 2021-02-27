@@ -1,5 +1,5 @@
 import Component from './component'
-import { SolidClient } from '../models/solid-client'
+import SolidClient from '../auth/solid-client'
 import store from '../store/index'
 
 export default class LoginButton extends Component {

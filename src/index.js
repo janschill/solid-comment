@@ -1,6 +1,6 @@
-import './css/reset.css'
-import './css/styles.css'
-import './css/indico.css'
+import './assets/css/reset.css'
+import './assets/css/styles.css'
+import './assets/css/indico.css'
 import { addToConfig, addObjectToConfig } from './config'
 import App from './app'
 
