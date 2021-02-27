@@ -17,7 +17,9 @@ import {
   hasResourceAcl,
   saveAclFor,
   saveSolidDatasetAt,
+  setAgentDefaultAccess,
   setAgentResourceAccess,
+  setPublicDefaultAccess,
   setPublicResourceAccess,
   setThing
 } from '@inrupt/solid-client'
@@ -73,19 +75,24 @@ export class SolidModel extends ActiveRecord {
 
         // Extra careful that we have a WebId here
         if (webId) {
-          // await this.configureAcl(eventVisibility, webId)
+          await this.configureAcl(eventVisibility, webId)
           // === temp ===
-          const myDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
-          const resourceAcl = createAcl(myDatasetWithAcl)
-          const updatedAcl = setAgentResourceAccess(
-            resourceAcl,
-            webId,
-            { read: true, append: true, write: true, control: true }
-          )
-          await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: fetch })
-          const myUpdateDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
-          const agentAccess = getAgentAccess(myUpdateDatasetWithAcl, webId)
-          console.log(agentAccess)
+          // const myDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
+          // const resourceAcl = createAcl(myDatasetWithAcl)
+          // let updatedAcl = setAgentResourceAccess(
+          //   resourceAcl,
+          //   webId,
+          //   { read: true, append: true, write: true, control: true }
+          // )
+          // updatedAcl = setAgentDefaultAccess(
+          //   updatedAcl,
+          //   webId,
+          //   { read: true, append: true, write: true, control: true }
+          // )
+          // await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: fetch })
+          // const myUpdateDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
+          // const agentAccess = getAgentAccess(myUpdateDatasetWithAcl, webId)
+          // console.log(agentAccess)
         }
         // === temp ===
       }
@@ -100,23 +107,23 @@ export class SolidModel extends ActiveRecord {
         // We need to set this for every event, because if an event changes
         // it visibility, we don't have to iterate every resource, but can
         // just change it for the container
-        await this.setAcl(this.resourceUrl, [
-          { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
-          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
-        ])
         await this.setAcl(this.resourceContainerUrl, [
           { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
-          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
+          { target: 'public', access: { read: true, write: false, append: false, control: false } }
+        ])
+        await this.setAcl(this.resourceUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
+          { target: 'public', access: { read: true, write: false, append: false, control: false } }
         ])
         break
       case 'private':
-        await this.setAcl(this.resourceContainerUrl, [
-          { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
-          { taget: 'public', access: { read: false, write: false, append: false, control: false } }
-        ])
         await this.setAcl(this.resourceUrl, [
           { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
-          { taget: 'public', access: { read: true, write: false, append: false, control: false } }
+          { target: 'public', access: { read: true, write: false, append: false, control: false } }
+        ])
+        await this.setAcl(this.resourceContainerUrl, [
+          { target: 'agent', webId: agentWebId, access: { read: true, write: true, append: true, control: true } },
+          { target: 'public', access: { read: false, write: false, append: false, control: false } }
         ])
         break
       default:
@@ -152,12 +159,14 @@ export class SolidModel extends ActiveRecord {
       switch (rule.target) {
         case 'agent':
           // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
-          updatedAcl = setAgentResourceAccess(resourceAcl, rule.webIdUrl, rule.access)
+          updatedAcl = setAgentResourceAccess(resourceAcl, rule.webId, rule.access)
+          updatedAcl = setAgentDefaultAccess(resourceAcl, rule.webId, rule.access)
           // }
           break
         case 'public':
           // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
           updatedAcl = setPublicResourceAccess(resourceAcl, rule.access)
+          updatedAcl = setPublicDefaultAccess(resourceAcl, rule.access)
           // }
           break
         default:
