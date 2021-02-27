@@ -64,6 +64,12 @@ npm ci
 npm start
 ```
 
+4. Copy `index.html` into `dist/` directory
+
+```bash
+cp src/index.html dist/index.html
+```
+
 ## Design Choices
 
 * The library uses the WebIDs as a reference and fetches all comments from those WebIDs. The number of requests is bound to the number of individual comment authors. This could be changed to reference each comment with a timestamp. This would improve the performance (number of requests) for comment sections with a lot of comments, as pagination could be used.
