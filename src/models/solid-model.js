@@ -76,25 +76,7 @@ export class SolidModel extends ActiveRecord {
         // Extra careful that we have a WebId here
         if (webId) {
           await this.configureAcl(eventVisibility, webId)
-          // === temp ===
-          // const myDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
-          // const resourceAcl = createAcl(myDatasetWithAcl)
-          // let updatedAcl = setAgentResourceAccess(
-          //   resourceAcl,
-          //   webId,
-          //   { read: true, append: true, write: true, control: true }
-          // )
-          // updatedAcl = setAgentDefaultAccess(
-          //   updatedAcl,
-          //   webId,
-          //   { read: true, append: true, write: true, control: true }
-          // )
-          // await saveAclFor(myDatasetWithAcl, updatedAcl, { fetch: fetch })
-          // const myUpdateDatasetWithAcl = await getSolidDatasetWithAcl(this.resourceContainerUrl, { fetch: fetch })
-          // const agentAccess = getAgentAccess(myUpdateDatasetWithAcl, webId)
-          // console.log(agentAccess)
         }
-        // === temp ===
       }
     } catch (e) {
       console.log('No authorized session found.', e)
@@ -160,6 +142,8 @@ export class SolidModel extends ActiveRecord {
         case 'agent':
           // if (!this.hasSameAccess(rule.target, resourceAcl, rule.access, rule.webId)) {
           updatedAcl = setAgentResourceAccess(resourceAcl, rule.webId, rule.access)
+          // https://forum.solidproject.org/t/solved-solid-client-create-acl-for-container-makes-agent-lose-control/4029/3
+          // set default ACL for children of container
           updatedAcl = setAgentDefaultAccess(resourceAcl, rule.webId, rule.access)
           // }
           break
