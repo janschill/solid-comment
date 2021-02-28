@@ -33,6 +33,7 @@ export default class CommentSubmit extends Component {
             comment.saveToStore()
             comment.saveToPod()
             // TODO: POST reference to Indico database
+            comment.saveToApp()
           })
         }
       }
