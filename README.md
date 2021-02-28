@@ -21,6 +21,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - [x] Input form should be hidden, when logged out
 - [x] Improve DOM and component rendering
   - render text when no comments
+- Change from persisting the WebID of the authors to persisting all comment URLs
 
 ## Usage
 
