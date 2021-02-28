@@ -2,6 +2,7 @@ import Comments from './components/comments'
 import CommentInput from './components/comment-input'
 import CommentSubmit from './components/comment-submit'
 import LoginButton from './components/login-button'
+import LoginInput from './components/login-input'
 import WebId from './components/webid'
 
 export default class Home {
@@ -11,6 +12,7 @@ export default class Home {
       commentInput: new CommentInput(),
       formSubmit: new CommentSubmit(),
       loginButton: new LoginButton(),
+      loginInput: new LoginInput(),
       webid: new WebId()
     }
   }

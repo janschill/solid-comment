@@ -59,6 +59,10 @@ a {
   border-radius: 3px;
 }
 
+.sc-header__oidc-input--hidden {
+  display: none;
+}
+
 .sc-solid-button {
   appearance: auto;
   display: inline-flex;
