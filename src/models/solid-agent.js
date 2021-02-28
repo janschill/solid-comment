@@ -19,8 +19,4 @@ export default class SolidAgent {
     this.role = getStringNoLocale(profile, VCARD.role)
     this.webIdUrl = webIdUrl
   }
-
-  initials () {
-    return this.fullName.split(' ').reduce((acc, el) => acc + el[0], '')
-  }
 }
