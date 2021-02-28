@@ -14,28 +14,26 @@ export default class CommentSubmit extends Component {
       const session = get(store, 'state.session.data.session')
 
       // TODO: Add frontend hint that not logged in
-      if (session !== undefined) {
-        if (session.info.isLoggedIn) {
-          // sanitize the value
-          const inputValue = store.state.commentInput.data
-          const currentUserWebId = store.state.session.data.session.info.webId
-          if (inputValue && session.session.info.isLoggedIn) {
-            const currentAgent = store.state.session.data.agent
-            currentAgent.fetchProfile(currentUserWebId).then(() => {
-              const comment = new Comment({
-                author: currentAgent,
-                time: new Date(),
-                text: inputValue
-              })
-              // could be improved with push comment
-              const comments = store.state.comments.data
-              comments.push(comment)
-              store.dispatch('setComments', { state: 'idle', data: comments })
-              store.dispatch('setCommentInput', { state: 'idle', data: '' })
-              comment.saveToPod()
-              // TODO: POST reference to Indico database
+      if (session !== undefined && session.info.isLoggedIn) {
+        // sanitize the value
+        const inputValue = store.state.commentInput.data
+        const currentUserWebId = store.state.session.data.session.info.webId
+        if (inputValue && session.session.info.isLoggedIn) {
+          const currentAgent = store.state.session.data.agent
+          currentAgent.fetchProfile(currentUserWebId).then(() => {
+            const comment = new Comment({
+              author: currentAgent,
+              time: new Date(),
+              text: inputValue
             })
-          }
+            // could be improved with push comment
+            const comments = store.state.comments.data
+            comments.push(comment)
+            store.dispatch('setComments', { state: 'idle', data: comments })
+            store.dispatch('setCommentInput', { state: 'idle', data: '' })
+            comment.saveToPod()
+            // TODO: POST reference to Indico database
+          })
         }
       }
     }
