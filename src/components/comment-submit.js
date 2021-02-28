@@ -1,7 +1,8 @@
+import { get } from 'lodash'
+
 import Comment from '../models/comment'
 import Component from './component'
 import store from '../store/index'
-import { get } from 'lodash'
 
 export default class CommentSubmit extends Component {
   constructor () {
@@ -9,6 +10,7 @@ export default class CommentSubmit extends Component {
       store,
       element: document.querySelector('.sc-comment-form__submit')
     })
+    this.onlyShowWhenLoggedIn()
     this.element.onclick = async (event) => {
       event.preventDefault()
       const session = get(store, 'state.session.data')
@@ -38,11 +40,7 @@ export default class CommentSubmit extends Component {
   }
 
   render () {
-    if (store.state.commentInput.data === '') {
-      this.disableElement()
-    } else {
-      this.enableElement()
-    }
+    this.onlyShowWhenLoggedIn()
   }
 
   resetInputField (element) {

@@ -1,4 +1,7 @@
+import { get } from 'lodash'
+
 import Store from '../store/store'
+import store from '../store/'
 
 export default class Component {
   constructor (props = {}) {
@@ -14,11 +17,39 @@ export default class Component {
     }
   }
 
+  onlyShowWhenLoggedIn () {
+    const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
+
+    if (isLoggedIn === undefined || !isLoggedIn) {
+      this.hideElement()
+    } else {
+      this.showElement()
+    }
+  }
+
+  onlyShowWhenLoggedOut () {
+    const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
+
+    if (isLoggedIn === undefined || !isLoggedIn) {
+      this.showElement()
+    } else {
+      this.hideElement()
+    }
+  }
+
   disableElement () {
     this.element.setAttribute('disabled', 'true')
   }
 
   enableElement () {
     this.element.removeAttribute('disabled')
+  }
+
+  hideElement () {
+    this.element.classList.add('hidden')
+  }
+
+  showElement () {
+    this.element.classList.remove('hidden')
   }
 }

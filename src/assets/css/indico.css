@@ -196,3 +196,7 @@ a {
   padding: 10px 0;
   font-size: 1.3rem;
 }
+
+.hidden {
+  display: none;
+}
