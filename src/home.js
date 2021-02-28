@@ -1,5 +1,6 @@
 import Comments from './components/comments'
 import CommentInput from './components/comment-input'
+import CommentSection from './components/comment-section'
 import CommentSubmit from './components/comment-submit'
 import LoginButton from './components/login-button'
 import LoginInput from './components/login-input'
@@ -10,7 +11,8 @@ export default class Home {
     return {
       comments: new Comments(),
       commentInput: new CommentInput(),
-      formSubmit: new CommentSubmit(),
+      commentSection: new CommentSection(),
+      commentSubmit: new CommentSubmit(),
       loginButton: new LoginButton(),
       loginInput: new LoginInput(),
       webid: new WebId()
