@@ -23,9 +23,9 @@ export default class Comment extends SolidModel {
 
   static async all () {
     // const client = new SolidClient();
-    const commentAuthors = config().webIdsOfAuthors
+    const commentUrls = config().commentUrls
 
-    await this.fetchComments(commentAuthors)
+    await this.fetchComments(commentUrls)
   }
 
   static async fetchComments (commentAuthors) {
