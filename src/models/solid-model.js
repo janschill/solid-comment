@@ -15,6 +15,7 @@ import { config } from '../config'
 import SolidClient from '../auth/solid-client'
 import store from '../store'
 import Time from '../util/time'
+import { originFromUrl } from '../util/url'
 
 export default class SolidModel extends ActiveRecord {
   constructor (comment) {
@@ -25,7 +26,7 @@ export default class SolidModel extends ActiveRecord {
   }
 
   getResourceContainerUrl (author) {
-    const root = SolidClient.rootUrl(author.webIdUrl)
+    const root = originFromUrl(author.webIdUrl)
 
     return `${root}/${config().resourceContainerPath}/`
   }

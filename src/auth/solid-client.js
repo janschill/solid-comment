@@ -47,10 +47,6 @@ export default class SolidClient {
     }
   }
 
-  fetch () {
-    return fetch
-  }
-
   async logout () {
     try {
       await getDefaultSession().logout()
@@ -65,14 +61,5 @@ export default class SolidClient {
     const session = await getDefaultSession()
 
     return session
-  }
-
-  async currentUserWebId () {
-    const session = await getDefaultSession()
-    return session.info.webId
-  }
-
-  static rootUrl (url) {
-    return new URL(url).origin
   }
 }
