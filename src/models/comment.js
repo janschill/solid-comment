@@ -67,4 +67,11 @@ export default class Comment extends SolidModel {
 
     store.dispatch('setComments', { state: 'idle', data: comments })
   }
+
+  // This should be in ActiveRecord
+  saveToStore () {
+    const comments = store.state.comments.data
+    comments.push(this)
+    store.dispatch('setComments', { state: 'idle', data: comments })
+  }
 }

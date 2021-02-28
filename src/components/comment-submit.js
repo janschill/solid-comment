@@ -11,26 +11,24 @@ export default class CommentSubmit extends Component {
     })
     this.element.onclick = async (event) => {
       event.preventDefault()
-      const session = get(store, 'state.session.data.session')
+      const session = get(store, 'state.session.data')
 
       // TODO: Add frontend hint that not logged in
-      if (session !== undefined && session.info.isLoggedIn) {
+      if (session !== undefined && session.session.info.isLoggedIn) {
         // sanitize the value
-        const inputValue = store.state.commentInput.data
-        const currentUserWebId = store.state.session.data.session.info.webId
-        if (inputValue && session.session.info.isLoggedIn) {
-          const currentAgent = store.state.session.data.agent
+        const inputValue = this.inputValue()
+        const currentUserWebId = session.session.info.webId
+
+        if (inputValue.value) {
+          const currentAgent = session.agent
           currentAgent.fetchProfile(currentUserWebId).then(() => {
             const comment = new Comment({
               author: currentAgent,
               time: new Date(),
-              text: inputValue
+              text: inputValue.value
             })
-            // could be improved with push comment
-            const comments = store.state.comments.data
-            comments.push(comment)
-            store.dispatch('setComments', { state: 'idle', data: comments })
-            store.dispatch('setCommentInput', { state: 'idle', data: '' })
+            this.resetInputField(inputValue.element)
+            comment.saveToStore()
             comment.saveToPod()
             // TODO: POST reference to Indico database
           })
@@ -45,5 +43,17 @@ export default class CommentSubmit extends Component {
     } else {
       this.enableElement()
     }
+  }
+
+  resetInputField (element) {
+    store.dispatch('setCommentInput', { state: 'idle', data: '' })
+    element.value = ''
+  }
+
+  inputValue () {
+    const inputElement = document.querySelector('#sc-comment-form__input')
+    const valueFromStore = store.state.commentInput.data
+
+    return { value: valueFromStore, element: inputElement }
   }
 }
