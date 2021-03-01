@@ -1,28 +1,28 @@
-const path = require("path");
+const path = require('path')
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   devtool: 'inline-source-map',
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
-      },
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+      }
     ]
   },
   devServer: {
-    contentBase: "./dist"
+    contentBase: './dist'
   },
   resolve: {
     fallback: {
-      crypto: require.resolve("crypto-browserify"),
-      stream: require.resolve("stream-browserify")
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify')
     }
   }
-};
+}
