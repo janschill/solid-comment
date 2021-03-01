@@ -39,7 +39,7 @@ export default class SolidModel extends ActiveRecord {
 
   asRdfDataset () {
     let dataset = createSolidDataset()
-    let thing = createThing({ url: this.resourceUrl, name: `${this.timeStripped}` })
+    let thing = createThing({ name: 'it' })
     thing = addUrl(thing, RDFS.NS('type'), SCHEMA_INRUPT_EXT.NS('UserComments'))
     thing = addUrl(thing, SCHEMA_INRUPT_EXT.NS('creator'), this.author.webIdUrl)
     thing = addStringNoLocale(thing, SCHEMA_INRUPT_EXT.NS('commentText'), this.text)
