@@ -44,15 +44,20 @@
   </main>
 </body>
 <script>
-  new SolidComment({
-    solidCommentId: "sc-development-public-event-1",
-    eventVisibility: "public",
-    serverStorageEndpointUrl: "solid",
-    commentUrls: [
-      // "https://janschill.net/profile/card#me",
-      // "https://janschill.solidcommunity.net/profile/card#me"
-    ],
-  }).initApp()
+  const server = "http://localhost:3001/comments"
+  const solidComment = new SolidComment({
+    solidCommentId: "sc-development-private-event-1",
+    eventVisibility: "private",
+    serverStorageEndpointUrl: server,
+    comments: [],
+  })
+  solidComment.initApp()
+
+  async function main() {
+    await fetch(server).then(response => response.json()).then(data => solidComment.setComments(data))
+  }
+  main()
+
 </script>
 
 </html>
