@@ -21,7 +21,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - [x] Input form should be hidden, when logged out
 - [x] Improve DOM and component rendering
   - render text when no comments
-- Change from persisting the WebID of the authors to persisting all comment URLs
+- [x] Change from persisting the WebID of the authors to persisting all comment URLs
 
 ## Usage
 
@@ -40,8 +40,33 @@ import SolidComment from "solid-comment"
 
 3. Configuration
 
+* `solidCommentId`: is the unique identifier for the specific instance this module is loaded. This will always have to be unique, otherwise it will override/write to other existing directories.
+* `eventVisibility`: decides if the comments can be discovered without the direct link.
+* `serverStorageEndpointUrl`: is the endpoint where the application implementing this module will persist references to the comments that have been posted. This endpoint will receive a JSON object with a `url` key and its value the URL to the comment. No more information is needed nor should be stored.
+
 ```js
-new SolidComment() // TODO:
+const solidComment = new SolidComment({
+    solidCommentId: "sc-development-private-event-1",
+    eventVisibility: "private",
+    serverStorageEndpointUrl: "https://server-where-comment-urls-are-persisted"
+}) // TODO:
+```
+
+4. Initialize application
+
+This will render all the components as soon as the DOM is completely rendered. This is important as the components need elements from the DOM to attach to. The application will also check for a session, this is important for the authentication with a Solid identity provider. **Unfortunately the authentication library used still has a bug where the session is lost after a refresh of the page.**
+
+```js
+solidComment.initApp()
+```
+
+5. Pass comment URLs to application
+
+If the comments cannot be retrieved immediately on page render, they can be asynchronously fetched and passed to the application.
+
+```js
+// these should be [{ url: "url-to-comment" }, …]
+solidComment.setComments(comments)
 ```
 
 ## Development
