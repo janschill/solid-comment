@@ -100,4 +100,4 @@ cp src/index.html dist/index.html
 
 ## Design Choices
 
-* The library uses the WebIDs as a reference and fetches all comments from those WebIDs. The number of requests is bound to the number of individual comment authors. This could be changed to reference each comment with a timestamp. This would improve the performance (number of requests) for comment sections with a lot of comments, as pagination could be used.
+* This library stores each comment in a single file. Also, will the parent application implementing this library hold the reference URL to each comment. This enables the easiest possibility to add a pagination feature and thus improve performance by only loading the necessary comments.
