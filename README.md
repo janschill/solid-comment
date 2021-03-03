@@ -11,6 +11,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - Means a request per comment
 - [ ] Integrate with Indico
 - [ ] Introduce integration tests with Jest
+  - Use json-server for storage endpoint
 - [ ] Think about some caching possbilities
   - don't load image twice if it is the same person
 - [x] ACL for resource and container
@@ -22,6 +23,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [x] Improve DOM and component rendering
   - render text when no comments
 - [x] Change from persisting the WebID of the authors to persisting all comment URLs
+- [ ] Reduce the bundled size of this library
 
 ## Usage
 
