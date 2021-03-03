@@ -7,9 +7,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open --config webpack.dev.js"
   },
   "keywords": [],
   "author": "Jan Schill",
@@ -32,6 +32,7 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.22.0",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   }
 }
