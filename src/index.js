@@ -24,10 +24,8 @@ export class SolidComment {
   }
 
   async initApp () {
-    window.onload = async () => {
-      const app = new App()
-      await app.boot()
-    }
+    const app = new App()
+    await app.boot()
   }
 
   setComments (comments) {
