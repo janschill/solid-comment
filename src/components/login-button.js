@@ -2,6 +2,7 @@ import Component from './component'
 import SolidClient from '../auth/solid-client'
 import store from '../store/index'
 import get from 'lodash.get'
+import isUndefined from 'lodash.isundefined'
 
 export default class LoginButton extends Component {
   constructor () {
@@ -31,6 +32,6 @@ export default class LoginButton extends Component {
   render () {
     const $textElement = this.element.querySelector('.sc-solid-button__text')
     const webId = get(store, 'state.session.data.session.info.webId')
-    $textElement.innerText = webId === '' ? 'Log in' : 'Log out'
+    $textElement.innerText = isUndefined(webId) ? 'Log in' : 'Log out'
   }
 }
