@@ -28,6 +28,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - [ ] Deletion from interface -> remove in app DB and pod
   - [ ] Deletion from pod -> catch 404 on request and delete in app DB
   - [ ] (?) Deletion from app -> no way to fetch from pod?
+- [ ] Bug: private event does not work all of a sudden
 
 ## Usage
 
