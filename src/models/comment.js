@@ -7,12 +7,12 @@ import {
   getThingAll
 } from '@inrupt/solid-client'
 import { SCHEMA_INRUPT_EXT } from '@inrupt/vocab-common-rdf'
+import { kebabCase } from 'lodash'
 
 import { config } from '../config'
 import SolidModel from './solid-model'
 import store from '../store'
 import SolidAgent from './solid-agent'
-import { toKebabCase } from '../util/formatter'
 import { originFromUrl } from '../util/url'
 
 export default class Comment extends SolidModel {
@@ -66,7 +66,7 @@ export default class Comment extends SolidModel {
         await solidAgent.fetchProfile(webIdUrl)
 
         const rootContainerUrl = originFromUrl(webIdUrl)
-        const appName = toKebabCase(config().appName)
+        const appName = kebabCase(config().appName)
         const containerUrl = `${rootContainerUrl}/${appName}/${config().solidCommentId}/`
         const containerDataset = await getSolidDataset(containerUrl)
         if (containerDataset) {
