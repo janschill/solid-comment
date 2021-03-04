@@ -1,5 +1,9 @@
 # Solid Comment
 
+[![Dependencies](https://david-dm.org/solid-comment/npm-publish/status.svg)](https://david-dm.org/solid-comment/npm-publish)
+[![npm](https://img.shields.io/npm/v/@solid-comment/npm-publish.svg)](https://www.npmjs.com/package/@solid-comment/npm-publish)
+[![License](https://img.shields.io/npm/l/@solid-comment/npm-publish.svg)](LICENSE)
+
 A simple Solid application meant to read and write comments into users’ [pods](https://solidproject.org/users/get-a-pod).
 This application is only the gateway to Solid and still needs a storing mechanism in a parent application – meaning your application will import this library, which will allow the communication with Solid, but the
 
