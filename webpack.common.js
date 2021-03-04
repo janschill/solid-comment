@@ -7,8 +7,6 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'solid-comment.js',
-    globalObject: 'this',
-    library: 'SolidComment',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
