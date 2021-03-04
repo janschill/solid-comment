@@ -9,11 +9,6 @@ export default {
 
     return state
   },
-  setWebId (state, payload) {
-    state.webId = payload
-
-    return state
-  },
   setCommentInput (state, payload) {
     state.commentInput = payload
 

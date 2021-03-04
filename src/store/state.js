@@ -14,9 +14,5 @@ export default {
   solidClient: {
     state: 'idle',
     data: {}
-  },
-  webId: {
-    state: 'idle',
-    data: ''
   }
 }

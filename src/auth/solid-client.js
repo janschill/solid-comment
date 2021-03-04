@@ -43,14 +43,12 @@ export default class SolidClient {
           agent: solidAgent
         })
       })
-      store.dispatch('setWebId', { state: 'idle', data: session.info.webId })
     }
   }
 
   async logout () {
     try {
       await getDefaultSession().logout()
-      store.dispatch('setWebId', { state: 'idle', data: '' })
       store.dispatch('setSession', { state: 'idle', data: {} })
     } catch (e) {
       console.error(e)

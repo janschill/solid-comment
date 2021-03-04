@@ -29,6 +29,6 @@ export default class LoginButton extends Component {
 
   render () {
     const $textElement = this.element.querySelector('.sc-solid-button__text')
-    $textElement.innerText = store.state.webId.data === '' ? 'Log in' : 'Log out'
+    $textElement.innerText = store.state.session.data.session.info.webId === '' ? 'Log in' : 'Log out'
   }
 }

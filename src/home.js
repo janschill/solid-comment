@@ -4,7 +4,6 @@ import CommentSection from './components/comment-section'
 import CommentSubmit from './components/comment-submit'
 import LoginButton from './components/login-button'
 import LoginInput from './components/login-input'
-import WebId from './components/webid'
 
 export default class Home {
   instantiateComponents () {
@@ -14,8 +13,7 @@ export default class Home {
       commentSection: new CommentSection(),
       commentSubmit: new CommentSubmit(),
       loginButton: new LoginButton(),
-      loginInput: new LoginInput(),
-      webid: new WebId()
+      loginInput: new LoginInput()
     }
   }
 
