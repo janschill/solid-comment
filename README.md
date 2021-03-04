@@ -24,6 +24,10 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - render text when no comments
 - [x] Change from persisting the WebID of the authors to persisting all comment URLs
 - [ ] Reduce the bundled size of this library
+- [ ] Solve case where comment was deleted
+  - [ ] Deletion from interface -> remove in app DB and pod
+  - [ ] Deletion from pod -> catch 404 on request and delete in app DB
+  - [ ] (?) Deletion from app -> no way to fetch from pod?
 
 ## Usage
 
@@ -69,6 +73,50 @@ If the comments cannot be retrieved immediately on page render, they can be asyn
 ```js
 // these should be [{ url: "url-to-comment" }, …]
 solidComment.setComments(comments)
+```
+
+### Indico
+
+1. Install solid-comment in Indico
+
+```bash
+npm i solid-comment
+```
+
+2. Import library in the JavaScript files where it is needed
+
+```js
+// indico/modules/events/client/js/display.js
+
+import { SolidComment } from 'solid-comment'
+```
+
+3. Add HTML and JavaScript to initialize solid-comment
+
+```html
+<!-- indico/modules/events/templates/display/indico/meeting.html -->
+<main class="solid-comment">
+    <!-- paste content of src/index.html -->
+</main>
+
+<script>
+window.onload = () => {
+    const serverUrl = "http://localhost:3001/comments"
+    const solidComment = new SolidComment({
+        solidCommentId: "sc-development-indico-private-event-1",
+        eventVisibility: "private",
+        serverStorageEndpointUrl: serverUrl
+    })
+
+    async function main() {
+        await solidComment.initApp()
+        await fetch(serverUrl)
+            .then(response => response.json())
+            .then(data => solidComment.setComments(data))
+    }
+    main()
+}
+</script>
 ```
 
 ## Development
