@@ -1,12 +1,15 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'solid-comment.js',
+    globalObject: 'this',
+    library: 'SolidComment',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -19,6 +22,11 @@ module.exports = {
   devServer: {
     contentBase: './dist'
   },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    })
+  ],
   resolve: {
     fallback: {
       crypto: require.resolve('crypto-browserify'),
