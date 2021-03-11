@@ -15,12 +15,15 @@ export default class Time {
   }
 
   static shortMonthName (month) {
-    return month[0] + month[1] + month[2]
+    if (month.length >= 3) {
+      return month[0] + month[1] + month[2]
+    }
+    return month
   }
 
   // Converts time object to ISO 8601 without any symbols
   // eg. 20210225T144227463Z
   static toIsoStripped (dateObject) {
-    return dateObject.toISOString().replaceAll('-', '').replaceAll(':', '').replaceAll('.', '')
+    return dateObject.toISOString().replace(/-/g, '').replace(/:/g, '').replace(/\./g, '')
   }
 }
