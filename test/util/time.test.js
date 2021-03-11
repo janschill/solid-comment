@@ -2,7 +2,7 @@ import Time from '../../src/util/time'
 
 describe('util', () => {
   describe('Time', () => {
-    const dateTime = new Date('01/01/2000')
+    const dateTime = new Date(2000, 0, 1, 1, 1, 1, 1)
     describe('format', () => {
       it('formats a time object in M d format', () => {
         expect(Time.format('M d', dateTime)).toBe('Jan 1')
@@ -40,8 +40,8 @@ describe('util', () => {
     })
 
     describe('toIsoStripped', () => {
-      it('return 19991231T230000000Z when given new Date(01/01/2000)', () => {
-        expect(Time.toIsoStripped(dateTime)).toBe('19991231T230000000Z')
+      it('return 20000101T000101001Z when given new Date(01/01/2000)', () => {
+        expect(Time.toIsoStripped(dateTime)).toBe('20000101T000101001Z')
       })
     })
   })
