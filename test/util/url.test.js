@@ -6,7 +6,7 @@ describe('util', () => {
       expect(originFromUrl('https://example.org/test')).toBe('https://example.org')
     })
 
-    it('returns the origin from a https URL string', () => {
+    it('returns the origin from a http URL string', () => {
       expect(originFromUrl('http://example.org/test')).toBe('http://example.org')
     })
 
