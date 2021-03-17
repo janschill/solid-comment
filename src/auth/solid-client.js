@@ -46,6 +46,14 @@ export default class SolidClient {
     }
   }
 
+  noActiveSessionInState () {
+    const session = store.state.session.data
+
+    return session &&
+      Object.keys(session).length === 0 &&
+      session.constructor === Object
+  }
+
   async logout () {
     try {
       await getDefaultSession().logout()

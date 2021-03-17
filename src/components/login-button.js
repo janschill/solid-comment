@@ -12,9 +12,8 @@ export default class LoginButton extends Component {
     })
     this.element.onclick = async () => {
       const solidClient = new SolidClient()
-      const session = store.state.session.data
 
-      if (session && Object.keys(session).length === 0 && session.constructor === Object) {
+      if (solidClient.noActiveSessionInState()) {
         const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
 
         if ($solidOidcIssuer) {
