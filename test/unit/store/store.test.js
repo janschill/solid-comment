@@ -1,4 +1,4 @@
-import Store from '../../src/store/store'
+import Store from '../../../src/store/store'
 
 const actions = {
   setTestState (context, payload) {

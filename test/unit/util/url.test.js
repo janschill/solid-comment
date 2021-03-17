@@ -1,4 +1,4 @@
-import { originFromUrl } from '../../src/util/url'
+import { originFromUrl } from '../../../src/util/url'
 
 describe('util', () => {
   describe('originFromUrl', () => {
