@@ -16,8 +16,8 @@ export default class CommentSection extends Component {
 
     // TODO: This is for some reason causing issues all of a sudden
     if (isLoggedIn === undefined || !isLoggedIn) {
-      // this.element.style.display = 'block'
-      // this.element.innerHTML = '<p>You need to be logged in with your WebID to submit a comment.'
+      this.element.style.display = 'block'
+      this.element.innerHTML = '<p>You need to be logged in with your WebID to submit a comment.'
     }
   }
 }
