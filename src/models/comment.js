@@ -50,6 +50,13 @@ export default class Comment extends SolidModel {
         // when a URL/WebId cannot be fetch
         // Render comment without content
         console.log(error)
+
+        const comment = new Comment({
+          author: 'Comment deleted',
+          text: 'Comment deleted',
+          time: new Date()
+        })
+        comments.push(comment)
       }
     }
     store.dispatch('setComments', { state: 'idle', data: comments })
