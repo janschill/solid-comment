@@ -201,3 +201,7 @@ a {
 .hidden {
   display: none;
 }
+
+.button-disabled {
+  border: 1px solid red;
+}
