@@ -1,8 +1,7 @@
 import {
   login,
   handleIncomingRedirect,
-  getDefaultSession,
-  fetch
+  getDefaultSession
 } from '@inrupt/solid-client-authn-browser'
 
 import store from '../store'
@@ -16,7 +15,7 @@ export default class SolidClient {
         const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
         solidOidcIssuer = $solidOidcIssuer.value
       }
-      await handleIncomingRedirect()
+      await handleIncomingRedirect({ restorePreviousSession: true })
 
       if (!getDefaultSession().info.isLoggedIn) {
         await login({
@@ -30,7 +29,7 @@ export default class SolidClient {
   }
 
   async checkSession () {
-    await handleIncomingRedirect()
+    await handleIncomingRedirect({ restorePreviousSession: true })
     const session = await getDefaultSession()
 
     if (session.info.isLoggedIn) {
