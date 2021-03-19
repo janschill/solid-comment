@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, isUndefined } from 'lodash'
 
 import Component from './component'
 import store from '../store/index'
@@ -15,9 +15,9 @@ export default class CommentSection extends Component {
     const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
 
     // TODO: This is for some reason causing issues all of a sudden
-    if (isLoggedIn === undefined || !isLoggedIn) {
+    if (isUndefined(isLoggedIn) || !isLoggedIn) {
       this.element.style.display = 'block'
-      this.element.innerHTML = '<p>You need to be logged in with your WebID to submit a comment.'
+      this.element.innerHTML = '<p>You need to be logged in with your WebID to submit a comment.</p>'
     }
   }
 }

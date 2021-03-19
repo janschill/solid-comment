@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, isUndefined } from 'lodash'
 
 import Comment from '../models/comment'
 import Component from './component'
@@ -16,7 +16,7 @@ export default class CommentSubmit extends Component {
       const session = get(store, 'state.session.data')
 
       // TODO: Add frontend hint that not logged in
-      if (session !== undefined && session.session.info.isLoggedIn) {
+      if (!isUndefined(session) && session.session.info.isLoggedIn) {
         // sanitize the value
         const inputValue = this.inputValue()
         const currentUserWebId = session.session.info.webId
