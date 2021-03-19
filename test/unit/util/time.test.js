@@ -40,8 +40,20 @@ describe('util', () => {
     })
 
     describe('toIsoStripped', () => {
-      it('return 20000101T000101001Z when given new Date(01/01/2000)', () => {
-        expect(Time.toIsoStripped(dateTime)).toBe('20000101T000101001Z')
+      it('returns a string with length 19', () => {
+        expect(Time.toIsoStripped(dateTime).length).toBe(19)
+      })
+
+      it('returns a string without any colons', () => {
+        expect(Time.toIsoStripped(dateTime).includes(':')).toBeFalsy()
+      })
+
+      it('returns a string without any underscores', () => {
+        expect(Time.toIsoStripped(dateTime).includes('_')).toBeFalsy()
+      })
+
+      it('returns a string without any dashes', () => {
+        expect(Time.toIsoStripped(dateTime).includes('-')).toBeFalsy()
       })
     })
   })
