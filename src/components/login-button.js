@@ -12,6 +12,7 @@ export default class LoginButton extends Component {
     })
     this.element.onclick = async () => {
       const solidClient = new SolidClient()
+      store.dispatch('setSession', { state: 'loading', data: store.state.session.data })
 
       if (solidClient.noActiveSessionInState()) {
         const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
@@ -20,6 +21,7 @@ export default class LoginButton extends Component {
           const solidOidcIssuerUrl = $solidOidcIssuer.value
           if (solidOidcIssuerUrl) {
             await solidClient.login(solidOidcIssuerUrl)
+            store.dispatch('setSession', { state: 'idle', data: store.state.session.data })
           }
         }
       } else {
@@ -29,6 +31,15 @@ export default class LoginButton extends Component {
   }
 
   render () {
+    const sessionState = get(store, 'state.session.state')
+
+    if (sessionState === 'loading') {
+      this.element.classList.add('button-disabled')
+      this.element.setAttribute('disabled', 'true')
+    } else {
+      this.element.classList.remove('button-disabled')
+      this.element.removeAttribute('disabled')
+    }
     const $textElement = this.element.querySelector('.sc-solid-button__text')
     const webId = get(store, 'state.session.data.session.info.webId')
     $textElement.innerText = isUndefined(webId) ? 'Log in' : 'Log out'

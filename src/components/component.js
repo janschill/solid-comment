@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, isUndefined } from 'lodash'
 
 import Store from '../store/store'
 import store from '../store/'
@@ -20,7 +20,7 @@ export default class Component {
   onlyShowWhenLoggedIn () {
     const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
 
-    if (isLoggedIn === undefined || !isLoggedIn) {
+    if (isUndefined(isLoggedIn) || !isLoggedIn) {
       this.hideElement()
     } else {
       this.showElement()
@@ -30,7 +30,7 @@ export default class Component {
   onlyShowWhenLoggedOut () {
     const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
 
-    if (isLoggedIn === undefined || !isLoggedIn) {
+    if (isUndefined(isLoggedIn) || !isLoggedIn) {
       this.showElement()
     } else {
       this.hideElement()

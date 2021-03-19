@@ -2,6 +2,7 @@
   --primary-color: #1a63a0;
   --secondary-color: #424242;
   --solid-color: #7c4dff;
+  --solid-color-bright: #ad90ff;
 }
 
 html {
@@ -80,6 +81,7 @@ a {
   vertical-align: middle;
   border: 1px solid #dfdfdf;
   border-radius: 3px;
+  position: relative;
 }
 
 .sc-solid-button__image {
@@ -200,4 +202,14 @@ a {
 
 .hidden {
   display: none;
+}
+
+.button-disabled::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(210, 210, 210, 0.5);
 }
