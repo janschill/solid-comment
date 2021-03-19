@@ -9,6 +9,11 @@ import { VCARD } from '@inrupt/vocab-common-rdf'
 export default class SolidAgent {
   async fetchProfile (webIdUrl) {
     const profileDataset = await getSolidDataset(webIdUrl)
+    this.setProfile(profileDataset, webIdUrl)
+    return profileDataset
+  }
+
+  setProfile (profileDataset, webIdUrl) {
     const profile = getThing(
       profileDataset,
       webIdUrl
