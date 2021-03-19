@@ -1,19 +1,15 @@
 import {
-  getContainedResourceUrlAll,
   getIri,
   getSolidDataset,
   getStringNoLocale,
-  getThing,
-  getThingAll
+  getThing
 } from '@inrupt/solid-client'
 import { SCHEMA_INRUPT_EXT } from '@inrupt/vocab-common-rdf'
-import { kebabCase } from 'lodash'
 
 import { config } from '../config'
 import SolidModel from './solid-model'
 import store from '../store'
 import SolidAgent from './solid-agent'
-import { originFromUrl } from '../util/url'
 
 const authorsFetchedDataset = {}
 
@@ -38,12 +34,10 @@ export default class Comment extends SolidModel {
 
     for (const commentUrlObject of commentUrlObjects) {
       const solidAgent = new SolidAgent()
-      const commentDataset = await getSolidDataset(commentUrlObject.url)
-      const commentThing = getThing(commentDataset, `${commentUrlObject.url}#it`)
-      const author = getIri(commentThing, SCHEMA_INRUPT_EXT.NS('creator'))
       try {
-        // Don't fetch it for every comment, rather for every author
-        await solidAgent.fetchProfile(author)
+        const commentDataset = await getSolidDataset(commentUrlObject.url)
+        const commentThing = getThing(commentDataset, `${commentUrlObject.url}#it`)
+        const authorWebId = getIri(commentThing, SCHEMA_INRUPT_EXT.NS('creator'))
 
         await this.fetchOrGetLocalAuthor(authorWebId, solidAgent)
 
@@ -53,8 +47,10 @@ export default class Comment extends SolidModel {
           time: getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentTime'))
         })
         comments.push(comment)
-      } catch (e) {
-        console.log(e)
+      } catch (error) {
+        // when a URL/WebId cannot be fetch
+        // Render comment without content
+        console.log(error)
       }
     }
     store.dispatch('setComments', { state: 'idle', data: comments })
@@ -68,7 +64,6 @@ export default class Comment extends SolidModel {
       const dataset = await solidAgent.fetchProfile(authorWebId)
       authorsFetchedDataset[authorWebId] = dataset
     }
-    store.dispatch('setComments', { state: 'idle', data: comments })
   }
 
   // This should be in ActiveRecord
