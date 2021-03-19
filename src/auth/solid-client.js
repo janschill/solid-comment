@@ -29,6 +29,7 @@ export default class SolidClient {
   }
 
   async checkSession () {
+    store.dispatch('setSession', { state: 'loading', data: store.state.session.data })
     await handleIncomingRedirect({ restorePreviousSession: true })
     const session = await getDefaultSession()
 
@@ -43,6 +44,7 @@ export default class SolidClient {
         })
       })
     }
+    store.dispatch('setSession', { state: 'idle', data: store.state.session.data })
   }
 
   noActiveSessionInState () {
