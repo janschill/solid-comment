@@ -21,7 +21,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [x] ACL for resource and container
   - two scenarios: 1. container private, resource public; container public, resource public
 - [x] Refactor ACL part out of solid-model
-- [ ] Improve login flow, currently needs new session after every refresh
+- [x] Improve login flow, currently needs new session after every refresh
   - [x] WebId input can be hidden, when logged in
   - [x] Input form should be hidden, when logged out
 - [x] Improve DOM and component rendering
