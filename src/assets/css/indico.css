@@ -166,6 +166,12 @@ a {
   border-top: 1px solid var(--neutral-bright-color);
 }
 
+.sc-list__item--unavailable {
+  padding: 5px 0;
+  color: var(--neutral-dark-color);
+  font-style: italic;
+}
+
 .sc-list__article {
   display: flex;
 }
