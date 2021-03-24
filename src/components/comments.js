@@ -10,6 +10,27 @@ export default class Comments extends Component {
       store,
       element: document.querySelector('.sc-section-comments')
     })
+    this.element.onclick = event => {
+      const $button = event.target.closest('button') // (1)
+
+      if (!$button) { this.closeAllMenus(); return }
+
+      if (!this.element.contains($button)) { this.closeAllMenus(); return }
+
+      const $menu = $button.closest('.sc-comment__menu')
+      console.log($menu)
+      $menu.querySelector('.sc-comment__menu-action-list')
+        .classList
+        .add('sc-comment__menu-action-list--visible')
+    }
+  }
+
+  closeAllMenus () {
+    const $menus = document.querySelectorAll('.sc-comment__menu-action-list--visible')
+    for (let i = 0; i < $menus.length; i++) {
+      const $menu = $menus[i]
+      $menu.classList.remove('sc-comment__menu-action-list--visible')
+    }
   }
 
   async render () {
@@ -48,11 +69,17 @@ export default class Comments extends Component {
           <header class="sc-comment__header">
             <address class="sc-comment__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
             <abbr class="sc-comment__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
-            <button class="sc-comment__button-option" onclick="openCommentOptionModal()">
-              <span class="meatballs-menu">
-                <span class="circle"></span><span class="circle"></span><span class="circle"></span>
-              </span>
-            </button>
+            <div class="sc-comment__menu">
+              <button class="sc-comment__menu-toggle">
+                <span class="meatballs-menu">
+                  <span class="circle"></span><span class="circle"></span><span class="circle"></span>
+                </span>
+              </button>
+              <ul class="sc-comment__menu-action-list">
+                <li><button data-action="update">Update</button></li>
+                <li><button data-action="delete">Delete</button></li>
+              </ul>
+            </div>
           </header>
           <p class="sc-comment__text">${comment.text}</p>
         </section>

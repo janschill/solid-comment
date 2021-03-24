@@ -75,7 +75,11 @@ body {
   }
 }
 
-.sc-comment__button-option {
+.sc-comment__menu {
+  position: relative;
+}
+
+.sc-comment__menu-toggle {
   border: none;
   background-color: transparent;
 }
@@ -93,3 +97,19 @@ body {
   border-radius: 50%;
   display: block;
 }
+
+.sc-comment__menu-action-list {
+  display: none;
+}
+
+.sc-comment__menu-action-list--visible {
+  display: block;
+  position: absolute;
+  padding: 0px 10px;
+  border: 1px solid;
+  z-index: 9999;
+  background: white;
+  left: 0;
+  width: 110px;
+}
+
