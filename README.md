@@ -155,3 +155,4 @@ cp src/index.html dist/index.html
 ## Design Choices
 
 * This library stores each comment in a single file. Also, will the parent application implementing this library hold the reference URL to each comment. This enables the easiest possibility to add a pagination feature and thus improve performance by only loading the necessary comments.
+* If a comment fails to be fetch from the by the server (Indico) persisted list of references to the comment, it will simply show a “Comment is unavailable.” notice in the interface.
