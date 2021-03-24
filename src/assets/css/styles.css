@@ -21,6 +21,28 @@ body {
   font-size: 30px;
 }
 
+.details {
+  max-width: 600px;
+  font-size: 1rem;
+}
+
+.summary {
+  padding-bottom: 10px;
+}
+
+.ol {
+  padding: 5px 0 0 25px;
+  list-style-type: decimal;
+}
+
+.li {
+  line-height: 1.5;
+}
+
+.paragraph {
+  line-height: 1.5;
+}
+
 .sc-section-forms--hidden {
   display: none;
 }
