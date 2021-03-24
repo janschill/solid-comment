@@ -1,8 +1,9 @@
+import isUndefined from 'lodash.isundefined'
+
 import Component from './component'
 import SolidClient from '../auth/solid-client'
 import store from '../store/index'
 import get from 'lodash.get'
-import isUndefined from 'lodash.isundefined'
 
 export default class LoginButton extends Component {
   constructor () {
