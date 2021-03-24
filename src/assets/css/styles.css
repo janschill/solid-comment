@@ -74,3 +74,22 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.sc-comment__button-option {
+  border: none;
+  background-color: transparent;
+}
+
+.meatballs-menu {
+  display: flex;
+  cursor: pointer;
+}
+
+.circle {
+  width: 5px;
+  height: 5px;
+  margin: 2px;
+  background: #777777;
+  border-radius: 50%;
+  display: block;
+}

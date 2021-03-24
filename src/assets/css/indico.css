@@ -172,38 +172,45 @@ a {
   font-style: italic;
 }
 
-.sc-list__article {
+.sc-comment {
   display: flex;
 }
 
-.sc-list__aside {
+.sc-comment__header {
+  display: flex;
+  align-items: center;
+}
+
+.sc-comment__aside {
   width: 120px;
   text-align: right;
   margin-right: 1em;
 }
 
-.sc-list__image {
+.sc-comment__image {
   height: 45px;
   width: 45px;
   object-fit: cover;
   border-radius: 100%;
 }
 
-.sc-list__author,
-.sc-list__date {
+.sc-comment__author,
+.sc-comment__date {
   display: inline-block;
   color: var(--neutral-dark-color);
 }
 
-.sc-list__author {
+.sc-comment__author {
   font-weight: bold;
+  margin-right: 5px;
 }
 
-.sc-list__date {
+.sc-comment__date {
+  margin: 0 5px;
   font-size: 1rem;
 }
 
-.sc-list__text {
+.sc-comment__text {
   padding: 10px 0;
   font-size: 1.3rem;
 }

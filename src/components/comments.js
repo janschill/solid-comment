@@ -38,18 +38,23 @@ export default class Comments extends Component {
   htmlComment (comment) {
     return `
     <li class="sc-list__item">
-      <article class="sc-list__article">
-        <aside class="sc-list__aside">
+      <article class="sc-comment">
+        <aside class="sc-comment__aside">
           <a href="${comment.author.webIdUrl}" target="_blank">
-            <img class="sc-list__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
+            <img class="sc-comment__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
           </a>
         </aside>
         <section>
-          <header class="sc-list__header">
-            <address class="sc-list__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
-            <abbr class="sc-list__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
+          <header class="sc-comment__header">
+            <address class="sc-comment__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
+            <abbr class="sc-comment__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
+            <button class="sc-comment__button-option" onclick="openCommentOptionModal()">
+              <span class="meatballs-menu">
+                <span class="circle"></span><span class="circle"></span><span class="circle"></span>
+              </span>
+            </button>
           </header>
-          <p class="sc-list__text">${comment.text}</p>
+          <p class="sc-comment__text">${comment.text}</p>
         </section>
       </article>
     </li>
@@ -59,10 +64,10 @@ export default class Comments extends Component {
   htmlCommentUnavailable () {
     return `
     <li class="sc-list__item sc-list__item--unavailable">
-      <article class="sc-list__article">
-        <aside class="sc-list__aside"></aside>
+      <article class="sc-comment">
+        <aside class="sc-comment__aside"></aside>
         <section>
-          <p class="sc-list__text sc-list__text--unavailable">Comment is unavailable.</p>
+          <p class="sc-comment__text sc-comment__text--unavailable">Comment is unavailable.</p>
           <details class="details">
             <summary class="summary">Why is this comment unavailable?</summary>
             <p class="paragraph">This comment module is using a decentralized storage mechanism. This means that each individual comment is stored on a different machine. A user who wants to comment on this event needs a WebID and <a href="https://solidproject.org/users/get-a-pod" target="_blank">Solid pod</a>. The comments are then stored in the pods, which need to be fetched separately.</p>
