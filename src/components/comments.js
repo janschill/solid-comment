@@ -24,13 +24,11 @@ export default class Comments extends Component {
       if (comments.length > 0) {
         html = '<ul class="sc-list">'
         comments.sort((a, b) => b.time - a.time).forEach(comment => {
-          html += `
-          ${isEmpty(comment) ? this.htmlCommentUnavailable() : this.htmlComment(comment)}
-          `
+          html += `${isEmpty(comment) ? this.htmlCommentUnavailable() : this.htmlComment(comment)}`
         })
         html += '</ul>'
       } else {
-        html = '<p>There seem to be no comments</p>'
+        html = '<p>There seem to be no comments.</p>'
       }
     }
 
