@@ -32,8 +32,8 @@ export default class Comment extends SolidModel {
     store.dispatch('setComments', { state: 'loading', data: store.state.comments.data })
 
     for (const commentUrlObject of commentUrlObjects) {
-      const solidAgent = new SolidAgent()
       try {
+        const solidAgent = new SolidAgent()
         const commentDataset = await getSolidDataset(commentUrlObject.url)
         const commentThing = getThing(commentDataset, `${commentUrlObject.url}#it`)
         const authorWebId = getIri(commentThing, SCHEMA_INRUPT_EXT.NS('creator'))
@@ -51,12 +51,7 @@ export default class Comment extends SolidModel {
         // Render comment without content
         console.log(error)
 
-        const comment = new Comment({
-          author: 'Comment deleted',
-          text: 'Comment deleted',
-          time: new Date()
-        })
-        comments.push(comment)
+        comments.push({})
       }
     }
     store.dispatch('setComments', { state: 'idle', data: comments })
