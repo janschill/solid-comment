@@ -3,6 +3,8 @@
   --secondary-color: #424242;
   --solid-color: #7c4dff;
   --solid-color-bright: #ad90ff;
+  --neutral-bright-color: #dfdfdf;
+  --neutral-dark-color: #777777;
 }
 
 html {
@@ -57,7 +59,7 @@ a {
   line-height: 1.6;
   padding: 4px;
   font-size: 1rem;
-  border: 1px solid #dfdfdf;
+  border: 1px solid var(--neutral-bright-color);
   border-radius: 3px;
 }
 
@@ -79,7 +81,7 @@ a {
   outline: none;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid #dfdfdf;
+  border: 1px solid var(--neutral-bright-color);
   border-radius: 3px;
   position: relative;
 }
@@ -101,7 +103,7 @@ a {
 }
 
 .sc-comment-form__input {
-  border: 1px solid #dfdfdf;
+  border: 1px solid var(--neutral-bright-color);
   border-radius: 2px;
   box-sizing: border-box;
   transition: border-color 0.12s ease-out;
@@ -118,8 +120,8 @@ a {
   align-items: center;
   background: #ececec;
   border-radius: 2px;
-  border: 1px solid #dfdfdf;
-  color: #777777;
+  border: 1px solid var(--neutral-bright-color);
+  color: var(--neutral-dark-color);
   cursor: pointer;
   display: inline-block;
   font-weight: bold;
@@ -141,7 +143,7 @@ a {
 
 .sc-comment-form__submit:hover {
   border-color: #bbbbbb;
-  color: #555555;
+  color: var(--neutral-dark-color);
   background: #ececec;
   background-image: linear-gradient(to bottom, #ececec, #e0e0e0);
 }
@@ -153,7 +155,7 @@ a {
 
 .sc-section-comments {
   padding: 10px;
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid var(--neutral-bright-color);
 }
 
 .sc-list__item {
@@ -161,7 +163,7 @@ a {
 }
 
 .sc-list__item + .sc-list__item {
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid var(--neutral-bright-color);
 }
 
 .sc-list__article {
@@ -184,7 +186,7 @@ a {
 .sc-list__author,
 .sc-list__date {
   display: inline-block;
-  color: #777777;
+  color: var(--neutral-dark-color);
 }
 
 .sc-list__author {
