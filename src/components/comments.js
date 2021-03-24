@@ -46,7 +46,7 @@ export default class Comments extends Component {
             <img class="sc-list__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
           </a>
         </aside>
-        <section class="">
+        <section>
           <header class="sc-list__header">
             <address class="sc-list__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
             <abbr class="sc-list__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
@@ -63,7 +63,7 @@ export default class Comments extends Component {
     <li class="sc-list__item sc-list__item--unavailable">
       <article class="sc-list__article">
         <aside class="sc-list__aside"></aside>
-        <section class="">
+        <section>
           <p class="sc-list__text sc-list__text--unavailable">Comment is unavailable.</p>
         </section>
       </article>
