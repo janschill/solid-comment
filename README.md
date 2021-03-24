@@ -30,7 +30,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [ ] Reduce the bundled size of this library
 - [ ] Solve case where comment was deleted
   - [ ] Deletion from interface -> remove in app DB and pod
-  - [ ] Deletion from pod -> catch 404 on request and delete in app DB
+  - [x] Deletion from pod -> catch 404 on request and delete in app DB
   - [ ] (?) Deletion from app -> no way to fetch from pod?
 - [x] Bug: private event does not work all of a sudden
   - This was only because the app did not have control ACL on the pod.
