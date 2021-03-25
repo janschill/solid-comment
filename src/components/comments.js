@@ -1,9 +1,8 @@
-import { isEmpty } from 'lodash'
+import { get, isEmpty } from 'lodash'
 
 import Component from './component'
 import store from '../store'
 import Time from '../util/time'
-import { config } from '../config'
 
 export default class Comments extends Component {
   constructor () {
@@ -37,28 +36,23 @@ export default class Comments extends Component {
     }
   }
 
+  getComment (event) {
+    const $comment = event.target.closest('.sc-comment')
+    const commentResourceUrl = $comment.dataset.resourceUrl
+    const comments = get(store, 'state.comments.data')
+    const comment = comments.filter(
+      comment => comment.resourceUrl === commentResourceUrl
+    )[0]
+    return comment
+  }
+
   handleCommentMenuAction (event) {
     const action = event.target.dataset.action
     if (action) {
-      this.commentActions(action)()
-    }
-  }
-
-  commentActions (action) {
-    switch (action) {
-      case 'update':
-        return () => {
-          console.log('update')
-        }
-      case 'delete':
-        return () => {
-          const storageEndpoint = config().serverStorageEndpointUrl
-          return fetch(`${storageEndpoint}`, {
-            method: 'DELETE'
-          }).then(response => response.json())
-        }
-      default:
-        break
+      const comment = this.getComment(event)
+      if (comment) {
+        comment.actions(action)()
+      }
     }
   }
 
@@ -95,7 +89,7 @@ export default class Comments extends Component {
   htmlComment (comment) {
     return `
     <li class="sc-list__item">
-      <article class="sc-comment">
+      <article class="sc-comment" data-resource-url="${comment.resourceUrl}">
         <aside class="sc-comment__aside">
           <a href="${comment.author.webIdUrl}" target="_blank">
             <img class="sc-comment__image" src="${comment.author.photo}" alt="${comment.author.fullName}">

@@ -21,6 +21,25 @@ export default class Comment extends SolidModel {
     this.text = comment.text
   }
 
+  actions (action) {
+    switch (action) {
+      case 'update':
+        return () => {
+          console.log('update')
+        }
+      case 'delete':
+        return () => {
+          this.deleteFromPod()
+          // const storageEndpoint = config().serverStorageEndpointUrl
+          // return fetch(`${storageEndpoint}`, {
+          //   method: 'DELETE'
+          // }).then(response => response.json())
+        }
+      default:
+        break
+    }
+  }
+
   static async all () {
     const commentUrlObjects = config().comments
 
