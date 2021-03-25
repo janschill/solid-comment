@@ -3,6 +3,7 @@ import {
   addUrl,
   createSolidDataset,
   createThing,
+  deleteFile,
   saveSolidDatasetAt,
   setThing
 } from '@inrupt/solid-client'
@@ -74,6 +75,14 @@ export default class SolidModel extends ActiveRecord {
       }
     } catch (e) {
       console.log('No authorized session found.', e)
+    }
+  }
+
+  async deleteFromPod () {
+    try {
+      deleteFile(this.resourceUrl, { fetch: fetch })
+    } catch (e) {
+      console.log('Error when deleting resource from pod', e)
     }
   }
 }
