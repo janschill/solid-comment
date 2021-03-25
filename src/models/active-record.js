@@ -27,18 +27,6 @@ export default class ActiveRecord {
     Fetcher.postData(storageEndpoint, { url: this.resourceUrl })
   }
 
-  save () {
-
-  }
-
-  delete () {
-
-  }
-
-  update () {
-
-  }
-
   async establishConnection (storageMechanism) {
     switch (storageMechanism) {
       case STORAGE.localStorage:
@@ -50,10 +38,6 @@ export default class ActiveRecord {
       default:
         break
     }
-  }
-
-  establishLocalStorageConnection () {
-
   }
 
   async establishSolidPodConnection () {
