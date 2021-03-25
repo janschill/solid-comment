@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash'
 import Component from './component'
 import store from '../store'
 import Time from '../util/time'
+import { config } from '../config'
 
 export default class Comments extends Component {
   constructor () {
@@ -11,17 +12,7 @@ export default class Comments extends Component {
       element: document.querySelector('.sc-section-comments')
     })
     this.element.onclick = event => {
-      const $button = event.target.closest('button') // (1)
-
-      if (!$button) { this.closeAllMenus(); return }
-
-      if (!this.element.contains($button)) { this.closeAllMenus(); return }
-
-      const $menu = $button.closest('.sc-comment__menu')
-      console.log($menu)
-      $menu.querySelector('.sc-comment__menu-action-list')
-        .classList
-        .add('sc-comment__menu-action-list--visible')
+      this.handleCommentMenuClick(event)
     }
   }
 
@@ -31,6 +22,51 @@ export default class Comments extends Component {
       const $menu = $menus[i]
       $menu.classList.remove('sc-comment__menu-action-list--visible')
     }
+  }
+
+  handleCommentMenuClick (event) {
+    const $button = event.target.closest('button')
+
+    if (!$button) { this.closeAllMenus(); return }
+    if (!this.element.contains($button)) { this.closeAllMenus(); return }
+
+    if ($button.classList.contains('sc-comment__menu-toggle')) {
+      this.toggleCommentMenuDropdown($button)
+    } else if ($button.classList.contains('sc-comment__menu-action-button')) {
+      this.handleCommentMenuAction(event)
+    }
+  }
+
+  handleCommentMenuAction (event) {
+    const action = event.target.dataset.action
+    if (action) {
+      this.commentActions(action)()
+    }
+  }
+
+  commentActions (action) {
+    switch (action) {
+      case 'update':
+        return () => {
+          console.log('update')
+        }
+      case 'delete':
+        return () => {
+          const storageEndpoint = config().serverStorageEndpointUrl
+          return fetch(`${storageEndpoint}`, {
+            method: 'DELETE'
+          }).then(response => response.json())
+        }
+      default:
+        break
+    }
+  }
+
+  toggleCommentMenuDropdown ($button) {
+    const $menu = $button.closest('.sc-comment__menu')
+    $menu.querySelector('.sc-comment__menu-action-list')
+      .classList
+      .toggle('sc-comment__menu-action-list--visible')
   }
 
   async render () {
@@ -76,8 +112,8 @@ export default class Comments extends Component {
                 </span>
               </button>
               <ul class="sc-comment__menu-action-list">
-                <li><button data-action="update">Update</button></li>
-                <li><button data-action="delete">Delete</button></li>
+                <li class="sc-comment__menu-action-list-item"><button class="sc-comment__menu-action-button" data-action="update">Update</button></li>
+                <li class="sc-comment__menu-action-list-item"><button class="sc-comment__menu-action-button" data-action="delete">Delete</button></li>
               </ul>
             </div>
           </header>
