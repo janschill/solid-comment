@@ -14,17 +14,21 @@ export default class ActiveRecord {
     }
 
     this.connection = this.establishConnection(STORAGE.solidPod)
+    this.storageEndpoint = config().serverStorageEndpointUrl
   }
 
-  // TODO: Clean this up
   all () {
     this.connection.fetch()
     return this.elements
   }
 
+  async deleteFromApp () {
+    // TODO:
+    // Fetcher.delete(this.storageEndpoint, { url: this.resourceUrl })
+  }
+
   async saveToApp () {
-    const storageEndpoint = config().serverStorageEndpointUrl
-    Fetcher.postData(storageEndpoint, { url: this.resourceUrl })
+    Fetcher.postData(this.storageEndpoint, { url: this.resourceUrl })
   }
 
   async establishConnection (storageMechanism) {
