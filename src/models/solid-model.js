@@ -54,7 +54,6 @@ export default class SolidModel extends ActiveRecord {
     return dataset
   }
 
-  // move this to active-record?
   async saveToPod () {
     const solidClient = new SolidClient()
     const session = await solidClient.session()
