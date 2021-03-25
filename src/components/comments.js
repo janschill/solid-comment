@@ -51,7 +51,7 @@ export default class Comments extends Component {
     if (action) {
       const comment = this.getComment(event)
       if (comment) {
-        comment.actions(action)()
+        const response = comment.actions(action)()
       }
     }
   }
@@ -74,7 +74,8 @@ export default class Comments extends Component {
 
       if (comments.length > 0) {
         html = '<ul class="sc-list">'
-        comments.sort((a, b) => b.time - a.time).forEach(comment => {
+        // comments.sort((a, b) => b.time - a.time).forEach(comment => {
+        comments.forEach(comment => {
           html += `${isEmpty(comment) ? this.htmlCommentUnavailable() : this.htmlComment(comment)}`
         })
         html += '</ul>'

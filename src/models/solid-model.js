@@ -80,7 +80,7 @@ export default class SolidModel extends ActiveRecord {
 
   async deleteFromPod () {
     try {
-      deleteFile(this.resourceUrl, { fetch: fetch })
+      return deleteFile(this.resourceUrl, { fetch: fetch })
     } catch (e) {
       console.log('Error when deleting resource from pod', e)
     }

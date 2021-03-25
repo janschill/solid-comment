@@ -28,8 +28,10 @@ export default class Comment extends SolidModel {
           console.log('update')
         }
       case 'delete':
-        return () => {
-          this.deleteFromPod()
+        return async () => {
+          const response = await this.deleteFromPod()
+          console.log(response)
+          return response
           // const storageEndpoint = config().serverStorageEndpointUrl
           // return fetch(`${storageEndpoint}`, {
           //   method: 'DELETE'

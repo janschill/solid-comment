@@ -22,9 +22,9 @@ export default class ActiveRecord {
     return this.elements
   }
 
+  // TODO:
   async deleteFromApp () {
-    // TODO:
-    // Fetcher.delete(this.storageEndpoint, { url: this.resourceUrl })
+    Fetcher.delete(this.storageEndpoint, { url: this.resourceName })
   }
 
   async saveToApp () {
