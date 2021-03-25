@@ -63,13 +63,15 @@ export default class SolidModel extends ActiveRecord {
       if (session.info.isLoggedIn) {
         const resourceDataset = this.asRdfDataset()
         const webId = store.state.session.data.session.info.webId
-        await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
+        const dataset = await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
         const commentAclManager = new CommentAclManager({
           comment: this,
           agentWebId: webId,
           eventVisibility: config().eventVisibility
         })
         commentAclManager.configureAcl()
+
+        return dataset
       }
     } catch (e) {
       console.log('No authorized session found.', e)
