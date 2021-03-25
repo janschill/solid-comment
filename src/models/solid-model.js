@@ -21,8 +21,15 @@ export default class SolidModel extends ActiveRecord {
   constructor (comment) {
     super()
     this.timeStripped = Time.toIsoStripped(new Date(comment.time))
+    this.resourceName = this.getResourceName()
     this.resourceContainerUrl = this.getResourceContainerUrl(comment.author)
     this.resourceUrl = this.getResourceUrl()
+  }
+
+  getResourceName () {
+    const fileExtension = '.ttl'
+
+    return `${this.timeStripped}${fileExtension}`
   }
 
   getResourceContainerUrl (author) {
@@ -32,9 +39,7 @@ export default class SolidModel extends ActiveRecord {
   }
 
   getResourceUrl () {
-    const fileExtension = '.ttl'
-
-    return `${this.resourceContainerUrl}${this.timeStripped}${fileExtension}`
+    return `${this.resourceContainerUrl}${this.resourceName}`
   }
 
   asRdfDataset () {
