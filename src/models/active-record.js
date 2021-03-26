@@ -37,6 +37,16 @@ export default class ActiveRecord {
     store.dispatch('setComments', { state: 'idle', data: comments })
   }
 
+  deleteFromStore () {
+    const comments = store.state.comments.data
+    const commentsWithDeletedComment = comments.map(comment => {
+      if (comment.resourceUrl === this.resourceUrl) {
+        return {}
+      }
+    })
+    store.dispatch('setComments', { state: 'idle', data: commentsWithDeletedComment })
+  }
+
   async establishConnection (storageMechanism) {
     switch (storageMechanism) {
       case STORAGE.localStorage:
