@@ -107,7 +107,6 @@ export default class Comments extends Component {
                 </span>
               </button>
               <ul class="sc-comment__menu-action-list">
-                <li class="sc-comment__menu-action-list-item"><button class="sc-comment__menu-action-button" data-action="update">Update</button></li>
                 <li class="sc-comment__menu-action-list-item"><button class="sc-comment__menu-action-button" data-action="delete">Delete</button></li>
               </ul>
             </div>
