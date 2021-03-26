@@ -21,7 +21,7 @@ import { originFromUrl } from '../util/url'
 export default class SolidModel extends ActiveRecord {
   constructor (comment) {
     super()
-    this.timeStripped = Time.toIsoStripped(new Date(comment.time))
+    this.timeStripped = Time.jsToIso8601Strip(comment.time)
     this.resourceName = this.getResourceName()
     this.resourceContainerUrl = this.getResourceContainerUrl(comment.author)
     this.resourceUrl = this.getResourceUrl()

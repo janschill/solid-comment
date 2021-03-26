@@ -17,7 +17,7 @@ export default class Comment extends SolidModel {
   constructor (comment) {
     super(comment)
     this.author = comment.author
-    this.time = new Date(comment.time)
+    this.time = comment.time
     this.text = comment.text
   }
 
@@ -64,7 +64,7 @@ export default class Comment extends SolidModel {
         const comment = new Comment({
           author: solidAgent,
           text: getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentText')),
-          time: getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentTime'))
+          time: new Date(getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentTime')))
         })
         comments.push(comment)
       } catch (error) {
