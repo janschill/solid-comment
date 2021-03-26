@@ -10,6 +10,7 @@
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
     "start": "webpack serve --open --config webpack.dev.js",
+    "json-server": "json-server db.json -p 3001",
     "test": "jest"
   },
   "keywords": [],

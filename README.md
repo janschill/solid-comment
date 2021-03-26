@@ -138,26 +138,32 @@ import { SolidComment } from 'solid-comment'
 1. Clone the repository
 
 ```bash
-git clone git@github.com:janschill/solid-comment.git
-cd solid-comment
+$ git clone git@github.com:janschill/solid-comment.git
+$ cd solid-comment
 ```
 
 2. Install dependencies
 
 ```bash
-npm ci
+$ npm ci
 ```
 
 3. Run webpack development server
 
-```
-npm start
+```bash
+$ npm start
 ```
 
 4. Copy `index.html` into `dist/` directory
 
 ```bash
-cp src/index.html dist/index.html
+$ cp src/index.html dist/index.html
+```
+
+5. Start the JSON server
+
+```bash
+$ npm run json-server # $ json-server db.json -p 3001
 ```
 
 ## Design Choices
