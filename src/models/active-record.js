@@ -22,11 +22,6 @@ export default class ActiveRecord {
     return this.elements
   }
 
-  // TODO:
-  async deleteFromApp () {
-    Fetcher.delete(this.storageEndpoint, { url: this.resourceName })
-  }
-
   async saveToApp () {
     Fetcher.postData(this.storageEndpoint, { url: this.resourceUrl })
   }

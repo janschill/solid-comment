@@ -62,8 +62,8 @@ export default class Comment extends SolidModel {
         })
         comments.push(comment)
       } catch (error) {
-        // when a URL/WebId cannot be fetch
-        // Render comment without content
+        // When a URL/WebId cannot be fetched
+        // render comment without content
         console.log(error)
 
         comments.push({})

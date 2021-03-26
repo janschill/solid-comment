@@ -15,9 +15,8 @@ export default class CommentSubmit extends Component {
       event.preventDefault()
       const session = get(store, 'state.session.data')
 
-      // TODO: Add frontend hint that not logged in
       if (!isUndefined(session) && session.session.info.isLoggedIn) {
-        // sanitize the value
+        // TODO: Sanitize the value
         const inputValue = this.inputValue()
         const currentUserWebId = session.session.info.webId
 
@@ -32,7 +31,6 @@ export default class CommentSubmit extends Component {
             this.resetInputField(inputValue.element)
             comment.saveToStore()
             comment.saveToPod()
-            // TODO: POST reference to Indico database
             comment.saveToApp()
           })
         }
