@@ -106,23 +106,31 @@ import { SolidComment } from 'solid-comment'
 </main>
 
 <script>
-window.onload = () => {
-    const serverUrl = "http://localhost:3001/comments"
-    const solidComment = new SolidComment({
-        solidCommentId: "sc-development-indico-private-event-1",
-        eventVisibility: "private",
-        serverStorageEndpointUrl: serverUrl
-    })
+  function pythonBooleanToJS(str) {
+      return str === 'True'
+  }
 
-    async function main() {
-        await solidComment.initApp()
-        await fetch(serverUrl)
-            .then(response => response.json())
-            .then(data => solidComment.setComments(data))
-    }
-    main()
-}
-</script>
+  window.onload = () => {
+      const isEventProtected = pythonBooleanToJS('{{ event.is_protected }}');
+      const eventVisibility = isEventProtected ? "private" : "public";
+      const eventId = '{{ event.id }}'
+      const solidCommentId = `sc-indico-meeting-${eventVisibility}-${eventId}`;
+      const serverUrl = "http://localhost:3001/comments"
+      const solidComment = new SolidComment({
+          solidCommentId: solidCommentId,
+          eventVisibility: eventVisibility,
+          serverStorageEndpointUrl: serverUrl,
+          comments: [],
+      })
+
+      async function main() {
+          await solidComment.initApp()
+          await fetch(serverUrl)
+              .then(response => response.json())
+              .then(data => solidComment.setComments(data))
+      }
+      main()
+  }
 ```
 
 ## Development
