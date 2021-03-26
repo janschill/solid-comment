@@ -31,6 +31,12 @@ export default class ActiveRecord {
     Fetcher.postData(this.storageEndpoint, { url: this.resourceUrl })
   }
 
+  saveToStore () {
+    const comments = store.state.comments.data
+    comments.push(this)
+    store.dispatch('setComments', { state: 'idle', data: comments })
+  }
+
   async establishConnection (storageMechanism) {
     switch (storageMechanism) {
       case STORAGE.localStorage:

@@ -87,11 +87,4 @@ export default class Comment extends SolidModel {
       authorsFetchedDataset[authorWebId] = dataset
     }
   }
-
-  // This should be in ActiveRecord
-  saveToStore () {
-    const comments = store.state.comments.data
-    comments.push(this)
-    store.dispatch('setComments', { state: 'idle', data: comments })
-  }
 }
