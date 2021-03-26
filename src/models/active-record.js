@@ -33,7 +33,7 @@ export default class ActiveRecord {
 
   saveToStore () {
     const comments = store.state.comments.data
-    comments.push(this)
+    comments.unshift(this) // add to the beginning
     store.dispatch('setComments', { state: 'idle', data: comments })
   }
 
@@ -43,6 +43,7 @@ export default class ActiveRecord {
       if (comment.resourceUrl === this.resourceUrl) {
         return {}
       }
+      return comment
     })
     store.dispatch('setComments', { state: 'idle', data: commentsWithDeletedComment })
   }
