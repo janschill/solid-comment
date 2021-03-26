@@ -37,7 +37,7 @@ export default class Comment extends SolidModel {
   }
 
   static async all () {
-    const commentUrlObjects = config().comments
+    const commentUrlObjects = config().comments.reverse()
 
     await this.fetchComments(commentUrlObjects)
   }
