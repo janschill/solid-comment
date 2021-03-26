@@ -3,6 +3,7 @@ import {
   addUrl,
   createSolidDataset,
   createThing,
+  deleteFile,
   saveSolidDatasetAt,
   setThing
 } from '@inrupt/solid-client'
@@ -20,9 +21,16 @@ import { originFromUrl } from '../util/url'
 export default class SolidModel extends ActiveRecord {
   constructor (comment) {
     super()
-    this.timeStripped = Time.toIsoStripped(new Date(comment.time))
+    this.timeStripped = Time.jsToIso8601Strip(comment.time)
+    this.resourceName = this.getResourceName()
     this.resourceContainerUrl = this.getResourceContainerUrl(comment.author)
     this.resourceUrl = this.getResourceUrl()
+  }
+
+  getResourceName () {
+    const fileExtension = '.ttl'
+
+    return `${this.timeStripped}${fileExtension}`
   }
 
   getResourceContainerUrl (author) {
@@ -32,9 +40,7 @@ export default class SolidModel extends ActiveRecord {
   }
 
   getResourceUrl () {
-    const fileExtension = '.ttl'
-
-    return `${this.resourceContainerUrl}${this.timeStripped}${fileExtension}`
+    return `${this.resourceContainerUrl}${this.resourceName}`
   }
 
   asRdfDataset () {
@@ -49,7 +55,6 @@ export default class SolidModel extends ActiveRecord {
     return dataset
   }
 
-  // move this to active-record?
   async saveToPod () {
     const solidClient = new SolidClient()
     const session = await solidClient.session()
@@ -58,16 +63,27 @@ export default class SolidModel extends ActiveRecord {
       if (session.info.isLoggedIn) {
         const resourceDataset = this.asRdfDataset()
         const webId = store.state.session.data.session.info.webId
-        await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
+        const dataset = await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
         const commentAclManager = new CommentAclManager({
           comment: this,
           agentWebId: webId,
           eventVisibility: config().eventVisibility
         })
         commentAclManager.configureAcl()
+
+        return dataset
       }
     } catch (e) {
       console.log('No authorized session found.', e)
+    }
+  }
+
+  async deleteFromPod () {
+    try {
+      await deleteFile(this.resourceUrl, { fetch: fetch })
+      this.deleteFromStore()
+    } catch (e) {
+      console.log('Error when deleting resource from pod', e)
     }
   }
 }

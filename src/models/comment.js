@@ -17,8 +17,23 @@ export default class Comment extends SolidModel {
   constructor (comment) {
     super(comment)
     this.author = comment.author
-    this.time = new Date(comment.time)
+    this.time = comment.time
     this.text = comment.text
+  }
+
+  actions (action) {
+    switch (action) {
+      case 'update':
+        return () => {
+          console.log('update')
+        }
+      case 'delete':
+        return async () => {
+          await this.deleteFromPod()
+        }
+      default:
+        break
+    }
   }
 
   static async all () {
@@ -43,7 +58,7 @@ export default class Comment extends SolidModel {
         const comment = new Comment({
           author: solidAgent,
           text: getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentText')),
-          time: getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentTime'))
+          time: new Date(getStringNoLocale(commentThing, SCHEMA_INRUPT_EXT.NS('commentTime')))
         })
         comments.push(comment)
       } catch (error) {
@@ -65,12 +80,5 @@ export default class Comment extends SolidModel {
       const dataset = await solidAgent.fetchProfile(authorWebId)
       authorsFetchedDataset[authorWebId] = dataset
     }
-  }
-
-  // This should be in ActiveRecord
-  saveToStore () {
-    const comments = store.state.comments.data
-    comments.push(this)
-    store.dispatch('setComments', { state: 'idle', data: comments })
   }
 }

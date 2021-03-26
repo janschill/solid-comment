@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash'
+import { get, isEmpty } from 'lodash'
 
 import Component from './component'
 import store from '../store'
@@ -10,6 +10,57 @@ export default class Comments extends Component {
       store,
       element: document.querySelector('.sc-section-comments')
     })
+    this.element.onclick = event => {
+      this.handleCommentMenuClick(event)
+    }
+  }
+
+  closeAllMenus () {
+    const $menus = document.querySelectorAll('.sc-comment__menu-action-list--visible')
+    for (let i = 0; i < $menus.length; i++) {
+      const $menu = $menus[i]
+      $menu.classList.remove('sc-comment__menu-action-list--visible')
+    }
+  }
+
+  handleCommentMenuClick (event) {
+    const $button = event.target.closest('button')
+
+    if (!$button) { this.closeAllMenus(); return }
+    if (!this.element.contains($button)) { this.closeAllMenus(); return }
+
+    if ($button.classList.contains('sc-comment__menu-toggle')) {
+      this.toggleCommentMenuDropdown($button)
+    } else if ($button.classList.contains('sc-comment__menu-action-button')) {
+      this.handleCommentMenuAction(event)
+    }
+  }
+
+  getComment (event) {
+    const $comment = event.target.closest('.sc-comment')
+    const commentResourceUrl = $comment.dataset.resourceUrl
+    const comments = get(store, 'state.comments.data')
+    const comment = comments.filter(
+      comment => comment.resourceUrl === commentResourceUrl
+    )[0]
+    return comment
+  }
+
+  handleCommentMenuAction (event) {
+    const action = event.target.dataset.action
+    if (action) {
+      const comment = this.getComment(event)
+      if (comment) {
+        comment.actions(action)()
+      }
+    }
+  }
+
+  toggleCommentMenuDropdown ($button) {
+    const $menu = $button.closest('.sc-comment__menu')
+    $menu.querySelector('.sc-comment__menu-action-list')
+      .classList
+      .toggle('sc-comment__menu-action-list--visible')
   }
 
   async render () {
@@ -23,7 +74,8 @@ export default class Comments extends Component {
 
       if (comments.length > 0) {
         html = '<ul class="sc-list">'
-        comments.sort((a, b) => b.time - a.time).forEach(comment => {
+        // comments.sort((a, b) => b.time - a.time).forEach(comment => {
+        comments.forEach(comment => {
           html += `${isEmpty(comment) ? this.htmlCommentUnavailable() : this.htmlComment(comment)}`
         })
         html += '</ul>'
@@ -38,18 +90,28 @@ export default class Comments extends Component {
   htmlComment (comment) {
     return `
     <li class="sc-list__item">
-      <article class="sc-list__article">
-        <aside class="sc-list__aside">
+      <article class="sc-comment" data-resource-url="${comment.resourceUrl}">
+        <aside class="sc-comment__aside">
           <a href="${comment.author.webIdUrl}" target="_blank">
-            <img class="sc-list__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
+            <img class="sc-comment__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
           </a>
         </aside>
         <section>
-          <header class="sc-list__header">
-            <address class="sc-list__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
-            <abbr class="sc-list__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
+          <header class="sc-comment__header">
+            <address class="sc-comment__author"><a href="${comment.author.webIdUrl}" target="_blank">${comment.author.fullName}</a></address> ·
+            <abbr class="sc-comment__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
+            <div class="sc-comment__menu">
+              <button class="sc-comment__menu-toggle">
+                <span class="meatballs-menu">
+                  <span class="circle"></span><span class="circle"></span><span class="circle"></span>
+                </span>
+              </button>
+              <ul class="sc-comment__menu-action-list">
+                <li class="sc-comment__menu-action-list-item"><button class="sc-comment__menu-action-button" data-action="delete">Delete</button></li>
+              </ul>
+            </div>
           </header>
-          <p class="sc-list__text">${comment.text}</p>
+          <p class="sc-comment__text">${comment.text}</p>
         </section>
       </article>
     </li>
@@ -59,10 +121,10 @@ export default class Comments extends Component {
   htmlCommentUnavailable () {
     return `
     <li class="sc-list__item sc-list__item--unavailable">
-      <article class="sc-list__article">
-        <aside class="sc-list__aside"></aside>
+      <article class="sc-comment">
+        <aside class="sc-comment__aside"></aside>
         <section>
-          <p class="sc-list__text sc-list__text--unavailable">Comment is unavailable.</p>
+          <p class="sc-comment__text sc-comment__text--unavailable">Comment is unavailable.</p>
           <details class="details">
             <summary class="summary">Why is this comment unavailable?</summary>
             <p class="paragraph">This comment module is using a decentralized storage mechanism. This means that each individual comment is stored on a different machine. A user who wants to comment on this event needs a WebID and <a href="https://solidproject.org/users/get-a-pod" target="_blank">Solid pod</a>. The comments are then stored in the pods, which need to be fetched separately.</p>

@@ -74,3 +74,58 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.sc-comment__menu {
+  position: relative;
+  display: flex;
+}
+
+.sc-comment__menu-toggle {
+  border: none;
+  background-color: transparent;
+}
+
+.meatballs-menu {
+  display: flex;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.circle {
+  width: 4px;
+  height: 4px;
+  margin: 1px;
+  background: #777777;
+  border-radius: 50%;
+  display: block;
+}
+
+.sc-comment__menu-action-list {
+  display: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.sc-comment__menu-action-list--visible {
+  display: block;
+  position: absolute;
+  border: 1px solid #dfdfdf;
+  z-index: 9999;
+  background: white;
+  left: 5px;
+  padding: 5px 0;
+  top: 20px;
+  min-width: 75px;
+}
+
+.sc-comment__menu-action-button {
+  border: none;
+  padding: 5px 10px;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sc-comment__menu-action-button:hover {
+  background-color: #dfdfdf;
+}
