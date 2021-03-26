@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="bundle.js"></script>
+  <script src="solid-comment.js"></script>
   <title>Solid Comment</title>
 </head>
 
@@ -32,31 +32,31 @@
         <form id="sc-comment-form" class="sc-comment-form" action="">
           <label class="sc-comment-form__label" for="sc-comment-form__input">Your comment</label>
           <textarea class="sc-comment-form__input" name="comment" id="sc-comment-form__input" cols="30" rows="2" required placeholder="Add to the discussion"></textarea>
-
           <input class="sc-comment-form__submit" type="submit" value="Submit">
         </form>
       </section>
-      <section class="sc-section-comments">
-        <ul class="sc-list"></ul>
-      </section>
+      <section class="sc-section-comments"></section>
     </main>
   </main>
 </body>
 <script>
-  const server = "http://localhost:3001/comments"
-  const solidComment = new SolidComment({
-    solidCommentId: "sc-development-private-event-1",
-    eventVisibility: "private",
-    serverStorageEndpointUrl: server,
-    comments: [],
-  })
-  solidComment.initApp()
+  window.onload = () => {
+    const serverUrl = "http://localhost:3001/comments"
+    const solidComment = new SolidComment({
+      solidCommentId: "sc-development-library-public-event-1",
+      eventVisibility: "public",
+      serverStorageEndpointUrl: serverUrl,
+      comments: [],
+    })
 
-  async function main() {
-    await fetch(server).then(response => response.json()).then(data => solidComment.setComments(data))
+    async function main() {
+        await solidComment.initApp()
+        await fetch(serverUrl)
+            .then(response => response.json())
+            .then(data => solidComment.setComments(data))
+    }
+    main()
   }
-  main()
-
 </script>
 
 </html>
