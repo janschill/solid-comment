@@ -51,7 +51,7 @@ export default class Comments extends Component {
     if (action) {
       const comment = this.getComment(event)
       if (comment) {
-        const response = comment.actions(action)()
+        comment.actions(action)()
       }
     }
   }
