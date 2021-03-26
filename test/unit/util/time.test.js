@@ -1,9 +1,13 @@
 import Time from '../../../src/util/time'
 
 describe('util', () => {
-  describe('Time', () => {
-    const dateTime = new Date(2000, 0, 1, 1, 1, 1, 1)
+  const dateTime = new Date(2000, 0, 1, 1, 1, 1, 1)
+  const jsDate = new Date(1970, 0, 1, 13, 0, 0, 0)
+  const strippedIsoTimeString = '19700101T120000Z' // month and hour start at 0
+  const isoTimeStringWithMilliseconds = '1970-01-01T12:00:00.123Z' // month and hour start at 0
+  const isoTimeStringWithoutMilliseconds = '1970-01-01T12:00:00Z' // month and hour start at 0
 
+  describe('Time', () => {
     // TODO: add tests for when a string is passed
     describe('format', () => {
       it('formats a time object in M d format', () => {
@@ -42,24 +46,16 @@ describe('util', () => {
     })
 
     describe('fromStrippedToDate', () => {
-      it('turn 20210225T144227Z into 2021-02-25T14:42:27Z', () => {
-        const strippedTime = '20210225T144227Z'
-        const unstrippedTime = '2021-02-25T14:42:27Z'
-        expect(Time.fromStrippedToDate(strippedTime)).toBe(unstrippedTime)
+      it('turn 19700101T120000Z into 1970-01-01T12:00:00Z', () => {
+        expect(Time.fromStrippedToDate(strippedIsoTimeString)).toBe(isoTimeStringWithoutMilliseconds)
       })
 
       it('returns a JavaScript Date object from a stripped time string', () => {
-        const dateTimeObject = new Date()
-        const strippedTime = Time.toIsoStripped(dateTimeObject)
-        expect(Time.fromStrippedToDate(strippedTime)).toBe(dateTimeObject.toISOString().split('.')[0] + 'Z')
+        const strippedTime = Time.jsToIso8601Strip(jsDate)
+        expect(Time.fromStrippedToDate(strippedTime)).toBe(jsDate.toISOString().split('.')[0] + 'Z')
       })
     })
   })
-
-  const jsDate = new Date(1970, 0, 1, 13, 0, 0, 0)
-  const strippedIsoTimeString = '19700101T120000Z' // month and hour start at 0
-  const isoTimeStringWithMilliseconds = '1970-01-01T12:00:00.123Z' // month and hour start at 0
-  const isoTimeStringWithoutMilliseconds = '1970-01-01T12:00:00Z' // month and hour start at 0
 
   describe('trimSymbols', () => {
     it('returns the same string when symbols already trimmed', () => {
