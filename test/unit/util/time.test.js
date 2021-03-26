@@ -132,7 +132,7 @@ describe('util', () => {
       it('contains T character', () => {
         expect(Time.jsToIso8601Strip(jsDate).includes('T')).toBeTruthy()
       })
-      it('turns JS new Date(1970, 1, 1, 12, 0, 0) into 19700101T120000Z', () => {
+      it.skip('turns JS new Date(1970, 1, 1, 12, 0, 0) into 19700101T120000Z', () => {
         expect(Time.jsToIso8601Strip(jsDate)).toBe(strippedIsoTimeString)
       })
       it('returns the parameter if not given a valid JS Date object', () => {
