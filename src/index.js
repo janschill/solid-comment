@@ -11,6 +11,7 @@ const packageJson = require('../package.json')
 export class SolidComment {
   constructor (configuration) {
     console.log(`Solid Comment ${packageJson.version} loaded.`)
+    this.syncConfiguration(configuration)
     const endpoint = configuration.serverStorageEndpointUrl
     if (!isString(endpoint) && !isNil(endpoint) && !isUndefined(endpoint)) {
       throw Error('Please specify a valid storage endpoint, that can receive JSON POST requests.')
@@ -19,6 +20,12 @@ export class SolidComment {
     if (process.env.NODE_ENV !== 'production') {
       console.log('Looks like we are in development mode!')
     }
+  }
+
+  syncConfiguration (configuration) {
+    addObjectToConfig(configuration)
+    addToConfig('appName', 'Solid-Comment')
+    addToConfig('resourceContainerPath', `solid-comment/${configuration.solidCommentId}`)
   }
 
   async initApp () {

@@ -6,7 +6,6 @@ export default class App {
     new Home().instantiateComponents()
   }
 
-  // We still need to click on login after refresh
   async boot () {
     this.solidClient = new SolidClient()
     await this.solidClient.checkSession()

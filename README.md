@@ -1,7 +1,7 @@
 # Solid Comment
 
 A simple Solid application meant to read and write comments into users’ [pods](https://solidproject.org/users/get-a-pod).
-This application is only the gateway to Solid and still needs a storing mechanism in a parent application – meaning your application will import this library, which will allow the communication with Solid, but the
+This application is only the gateway to Solid and still needs a storing mechanism in a parent application – meaning your application will import this library, which will allow the communication with Solid, but your application still needs to hold a reference where to find the actual comment.
 
 ## Reminder
 
@@ -13,7 +13,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [x] How does the application in itself authenticate?
 - [x] Every comment, one file?
   - Means a request per comment
-- [ ] Integrate with Indico
+- [x] Integrate with Indico
 - [ ] Introduce integration tests with Jest
   - Use json-server for storage endpoint
 - [ ] Think about some caching possbilities
@@ -28,10 +28,10 @@ This application is only the gateway to Solid and still needs a storing mechanis
   - render text when no comments
 - [x] Change from persisting the WebID of the authors to persisting all comment URLs
 - [ ] Reduce the bundled size of this library
-- [ ] Solve case where comment was deleted
-  - [ ] Deletion from interface -> remove in app DB and pod
+- [x] Solve case where comment was deleted
+  - [x] Deletion from interface -> remove in app DB and pod
   - [x] Deletion from pod -> catch 404 on request and delete in app DB
-  - [ ] (?) Deletion from app -> no way to fetch from pod?
+  - [x] (?) Deletion from app -> no way to fetch from pod?
 - [x] Bug: private event does not work all of a sudden
   - This was only because the app did not have control ACL on the pod.
 
