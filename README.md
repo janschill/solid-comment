@@ -9,15 +9,16 @@ This application is only the gateway to Solid and still needs a storing mechanis
 
 ## To-do
 
+- [ ] Introduce integration tests with Jest
+  - Use json-server for storage endpoint
+- [ ] Think about some caching possbilities
+  - don't load image twice if it is the same person
+- [ ] Reduce the bundled size of this library
 - [x] The import and export in examples does not work properly (Resolved by dropping TS)
 - [x] How does the application in itself authenticate?
 - [x] Every comment, one file?
   - Means a request per comment
 - [x] Integrate with Indico
-- [ ] Introduce integration tests with Jest
-  - Use json-server for storage endpoint
-- [ ] Think about some caching possbilities
-  - don't load image twice if it is the same person
 - [x] ACL for resource and container
   - two scenarios: 1. container private, resource public; container public, resource public
 - [x] Refactor ACL part out of solid-model
@@ -27,7 +28,6 @@ This application is only the gateway to Solid and still needs a storing mechanis
 - [x] Improve DOM and component rendering
   - render text when no comments
 - [x] Change from persisting the WebID of the authors to persisting all comment URLs
-- [ ] Reduce the bundled size of this library
 - [x] Solve case where comment was deleted
   - [x] Deletion from interface -> remove in app DB and pod
   - [x] Deletion from pod -> catch 404 on request and delete in app DB
@@ -97,7 +97,19 @@ npm i solid-comment
 import { SolidComment } from 'solid-comment'
 ```
 
-3. Add HTML and JavaScript to initialize solid-comment
+3. Make sure `axiosIndico` is bound to `window.indicoAxios`
+
+```js
+import {indicoAxios} from 'indico/utils/axios';
+// …
+function bindIndicoAxiosToWindow() {
+  window.indicoAxios = indicoAxios;
+}
+// …
+bindIndicoAxiosToWindow()
+```
+
+4. Add HTML and JavaScript to initialize `solid-comment`
 
 ```html
 <!-- indico/modules/events/templates/display/indico/meeting.html -->
@@ -115,16 +127,16 @@ import { SolidComment } from 'solid-comment'
       const eventVisibility = isEventProtected ? "private" : "public";
       const eventId = '{{ event.id }}'
       const solidCommentId = `sc-indico-meeting-${eventVisibility}-${eventId}`;
-      const serverUrl = "http://localhost:3001/comments"
+      const serverUrl = `http://127.0.0.1:8000/event/${eventId}/solid-comments`
       const solidComment = new SolidComment({
           solidCommentId: solidCommentId,
           eventVisibility: eventVisibility,
-          serverStorageEndpointUrl: serverUrl,
-          comments: [],
+          serverStorageEndpointUrl: serverUrl
       })
 
       async function main() {
           await solidComment.initApp()
+          solidComment.setAppClient(window.indicoAxios)
           await fetch(serverUrl)
               .then(response => response.json())
               .then(data => solidComment.setComments(data))
