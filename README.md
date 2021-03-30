@@ -61,12 +61,12 @@ const solidComment = new SolidComment({
     solidCommentId: "sc-development-private-event-1",
     eventVisibility: "private",
     serverStorageEndpointUrl: "https://server-where-comment-urls-are-persisted"
-}) // TODO:
+})
 ```
 
 4. Initialize application
 
-This will render all the components as soon as the DOM is completely rendered. This is important as the components need elements from the DOM to attach to. The application will also check for a session, this is important for the authentication with a Solid identity provider. **Unfortunately the authentication library used still has a bug where the session is lost after a refresh of the page.**
+This will render all the components as soon as the DOM is completely ready. This is important as the components need elements from the DOM to attach to. The application will also check for a session, this is needed for the authentication with a Solid identity provider.
 
 ```js
 solidComment.initApp()
@@ -74,10 +74,10 @@ solidComment.initApp()
 
 5. Pass comment URLs to application
 
-If the comments cannot be retrieved immediately on page render, they can be asynchronously fetched and passed to the application.
+If the comments cannot be retrieved immediately on page render, they can be asynchronously fetched and passed to the application. `SolidComment` expects a list of strings with the URL to a single comment.
 
 ```js
-// these should be [{ url: "url-to-comment" }, …]
+// these should be ["url-to-comment-1", "url-to-comment-2", …]
 solidComment.setComments(comments)
 ```
 
