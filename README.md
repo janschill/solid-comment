@@ -133,6 +133,17 @@ import { SolidComment } from 'solid-comment'
   }
 ```
 
+### Extra HTTP Client
+
+If your application holding the references to the comments requires extra configuration to enable communication with the storage endpoint, the `setAppClient` method in the `SolidComment` class sets a passed in client, which will then be used to `GET` and `POST` to the provided storage endpoint.
+
+```js
+// const solidComment = new SolidComment({ … })
+solidComment.setAppClient(axios.create())
+// Indico example:
+// solidComment.setAppClient(window.indicoAxios)
+```
+
 ## Development
 
 1. Clone the repository

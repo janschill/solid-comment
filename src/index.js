@@ -37,6 +37,10 @@ export class SolidComment {
     addToConfig('comments', comments)
     Comment.all()
   }
+
+  setAppClient (appClient) {
+    addToConfig('appClient', appClient)
+  }
 }
 
 window.SolidComment = SolidComment
