@@ -37,20 +37,20 @@ export default class Comment extends SolidModel {
   }
 
   static async all () {
-    const commentUrlObjects = config().comments.reverse()
+    const commentURLs = config().comments.reverse()
 
-    await this.fetchComments(commentUrlObjects)
+    await this.fetchComments(commentURLs)
   }
 
-  static async fetchComments (commentUrlObjects) {
+  static async fetchComments (commentURLs) {
     const comments = []
     store.dispatch('setComments', { state: 'loading', data: store.state.comments.data })
 
-    for (const commentUrlObject of commentUrlObjects) {
+    for (const commentURL of commentURLs) {
       try {
         const solidAgent = new SolidAgent()
-        const commentDataset = await getSolidDataset(commentUrlObject.url)
-        const commentThing = getThing(commentDataset, `${commentUrlObject.url}#it`)
+        const commentDataset = await getSolidDataset(commentURL)
+        const commentThing = getThing(commentDataset, `${commentURL}#it`)
         const authorWebId = getIri(commentThing, SCHEMA_INRUPT_EXT.NS('creator'))
 
         await this.fetchOrGetLocalAuthor(authorWebId, solidAgent)

@@ -23,7 +23,12 @@ export default class ActiveRecord {
   }
 
   async saveToApp () {
-    Fetcher.postData(this.storageEndpoint, { url: this.resourceUrl })
+    const appClient = config().appClient
+    if (appClient) {
+      appClient.post(this.storageEndpoint, { comment_id: this.resourceUrl })
+    } else {
+      Fetcher.postData(this.storageEndpoint, { comment_id: this.resourceUrl })
+    }
   }
 
   saveToStore () {
