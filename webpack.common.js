@@ -7,7 +7,10 @@ module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
     filename: 'solid-comment.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: {
+      type: 'commonjs2'
+    }
   },
   module: {
     rules: [
