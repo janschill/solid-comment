@@ -1,6 +1,6 @@
 {
   "name": "solid-comment",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "",
   "main": "dist/solid-comment.js",
   "module": "dist/solid-comment.js",
