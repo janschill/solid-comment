@@ -8,7 +8,7 @@ import App from './app'
 import Comment from './models/comment'
 const packageJson = require('../package.json')
 
-export class SolidComment {
+export default class SolidComment {
   constructor (configuration) {
     console.log(`Solid Comment ${packageJson.version} loaded.`)
     this.syncConfiguration(configuration)
@@ -44,5 +44,3 @@ export class SolidComment {
     addToConfig('appClient', appClient)
   }
 }
-
-window.SolidComment = SolidComment
