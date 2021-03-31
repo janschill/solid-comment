@@ -1,49 +1,248 @@
-html {
-  font-size: 13px;
+:root {
+  --sc-primary-color: #023047;
+  --sc-secondary-color: #8ecae6;
+  --sc-solid-color: #7c4dff;
+  --sc-solid-color-bright: #ad90ff;
+  --sc-neutral-bright-color: #dfdfdf;
+  --sc-neutral-dark-color: #777777;
+  --sc-neutral-button-primary-color: #ececec;
+  --sc-neutral-button-secondary-color: #bbbbbb;
 }
 
-body {
-  width: 1000px;
-  margin: 0 auto;
-  padding: 40px 0;
-}
-
-.event {
-  height: 200px;
-  margin-bottom: 15px;
+.solid-comment {
+  font-family: Helvetica, Arial, sans-serif;
   background-color: white;
+  margin-top: 20px;
 }
 
-.event-header {
-  background-color: var(--primary-color);
+.sc-main {
+  font-size: 1.15rem;
+  padding: 5px;
+}
+
+.sc-header {
+  border-radius: 2px;
+  background: var(--sc-primary-color);
+  padding: 10px 30px 10px;
   color: white;
-  padding: 20px;
-  font-size: 30px;
+  font-size: 12pt;
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.details {
+.sc-header__title {
+  font-size: 20pt;
+  color: white;
+  font-weight: normal;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.sc-header__oidc-label {
+  display: none;
+}
+
+.sc-header__oidc-input {
+  line-height: 1.6;
+  padding: 4px;
+  font-size: 1rem;
+  border: 1px solid var(--sc-neutral-bright-color);
+  border-radius: 3px;
+}
+
+.sc-solid-button {
+  appearance: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: var(--sc-solid-color);
+  color: white;
+  transition: color 0.25s ease-out;
+  margin: 0;
+  padding: 4px 10px 4px;
+  user-select: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid var(--sc-neutral-bright-color);
+  border-radius: 3px;
+  position: relative;
+}
+
+.sc-solid-button__image {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.sc-comment-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.sc-comment-form__label {
+  display: none;
+}
+
+.sc-comment-form__input {
+  border: 1px solid var(--sc-neutral-bright-color);
+  border-radius: 2px;
+  box-sizing: border-box;
+  transition: border-color 0.12s ease-out;
+  color: var(--sc-neutral-dark-color);
+  outline: none;
+  padding: 0.5em 1em;
+  line-height: 1.4;
+  width: 100%;
+  font-family: inherit;
+  margin-left: 25px;
+}
+
+.sc-comment-form__submit {
+  align-items: center;
+  background: var(--sc-neutral-button-primary-color);
+  border-radius: 2px;
+  border: 1px solid var(--sc-neutral-bright-color);
+  color: var(--sc-neutral-dark-color);
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  height: 1.9em;
+  margin: 0 20px;
+  margin: 0;
+  min-width: 85px;
+  outline: none;
+  padding: 4px 10px 4px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.25s ease-out;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 0 20px;
+  min-width: 85px;
+}
+
+.sc-comment-form__submit:hover {
+  border-color: var(--sc-neutral-button-secondary-color);
+  color: var(--sc-neutral-dark-color);
+  background: var(--sc-neutral-button-primary-color);
+  background-image: linear-gradient(to bottom, var(--sc-neutral-button-primary-color), #e0e0e0);
+}
+
+.sc-section-form {
+  display: flex;
+  padding: 10px;
+}
+
+.sc-section-comments {
+  padding: 10px;
+  border-top: 1px solid var(--sc-neutral-bright-color);
+}
+
+.sc-list__item {
+  padding: 15px 0;
+}
+
+.sc-list__item + .sc-list__item {
+  border-top: 1px solid var(--sc-neutral-bright-color);
+}
+
+.sc-list__item--unavailable {
+  padding: 5px 0;
+  color: var(--sc-neutral-dark-color);
+  font-style: italic;
+}
+
+.sc-comment {
+  display: flex;
+}
+
+.sc-comment__header {
+  display: flex;
+  align-items: center;
+}
+
+.sc-comment__aside {
+  width: 120px;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.sc-comment__image {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.sc-comment__author,
+.sc-comment__date {
+  display: inline-block;
+  color: var(--sc-neutral-dark-color);
+}
+
+.sc-comment__author {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.sc-comment__date {
+  margin: 0 5px;
+  font-size: 1rem;
+}
+
+.sc-comment__text {
+  padding: 10px 0;
+  font-size: 1.3rem;
+}
+
+.sc-hidden {
+  display: none;
+}
+
+.sc-button-disabled::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(210, 210, 210, 0.5);
+}
+
+.sc-details {
   max-width: 600px;
   font-size: 1rem;
 }
 
-.summary {
+.sc-summary {
   padding-bottom: 10px;
 }
 
-.ol {
+.sc-ol {
   padding: 5px 0 0 25px;
   list-style-type: decimal;
 }
 
-.li {
+.sc-li {
   line-height: 1.5;
 }
 
-.paragraph {
+.sc-paragraph {
   line-height: 1.5;
 }
 
-.sc-section-forms--hidden {
+.sc-section-forms--sc-hidden {
   display: none;
 }
 
@@ -61,8 +260,8 @@ body {
   height: 32px;
   margin: 8px;
   border-radius: 50%;
-  border: 3px solid #424242;
-  border-color: #424242 transparent #424242 transparent;
+  border: 3px solid var(--sc-primary-color);
+  border-color: var(--sc-primary-color) transparent var(--sc-primary-color) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -85,17 +284,17 @@ body {
   background-color: transparent;
 }
 
-.meatballs-menu {
+.sc-meatballs-menu {
   display: flex;
   cursor: pointer;
   padding: 5px 0;
 }
 
-.circle {
+.sc-circle {
   width: 4px;
   height: 4px;
   margin: 1px;
-  background: #777777;
+  background: var(--sc-neutral-dark-color);
   border-radius: 50%;
   display: block;
 }
@@ -108,7 +307,7 @@ body {
 .sc-comment__menu-action-list--visible {
   display: block;
   position: absolute;
-  border: 1px solid #dfdfdf;
+  border: 1px solid var(--sc-neutral-bright-color);
   z-index: 9999;
   background: white;
   left: 5px;
@@ -127,5 +326,5 @@ body {
 }
 
 .sc-comment__menu-action-button:hover {
-  background-color: #dfdfdf;
+  background-color: var(--sc-neutral-bright-color);
 }

@@ -46,10 +46,10 @@ export default class Component {
   }
 
   hideElement () {
-    this.element.classList.add('hidden')
+    this.element.classList.add('sc-hidden')
   }
 
   showElement () {
-    this.element.classList.remove('hidden')
+    this.element.classList.remove('sc-hidden')
   }
 }

@@ -15,8 +15,8 @@ export function commentTemplate (comment) {
           <abbr class="sc-comment__date" title="${comment.time}">${Time.format('M d', comment.time)}</abbr>
           <div class="sc-comment__menu">
             <button class="sc-comment__menu-toggle">
-              <span class="meatballs-menu">
-                <span class="circle"></span><span class="circle"></span><span class="circle"></span>
+              <span class="sc-meatballs-menu">
+                <span class="sc-circle"></span><span class="sc-circle"></span><span class="sc-circle"></span>
               </span>
             </button>
             <ul class="sc-comment__menu-action-list">
