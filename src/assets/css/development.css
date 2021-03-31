@@ -1,0 +1,23 @@
+html {
+  font-size: 13px;
+}
+
+body {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+  background-color: var(--sc-neutral-dark-color);
+}
+
+.event {
+  height: 200px;
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+.event-header {
+  background-color: var(--sc-primary-color);
+  color: white;
+  padding: 20px;
+  font-size: 30px;
+}

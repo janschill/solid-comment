@@ -13,12 +13,14 @@ export default class SolidComment {
     console.log(`Solid Comment ${packageJson.version} loaded.`)
     this.syncConfiguration(configuration)
     const endpoint = configuration.serverStorageEndpointUrl
+
     if (!isString(endpoint) && !isNil(endpoint) && !isUndefined(endpoint)) {
       throw Error('Please specify a valid storage endpoint, that can receive JSON POST requests.')
     }
 
     if (process.env.NODE_ENV !== 'production') {
       console.log('Looks like we are in development mode!')
+      import('./assets/css/development.css')
     }
   }
 

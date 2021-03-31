@@ -35,10 +35,10 @@ export default class LoginButton extends Component {
     const sessionState = get(store, 'state.session.state')
 
     if (sessionState === 'loading') {
-      this.element.classList.add('button-disabled')
+      this.element.classList.add('sc-button-disabled')
       this.element.setAttribute('disabled', 'true')
     } else {
-      this.element.classList.remove('button-disabled')
+      this.element.classList.remove('sc-button-disabled')
       this.element.removeAttribute('disabled')
     }
     const $textElement = this.element.querySelector('.sc-solid-button__text')
