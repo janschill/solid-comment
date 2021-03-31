@@ -2,3 +2,7 @@
   --sc-primary-color: #1a63a0;
   --sc-secondary-color: #424242;
 }
+
+.solid-comment {
+  font-family: Roboto, sans-serif;
+}
