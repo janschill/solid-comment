@@ -6,3 +6,20 @@
 .solid-comment {
   font-family: Roboto, sans-serif;
 }
+
+.sc-main,
+.sc-comment__text {
+  font-size: 0.85rem;
+}
+
+.sc-comment__text {
+  padding: 5px 0;
+}
+
+.sc-list__item {
+  padding: 10px 0;
+}
+
+.sc-list__item--unavailable {
+  padding: 5px 0;
+}
