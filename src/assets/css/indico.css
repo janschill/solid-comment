@@ -7,6 +7,9 @@
   font-family: Roboto, sans-serif;
 }
 
+.sc-details,
+.sc-header__oidc-input,
+.sc-solid-button,
 .sc-main,
 .sc-comment__text {
   font-size: 0.85rem;
