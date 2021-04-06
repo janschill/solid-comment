@@ -7,6 +7,7 @@ import {
 import store from '../store'
 import Session from './session'
 import SolidAgent from '../models/solid-agent'
+import { hasHttps } from '../util/url'
 
 export default class SolidClient {
   async login (solidOidcIssuer = '') {
@@ -64,5 +65,18 @@ export default class SolidClient {
     const session = await getDefaultSession()
 
     return session
+  }
+
+  static validIdentityProvider (urlString = '') {
+    console.log(urlString)
+    if (urlString === '') {
+      return false
+    }
+
+    if (!hasHttps(urlString)) {
+      return false
+    }
+
+    return true
   }
 }
