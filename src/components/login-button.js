@@ -4,6 +4,7 @@ import Component from './component'
 import SolidClient from '../auth/solid-client'
 import store from '../store/index'
 import get from 'lodash.get'
+import { setHttps } from '../util/url'
 
 export default class LoginButton extends Component {
   constructor () {
@@ -19,15 +20,18 @@ export default class LoginButton extends Component {
         const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
 
         if ($solidOidcIssuer) {
-          const solidOidcIssuerUrl = $solidOidcIssuer.value
-          if (solidOidcIssuerUrl) {
+          const solidOidcIssuerUrl = setHttps($solidOidcIssuer.value)
+
+          if (SolidClient.validIdentityProvider(solidOidcIssuerUrl)) {
             await solidClient.login(solidOidcIssuerUrl)
-            store.dispatch('setSession', { state: 'idle', data: store.state.session.data })
+          } else {
+            store.dispatch('setErrorMessage', { state: 'idle', data: 'Error! Invalid identity provider URL' })
           }
         }
       } else {
         solidClient.logout()
       }
+      store.dispatch('setSession', { state: 'idle', data: store.state.session.data })
     }
   }
 
