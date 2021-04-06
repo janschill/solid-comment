@@ -11,10 +11,6 @@ import SolidAgent from '../models/solid-agent'
 export default class SolidClient {
   async login (solidOidcIssuer = '') {
     try {
-      if (solidOidcIssuer === '') {
-        const $solidOidcIssuer = document.querySelector('#solid-oidc-issuer')
-        solidOidcIssuer = $solidOidcIssuer.value
-      }
       await handleIncomingRedirect({ restorePreviousSession: true })
 
       if (!getDefaultSession().info.isLoggedIn) {
