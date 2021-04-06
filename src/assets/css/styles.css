@@ -53,6 +53,16 @@
   border-radius: 3px;
 }
 
+.sc-error {
+  padding: 10px 5px;
+  background-color: #ffcbcb;
+  border: 2px solid #ba3939;
+  border-radius: 3px;
+  color: #ba3939;
+  font-size: 1rem;
+  min-width: 150px;
+}
+
 .sc-solid-button {
   appearance: auto;
   display: inline-flex;

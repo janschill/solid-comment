@@ -7,6 +7,10 @@ export default {
     state: 'idle',
     data: ''
   },
+  errorMessage: {
+    state: 'idle',
+    data: ''
+  },
   session: {
     state: 'idle',
     data: {}

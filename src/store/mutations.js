@@ -4,6 +4,11 @@ export default {
 
     return state
   },
+  setErrorMessage (state, payload) {
+    state.errorMessage = payload
+
+    return state
+  },
   setSession (state, payload) {
     state.session = payload
 
