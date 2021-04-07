@@ -13,7 +13,6 @@ export default class ErrorMessage extends Component {
 
   render () {
     const errorMessage = get(store, 'state.errorMessage.data')
-    console.log(errorMessage)
     if (errorMessage !== '') {
       this.showElement()
       this.element.innerHTML = errorMessage

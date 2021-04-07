@@ -68,7 +68,6 @@ export default class SolidClient {
   }
 
   static validIdentityProvider (urlString = '') {
-    console.log(urlString)
     if (urlString === '') {
       return false
     }
