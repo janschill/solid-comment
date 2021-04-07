@@ -16,7 +16,6 @@ export default class CommentSubmit extends Component {
       const session = get(store, 'state.session.data')
 
       if (!isUndefined(session) && session.session.info.isLoggedIn) {
-        // TODO: Sanitize the value
         const inputValue = this.inputValue()
         const currentUserWebId = session.session.info.webId
 
