@@ -4,10 +4,12 @@ import {
   getDefaultSession
 } from '@inrupt/solid-client-authn-browser'
 
+import { config } from '../config'
 import store from '../store'
 import Session from './session'
 import SolidAgent from '../models/solid-agent'
 import { hasHttps } from '../util/url'
+import TrustedAppAclManager from './trusted-app-acl-manager'
 
 export default class SolidClient {
   async login (solidOidcIssuer = '') {
@@ -31,15 +33,20 @@ export default class SolidClient {
     const session = await getDefaultSession()
 
     if (session.info.isLoggedIn) {
-      const solidAgent = new SolidAgent()
-      await solidAgent.fetchProfile(session.info.webId)
-      store.dispatch('setSession', {
-        state: 'idle',
-        data: new Session({
-          session: session,
-          agent: solidAgent
+      const trustedAppAclManager = new TrustedAppAclManager(
+        { agentWebId: session.info.webId, appUrl: config().appUrl }
+      )
+      if (trustedAppAclManager.hasControlAccess()) {
+        const solidAgent = new SolidAgent()
+        await solidAgent.fetchProfile(session.info.webId)
+        store.dispatch('setSession', {
+          state: 'idle',
+          data: new Session({
+            session: session,
+            agent: solidAgent
+          })
         })
-      })
+      }
     }
     store.dispatch('setSession', { state: 'idle', data: store.state.session.data })
   }

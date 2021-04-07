@@ -10,7 +10,7 @@ export default class CommentSubmit extends Component {
       store,
       element: document.querySelector('.sc-comment-form__submit')
     })
-    this.onlyShowWhenLoggedIn()
+    this.onlyShowWhenLoggedInAndAuthorized()
     this.element.onclick = async (event) => {
       event.preventDefault()
       const session = get(store, 'state.session.data')
@@ -38,7 +38,7 @@ export default class CommentSubmit extends Component {
   }
 
   render () {
-    this.onlyShowWhenLoggedIn()
+    this.onlyShowWhenLoggedInAndAuthorized()
   }
 
   resetInputField (element) {
