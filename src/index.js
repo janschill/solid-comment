@@ -1,5 +1,3 @@
-import { isString, isUndefined, isNil } from 'lodash'
-
 import './assets/css/reset.css'
 import './assets/css/styles.css'
 import './assets/css/indico.css'
@@ -10,21 +8,16 @@ const packageJson = require('../package.json')
 
 export default class SolidComment {
   constructor (configuration) {
-    console.log(`Solid Comment ${packageJson.version} loaded.`)
-    this.syncConfiguration(configuration)
-    const endpoint = configuration.serverStorageEndpointUrl
-
-    if (!isString(endpoint) && !isNil(endpoint) && !isUndefined(endpoint)) {
-      throw Error('Please specify a valid storage endpoint, that can receive JSON POST requests.')
-    }
+    console.log(`SC: Version@${packageJson.version}`)
+    this.setupConfiguration(configuration)
 
     if (process.env.NODE_ENV !== 'production') {
-      console.log('Looks like we are in development mode!')
+      console.log('SC: Development mode')
       import('./assets/css/development.css')
     }
   }
 
-  syncConfiguration (configuration) {
+  setupConfiguration (configuration) {
     addObjectToConfig(configuration)
     addToConfig('appName', 'Solid-Comment')
     addToConfig('resourceContainerPath', `solid-comment/${configuration.solidCommentId}`)
