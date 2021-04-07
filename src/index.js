@@ -44,3 +44,7 @@ export default class SolidComment {
     addToConfig('appClient', appClient)
   }
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  window.SolidComment = SolidComment
+}
