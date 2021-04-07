@@ -1,4 +1,5 @@
 import Time from '../../util/time'
+import { sanitizeHtml } from '../../util/html'
 
 export function commentTemplate (comment) {
   return `
@@ -24,7 +25,7 @@ export function commentTemplate (comment) {
             </ul>
           </div>
         </header>
-        <p class="sc-comment__text">${comment.text}</p>
+        <p class="sc-comment__text">${sanitizeHtml(comment.text)}</p>
       </section>
     </article>
   </li>
