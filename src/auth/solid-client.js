@@ -36,7 +36,8 @@ export default class SolidClient {
       const trustedAppAclManager = new TrustedAppAclManager(
         { agentWebId: session.info.webId, appUrl: config().appUrl }
       )
-      if (trustedAppAclManager.hasControlAccess()) {
+      const hasControlAccess = await trustedAppAclManager.hasControlAccess()
+      if (hasControlAccess) {
         const solidAgent = new SolidAgent()
         await solidAgent.fetchProfile(session.info.webId)
         store.dispatch('setSession', {
@@ -46,6 +47,9 @@ export default class SolidClient {
             agent: solidAgent
           })
         })
+      } else {
+        store.dispatch('setErrorMessage', { state: 'idle', data: 'No control access' })
+        this.logout()
       }
     }
     store.dispatch('setSession', { state: 'idle', data: store.state.session.data })

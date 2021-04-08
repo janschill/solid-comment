@@ -1,7 +1,6 @@
 import {
   getAgentAccess,
-  getSolidDataset,
-  getThing
+  getSolidDatasetWithAcl
 } from '@inrupt/solid-client'
 import {
   fetch
@@ -17,12 +16,9 @@ export default class TrustedAppAclManager extends AclManager {
   }
 
   async hasControlAccess () {
-    const webIdProfileDocument = await getSolidDataset(this.agentWebId, { fetch: fetch })
-    const trustedAppNS = 'http://www.w3.org/ns/auth/acl#trustedApp'
-    const trustedApps = getThing(
-      webIdProfileDocument,
-      trustedAppNS
-    )
-    console.log(trustedApps)
+    const dataset = await getSolidDatasetWithAcl(this.agentWebId, { fetch: fetch })
+    const agentAccess = getAgentAccess(dataset, this.agentWebId)
+
+    return agentAccess ?? false
   }
 }
