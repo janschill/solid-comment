@@ -27,27 +27,17 @@ export default class Component {
   }
 
   onlyShowWhenLoggedInAndAuthorized () {
-    if (this.isLoggedIn() && this.isAuthorized()) {
-      this.showElement()
-    } else {
-      this.hideElement()
-    }
+    this.isLoggedIn() && this.isAuthorized()
+      ? this.showElement()
+      : this.hideElement()
   }
 
   onlyShowWhenLoggedIn () {
-    if (this.isLoggedIn()) {
-      this.hideElement()
-    } else {
-      this.showElement()
-    }
+    this.isLoggedIn() ? this.showElement() : this.hideElement()
   }
 
   onlyShowWhenLoggedOut () {
-    if (this.isLoggedIn()) {
-      this.showElement()
-    } else {
-      this.hideElement()
-    }
+    this.isLoggedIn() ? this.hideElement() : this.showElement()
   }
 
   disableElement () {
