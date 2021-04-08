@@ -54,13 +54,22 @@
 }
 
 .sc-error {
-  padding: 10px 5px;
+  padding: 10px;
   background-color: #ffcbcb;
-  border: 2px solid #ba3939;
   border-radius: 3px;
   color: #ba3939;
   font-size: 1rem;
-  min-width: 150px;
+  display: block;
+  margin: 5px auto;
+  width: 90%;
+}
+
+.sc-error__details {
+  font-weight: bold;
+}
+
+.sc-error__body {
+  margin-top: 10px;
 }
 
 .sc-solid-button {

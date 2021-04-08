@@ -17,24 +17,27 @@ export default class Component {
     }
   }
 
-  onlyShowWhenLoggedIn () {
+  isLoggedIn () {
     const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
+    return !isUndefined(isLoggedIn) && isLoggedIn
+  }
 
-    if (isUndefined(isLoggedIn) || !isLoggedIn) {
-      this.hideElement()
-    } else {
-      this.showElement()
-    }
+  isAuthorized () {
+    return true
+  }
+
+  onlyShowWhenLoggedInAndAuthorized () {
+    this.isLoggedIn() && this.isAuthorized()
+      ? this.showElement()
+      : this.hideElement()
+  }
+
+  onlyShowWhenLoggedIn () {
+    this.isLoggedIn() ? this.showElement() : this.hideElement()
   }
 
   onlyShowWhenLoggedOut () {
-    const isLoggedIn = get(store, 'state.session.data.session.info.isLoggedIn')
-
-    if (isUndefined(isLoggedIn) || !isLoggedIn) {
-      this.showElement()
-    } else {
-      this.hideElement()
-    }
+    this.isLoggedIn() ? this.hideElement() : this.showElement()
   }
 
   disableElement () {

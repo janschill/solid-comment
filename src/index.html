@@ -18,7 +18,6 @@
   <main class="solid-comment">
     <header class="sc-header">
       <h2 class="sc-header__title">Comments</h2>
-      <small id="error" class="sc-error sc-hidden"></small>
       <aside class="sc-header__aside">
         <label class="sc-header__oidc-label" for="solid-oidc-issuer">Solid Identity Provider</label>
         <input class="sc-header__oidc-input" type="text" name="oidcIssuer" id="solid-oidc-issuer" placeholder="Solid Identity Provider" value="https://solidcommunity.net">
@@ -29,6 +28,10 @@
       </aside>
     </header>
     <main class="sc-main">
+      <details id="error" class="sc-error">
+        <summary class="sc-error__summary">Error: Application does not have control access</summary>
+        <div class="sc-error__body"></div>
+      </details>
       <section class="sc-section-form">
         <form id="sc-comment-form" class="sc-comment-form" action="">
           <label class="sc-comment-form__label" for="sc-comment-form__input">Your comment</label>
@@ -47,7 +50,7 @@
       solidCommentId: "sc-development-library-public-event-1",
       eventVisibility: "public",
       serverStorageEndpointUrl: serverUrl,
-      comments: [],
+      appUrl: window.location.href.split('?')[0]
     })
 
     async function main() {
