@@ -15,7 +15,14 @@ export default class ErrorMessage extends Component {
     const errorMessage = get(store, 'state.errorMessage.data')
     if (errorMessage !== '') {
       this.showElement()
-      this.element.innerHTML = errorMessage
+      const errorMessagBody = errorMessage.body === ''
+        ? ''
+        : `<p class="sc-error__body">${errorMessage.body}</p>`
+
+      this.element.innerHTML = `
+        <summary class="sc-error__summary">Error: ${errorMessage.summary}</summary>
+        ${errorMessagBody}
+      `
     } else {
       this.hideElement()
     }

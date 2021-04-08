@@ -8,7 +8,7 @@ import { config } from '../config'
 import store from '../store'
 import Session from './session'
 import SolidAgent from '../models/solid-agent'
-import { hasHttps } from '../util/url'
+import { hasHttps, originFromUrl } from '../util/url'
 import TrustedAppAclManager from './trusted-app-acl-manager'
 
 export default class SolidClient {
@@ -48,7 +48,23 @@ export default class SolidClient {
           })
         })
       } else {
-        store.dispatch('setErrorMessage', { state: 'idle', data: 'No control access' })
+        store.dispatch('setErrorMessage', {
+          state: 'idle',
+          data: {
+            summary: 'Application does not have control access.',
+            body: `
+            <p>The application needs to have control access in order to write files/comments into your data pod.</p>
+            <p>How to fix:</p>
+            <ol class="sc-ol">
+              <li class="sc-li">Log in to your Pod</li>
+              <li class="sc-li">Go to “Preferences”</li>
+              <li class="sc-li">Under “Manage your trusted applications,” look for ${originFromUrl(config().appUrl)} and check the “Control” box</li>
+              <li class="sc-li">Click on “Update”</li>
+              <li class="sc-li">Return here</li>
+            </ol>
+            `
+          }
+        })
         this.logout()
       }
     }
