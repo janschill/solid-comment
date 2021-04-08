@@ -25,7 +25,13 @@ export default class LoginButton extends Component {
           if (SolidClient.validIdentityProvider(solidOidcIssuerUrl)) {
             await solidClient.login(solidOidcIssuerUrl)
           } else {
-            store.dispatch('setErrorMessage', { state: 'idle', data: 'Error! Invalid identity provider URL' })
+            store.dispatch('setErrorMessage', {
+              state: 'idle',
+              data: {
+                summary: 'Invalid identity provider URL',
+                body: 'You have provided an invalid identity provider URL. Make sure the URL provided points to your IDP.'
+              }
+            })
           }
         }
       } else {
