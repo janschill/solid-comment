@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import {
   addStringNoLocale,
   addUrl,
@@ -29,8 +30,9 @@ export default class SolidModel extends ActiveRecord {
 
   getResourceName () {
     const fileExtension = '.ttl'
+    const uuid = uuidv4()
 
-    return `${this.timeStripped}${fileExtension}`
+    return `${this.timeStripped}_${uuid}${fileExtension}`
   }
 
   getResourceContainerUrl (author) {
