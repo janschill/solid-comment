@@ -14,7 +14,11 @@
     "json-server": "json-server db.json -p 3001",
     "test": "jest"
   },
-  "keywords": ["solid", "comment", "indico"],
+  "keywords": [
+    "solid",
+    "comment",
+    "indico"
+  ],
   "author": "Jan Schill",
   "license": "MIT",
   "dependencies": {
@@ -26,7 +30,8 @@
     "lodash.isnil": "^4.0.0",
     "lodash.isstring": "^4.0.1",
     "lodash.isundefined": "^3.0.1",
-    "lodash.kebabcase": "^4.1.1"
+    "lodash.kebabcase": "^4.1.1",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
