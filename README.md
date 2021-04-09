@@ -10,7 +10,7 @@ This application is only the gateway to Solid and still needs a storing mechanis
 ## To-do
 
 - [ ] Figure out how to persist only URL strings in json-server (testing)
-- [ ] Improve authorization flow and make sure to present agent with option/instruction to set proper permissions
+- [x] Improve authorization flow and make sure to present agent with option/instruction to set proper permissions
 - [ ] Introduce integration tests with Jest
   - Use json-server for storage endpoint
 - [ ] Think about some caching possbilities
