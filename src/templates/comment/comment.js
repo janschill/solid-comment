@@ -2,13 +2,18 @@ import Time from '../../util/time'
 import { sanitizeHtml } from '../../util/html'
 
 export function commentTemplate (comment) {
+  const imageTag = comment.author.photo
+    ? `
+    <a href="${comment.author.webIdUrl}" target="_blank">
+      <img class="sc-comment__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
+    </a>
+  `
+    : ''
   return `
   <li class="sc-list__item">
     <article class="sc-comment" data-resource-url="${comment.resourceUrl}">
       <aside class="sc-comment__aside">
-        <a href="${comment.author.webIdUrl}" target="_blank">
-          <img class="sc-comment__image" src="${comment.author.photo}" alt="${comment.author.fullName}">
-        </a>
+        ${imageTag}
       </aside>
       <section>
         <header class="sc-comment__header">
