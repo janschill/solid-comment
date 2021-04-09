@@ -191,7 +191,7 @@
 }
 
 .sc-comment__aside {
-  width: 120px;
+  min-width: 15%;
   text-align: right;
   margin-right: 1em;
 }
