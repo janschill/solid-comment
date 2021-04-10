@@ -11,30 +11,7 @@ export default class CommentSubmit extends Component {
       element: document.querySelector('.sc-comment-form__submit')
     })
     this.onlyShowWhenLoggedInAndAuthorized()
-    this.element.onclick = async (event) => {
-      event.preventDefault()
-      const session = get(store, 'state.session.data')
-
-      if (!isUndefined(session) && session.session.info.isLoggedIn) {
-        const inputValue = this.inputValue()
-        const currentUserWebId = session.session.info.webId
-
-        if (inputValue.value) {
-          const currentAgent = session.agent
-          currentAgent.fetchProfile(currentUserWebId).then(() => {
-            const comment = new Comment({
-              author: currentAgent,
-              time: new Date(),
-              text: inputValue.value
-            })
-            this.resetInputField(inputValue.element)
-            comment.saveToStore()
-            comment.saveToPod()
-            comment.saveToApp()
-          })
-        }
-      }
-    }
+    this.element.onclick = this.onclick.bind(this)
   }
 
   render () {
@@ -51,5 +28,30 @@ export default class CommentSubmit extends Component {
     const valueFromStore = store.state.commentInput.data
 
     return { value: valueFromStore, element: inputElement }
+  }
+
+  async onclick (event) {
+    event.preventDefault()
+    const session = get(store, 'state.session.data')
+
+    if (!isUndefined(session) && session.session.info.isLoggedIn) {
+      const inputValue = this.inputValue()
+      const currentUserWebId = session.session.info.webId
+
+      if (inputValue.value) {
+        const currentAgent = session.agent
+        currentAgent.fetchProfile(currentUserWebId).then(() => {
+          const comment = new Comment({
+            author: currentAgent,
+            time: new Date(),
+            text: inputValue.value
+          })
+          this.resetInputField(inputValue.element)
+          comment.saveToStore()
+          comment.saveToPod()
+          comment.saveToApp()
+        })
+      }
+    }
   }
 }
