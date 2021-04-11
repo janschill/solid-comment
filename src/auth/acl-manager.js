@@ -27,7 +27,7 @@ export default class AclManager {
     if (!hasResourceAcl(resourceDataset)) {
       if (!hasAccessibleAcl(resourceDataset)) {
         throw new Error(
-          'The current user does not have permission to change access rights to this Resource.'
+          'The current user does not have permission to change access rights to this resource.'
         )
       }
       if (!hasFallbackAcl(resourceDataset)) {
