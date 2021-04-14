@@ -133,7 +133,8 @@ bindIndicoAxiosToWindow()
       const solidComment = new SolidComment({
           solidCommentId: solidCommentId,
           eventVisibility: eventVisibility,
-          serverStorageEndpointUrl: serverUrl
+          serverStorageEndpointUrl: serverUrl,
+          appUrl: window.location.href.split('?')[0]
       })
 
       async function main() {
