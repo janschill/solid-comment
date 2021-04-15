@@ -12,7 +12,7 @@ import { fetch } from '@inrupt/solid-client-authn-browser'
 import { SCHEMA_INRUPT_EXT, RDFS } from '@inrupt/vocab-common-rdf'
 
 import ActiveRecord from './active-record'
-import CommentAclManager from '../auth/comment-acl-manager'
+import CommentContainerAclManager from '../auth/comment-container-acl-manager'
 import { config } from '../config'
 import SolidClient from '../auth/solid-client'
 import store from '../store'
@@ -66,10 +66,10 @@ export default class SolidModel extends ActiveRecord {
         const resourceDataset = this.asRdfDataset()
         const webId = store.state.session.data.session.info.webId
         const dataset = await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
-        const commentAclManager = new CommentAclManager({
-          comment: this,
+        // first time commenting create ACL for container here
+        const commentAclManager = new CommentContainerAclManager({
           agentWebId: webId,
-          eventVisibility: config().eventVisibility
+          containerUrl: this.resourceContainerUrl
         })
         commentAclManager.configureAcl()
 

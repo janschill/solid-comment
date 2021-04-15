@@ -1,7 +1,9 @@
 import {
   createAcl,
   createAclFromFallbackAcl,
+  getAgentAccess,
   getAgentResourceAccess,
+  getPublicDefaultAccess,
   getPublicResourceAccess,
   getResourceAcl,
   getSolidDatasetWithAcl,
@@ -22,7 +24,7 @@ export default class AclManager {
     }
   }
 
-  fetchOrCreateResourceAcl (resourceDataset) {
+  getOrCreateResourceAcl (resourceDataset) {
     let resourceAcl
     if (!hasResourceAcl(resourceDataset)) {
       if (!hasAccessibleAcl(resourceDataset)) {
@@ -41,9 +43,21 @@ export default class AclManager {
     return resourceAcl
   }
 
+  hasPublicDefaultRead (resourceDatasetWithAcl) {
+    const publicAccess = getPublicDefaultAccess(resourceDatasetWithAcl)
+
+    return publicAccess.read
+  }
+
+  hasAgentControl (resourceDatasetWithAcl) {
+    const agentAccess = getAgentAccess(resourceDatasetWithAcl, this.agentWebId)
+
+    return agentAccess.control
+  }
+
   async setAcl (resourceUrl, rules) {
     const resourceDataset = await getSolidDatasetWithAcl(resourceUrl, { fetch: fetch })
-    const resourceAcl = this.fetchOrCreateResourceAcl(resourceDataset)
+    const resourceAcl = this.getOrCreateResourceAcl(resourceDataset)
     let updatedAcl
 
     rules.forEach(rule => {
