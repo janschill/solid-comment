@@ -67,11 +67,11 @@ export default class SolidModel extends ActiveRecord {
         const webId = store.state.session.data.session.info.webId
         const dataset = await saveSolidDatasetAt(this.resourceUrl, resourceDataset, { fetch: fetch })
         // first time commenting create ACL for container here
-        const commentAclManager = new CommentContainerAclManager({
+        const commentContainerAclManager = new CommentContainerAclManager({
           agentWebId: webId,
           containerUrl: this.resourceContainerUrl
         })
-        commentAclManager.configureAcl()
+        commentContainerAclManager.configureAcl()
 
         return dataset
       }
