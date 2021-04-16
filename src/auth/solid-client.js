@@ -60,7 +60,7 @@ export default class SolidClient {
               <li class="sc-li">Go to “Preferences”</li>
               <li class="sc-li">Under “Manage your trusted applications,” look for ${originFromUrl(config().appUrl)} and check the “Control” box</li>
               <li class="sc-li">Click on “Update”</li>
-              <li class="sc-li">Return here</li>
+              <li class="sc-li">Return here and refresh your browser</li>
             </ol>
             `
           }
