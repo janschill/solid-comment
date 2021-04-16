@@ -3,8 +3,7 @@ import {
   saveAclFor,
   setAgentDefaultAccess,
   setAgentResourceAccess,
-  setPublicDefaultAccess,
-  setPublicResourceAccess
+  setPublicDefaultAccess
 } from '@inrupt/solid-client'
 import { fetch } from '@inrupt/solid-client-authn-browser'
 
@@ -29,13 +28,9 @@ export default class CommentContainerAclManager extends AclManager {
     }
 
     if (!this.hasPublicDefaultRead(resourceDatasetWithAcl)) {
-      updatedAcl = setPublicResourceAccess(
-        resourceAcl,
-        { read: false, append: false, write: false, control: false }
-      )
       updatedAcl = setPublicDefaultAccess(
         resourceAcl,
-        { read: true, append: false, write: false, control: false }
+        { read: true, append: true, write: false, control: false }
       )
     }
 
