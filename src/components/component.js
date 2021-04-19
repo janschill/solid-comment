@@ -2,6 +2,7 @@ import { get, isUndefined } from 'lodash'
 
 import Store from '../store/store'
 import store from '../store/'
+import { config } from '../config'
 
 export default class Component {
   constructor (props = {}) {
@@ -24,6 +25,10 @@ export default class Component {
 
   isAuthorized () {
     return true
+  }
+
+  isLoggedInWithExternalApp () {
+    return config().hasAuthenticatedAppSession
   }
 
   onlyShowWhenLoggedInAndAuthorized () {
