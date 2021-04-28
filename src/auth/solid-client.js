@@ -95,14 +95,6 @@ export default class SolidClient {
   }
 
   static validIdentityProvider (urlString = '') {
-    if (urlString === '') {
-      return false
-    }
-
-    if (!hasHttps(urlString)) {
-      return false
-    }
-
-    return true
+    return urlString !== '' && hasHttps(urlString)
   }
 }
