@@ -22,8 +22,8 @@
   "author": "Jan Schill",
   "license": "MIT",
   "dependencies": {
-    "@inrupt/solid-client": "^1.5.0",
-    "@inrupt/solid-client-authn-browser": "^1.7.2",
+    "@inrupt/solid-client": "^1.6.1",
+    "@inrupt/solid-client-authn-browser": "^1.8.0",
     "@inrupt/vocab-common-rdf": "^0.7.2",
     "lodash.get": "^4.4.2",
     "lodash.isempty": "^4.4.0",
