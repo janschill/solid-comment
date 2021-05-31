@@ -7,36 +7,6 @@ This application is only the gateway to Solid and still needs a storing mechanis
 
 - The app needs control access, there needs to be in the trust applications section with full access.
 
-## To-do
-
-- [ ] Figure out how to persist only URL strings in json-server (testing)
-- [x] Improve authorization flow and make sure to present agent with option/instruction to set proper permissions
-- [ ] Introduce integration tests with Jest
-  - Use json-server for storage endpoint
-- [ ] Think about some caching possbilities
-  - don't load image twice if it is the same person
-- [ ] Reduce the bundled size of this library
-- [x] The import and export in examples does not work properly (Resolved by dropping TS)
-- [x] How does the application in itself authenticate?
-- [x] Every comment, one file?
-  - Means a request per comment
-- [x] Integrate with Indico
-- [x] ACL for resource and container
-  - two scenarios: 1. container private, resource public; container public, resource public
-- [x] Refactor ACL part out of solid-model
-- [x] Improve login flow, currently needs new session after every refresh
-  - [x] WebId input can be hidden, when logged in
-  - [x] Input form should be hidden, when logged out
-- [x] Improve DOM and component rendering
-  - render text when no comments
-- [x] Change from persisting the WebID of the authors to persisting all comment URLs
-- [x] Solve case where comment was deleted
-  - [x] Deletion from interface -> remove in app DB and pod
-  - [x] Deletion from pod -> catch 404 on request and delete in app DB
-  - [x] (?) Deletion from app -> no way to fetch from pod?
-- [x] Bug: private event does not work all of a sudden
-  - This was only because the app did not have control ACL on the pod.
-
 ## Usage
 
 1. Install Solid Comment
